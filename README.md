@@ -1,2 +1,2 @@
-# pinapple-project
+# pineapple-project
 pineapple-project

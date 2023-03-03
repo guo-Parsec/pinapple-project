@@ -1,0 +1,18 @@
+{
+  "groups": [
+    {
+      "name": "pineapple.gateway.white",
+      "type": "org.pineapple.gateway.WhiteUrlsProp",
+      "sourceType": "org.pineapple.gateway.WhiteUrlsProp"
+    }
+  ],
+  "properties": [
+    {
+      "name": "pineapple.gateway.white.url",
+      "type": "java.util.List",
+      "description": "放行URL配置",
+      "sourceType": "org.pineapple.gateway.WhiteUrlsProp"
+    }
+  ],
+  "hints": []
+}

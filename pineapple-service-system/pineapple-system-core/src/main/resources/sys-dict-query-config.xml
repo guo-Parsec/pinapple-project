@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config SYSTEM "./query-config.dtd">
+<config>
+    <query-params>
+        <param field-name="typeCode" query-type="eq"/>
+        <param field-name="typeName" query-type="like"/>
+    </query-params>
+
+    <result-map enable-default="true">
+        <result raw-key="typeCode"/>
+        <result raw-key="typeName"/>
+        <result raw-key="dictVal"/>
+        <result raw-key="display"/>
+        <result raw-key="sort"/>
+        <result raw-key="userId"/>
+    </result-map>
+
+    <convert-list>
+        <bean-convert id="userId" bean="userConverter" show-key="user"/>
+    </convert-list>
+</config>

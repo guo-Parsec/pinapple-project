@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.pineapple.core.retrieve.DictionaryRetrieve">
+    <resultMap id="dictionaryResultMap" type="org.pineapple.common.define.DictionaryDefine">
+        <result column="type_code" jdbcType="VARCHAR" property="typeCode"/>
+        <result column="type_name" jdbcType="VARCHAR" property="typeName"/>
+        <result column="dict_val" jdbcType="INTEGER" property="dictVal"/>
+        <result column="display" jdbcType="VARCHAR" property="display"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+    </resultMap>
+
+    <sql id="sysDictColumns">
+        <!--@sql select -->
+        t.type_code,
+        t.type_name,
+        t.dict_val,
+        t.display,
+        t.sort
+        <!--@sql from sys_dict t -->
+    </sql>
+
+    <select id="findDictionaryByType" parameterType="string" resultMap="dictionaryResultMap">
+        select
+        <include refid="sysDictColumns"/>
+        from sys_dict t
+        where type_code = #{typeCode,jdbcType=VARCHAR}
+          and delete_at = 0;
+    </select>
+</mapper>

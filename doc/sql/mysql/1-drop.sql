@@ -1,0 +1,9 @@
+drop table if exists sys_dict;
+drop table if exists sys_menu;
+drop table if exists sys_role;
+drop table if exists sys_user;
+drop table if exists sys_role_menu;
+drop table if exists sys_user_role;
+drop table if exists sys_param;
+drop table if exists mnt_request_code;
+drop table if exists mnt_operation_log;

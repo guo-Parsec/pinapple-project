@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.0</version>
+        <relativePath/>
+    </parent>
+    
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.pineapple</groupId>
+    <artifactId>pineapple-project</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    
+    <modules>
+        <module>pineapple-common</module>
+        <module>pineapple-support</module>
+        <module>pineapple-core</module>
+        <module>pineapple-service-system</module>
+        <module>pineapple-gateway</module>
+        <module>pineapple-engine</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <skipTests>true</skipTests>
+        <java.version>1.8</java.version>
+        <spring-boot.version>2.7.0</spring-boot.version>
+        <spring-cloud.version>2021.0.3</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
+        <druid.version>1.2.9</druid.version>
+        <hutool.version>5.8.0</hutool.version>
+        <feign-form.version>3.8.0</feign-form.version>
+        <nacos-client.version>2.1.2</nacos-client.version>
+        <guava.version>31.1-jre</guava.version>
+        <cglib.version>3.2.7</cglib.version>
+        <fastjson2.version>2.0.22</fastjson2.version>
+        <commons-pool2.version>2.11.1</commons-pool2.version>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <mybatis.version>2.3.0</mybatis.version>
+        <mysql-connector.version>8.0.29</mysql-connector.version>
+        <postgresql-connector.version>42.5.1</postgresql-connector.version>
+        <swagger-ui.version>3.0.0</swagger-ui.version>
+        <pineapple-project.version>1.0.0</pineapple-project.version>
+        <dom4j.version>2.1.3</dom4j.version>
+    </properties>
+    
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Cloud 相关依赖 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring Cloud Alibaba 相关依赖 -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- 集成druid连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- Hutool Java工具包 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <!-- fastjson2引入 -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+            <!-- pgsql数据库驱动 -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql-connector.version}</version>
+            </dependency>
+            <!-- mybatis-plus 支持 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!-- feign-form 支持 -->
+            <dependency>
+                <groupId>io.github.openfeign.form</groupId>
+                <artifactId>feign-form</artifactId>
+                <version>${feign-form.version}</version>
+            </dependency>
+            <!-- nacos-client 版本更新 -->
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>${nacos-client.version}</version>
+            </dependency>
+            <!-- guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <!-- cglib库 -->
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
+            </dependency>
+            <!-- 提供Redis连接池 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
+            </dependency>
+            <!-- swagger-ui集成 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger-ui.version}</version>
+            </dependency>
+            <!-- xml解析 -->
+            <dependency>
+                <groupId>org.dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>${dom4j.version}</version>
+            </dependency>
+            <!-- 公共模块 -->
+            <dependency>
+                <groupId>org.pineapple</groupId>
+                <artifactId>pineapple-common</artifactId>
+                <version>${pineapple-project.version}</version>
+            </dependency>
+            <!-- 持久化支持 -->
+            <dependency>
+                <groupId>org.pineapple</groupId>
+                <artifactId>pineapple-durability-support</artifactId>
+                <version>${pineapple-project.version}</version>
+            </dependency>
+            <!-- 切面支持模块 -->
+            <dependency>
+                <groupId>org.pineapple</groupId>
+                <artifactId>pineapple-aspect-support</artifactId>
+                <version>${pineapple-project.version}</version>
+            </dependency>
+            <!-- 缓存支持模块 -->
+            <dependency>
+                <groupId>org.pineapple</groupId>
+                <artifactId>pineapple-cache-support</artifactId>
+                <version>${pineapple-project.version}</version>
+            </dependency>
+            <!-- 核心模块 -->
+            <dependency>
+                <groupId>org.pineapple</groupId>
+                <artifactId>pineapple-core</artifactId>
+                <version>${pineapple-project.version}</version>
+            </dependency>
+            <!-- 查询引擎支持 -->
+            <dependency>
+                <groupId>org.pineapple</groupId>
+                <artifactId>pineapple-query-engine</artifactId>
+                <version>${pineapple-project.version}</version>
+            </dependency>
+            <!-- 系统API模块 -->
+            <dependency>
+                <groupId>org.pineapple</groupId>
+                <artifactId>pineapple-system-api</artifactId>
+                <version>${pineapple-project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

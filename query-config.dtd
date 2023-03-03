@@ -1,0 +1,29 @@
+<!ELEMENT config (query-params result-map convert-list)>
+        <!ELEMENT query-params (param*)>
+        <!ELEMENT param ()>
+        <!ATTLIST param
+                field-name CDATA #REQUIRED
+                param-name CDATA #IMPLIED
+                query-type CDATA #REQUIRED
+                query-type (eq|like|in)>
+        <!ELEMENT result-map (result*)>
+        <!ATTLIST result-map
+                enable-default (true|false) #REQUIRED
+                default-result-key CDATA #IMPLIED>
+        <!ELEMENT result ()>
+        <!ATTLIST result
+                raw-key CDATA #REQUIRED
+                show-key CDATA #IMPLIED
+                raw-type CDATA #IMPLIED
+                show-type CDATA #IMPLIED>
+        <!ELEMENT convert-list (dict-convert* bean-convert*)>
+        <!ELEMENT dict-convert ()>
+        <!ATTLIST dict-convert
+                id CDATA #REQUIRED
+                dict-type CDATA #REQUIRED
+                show-key CDATA #REQUIRED>
+        <!ELEMENT bean-convert ()>
+        <!ATTLIST bean-convert
+                id CDATA #REQUIRED
+                bean CDATA #REQUIRED
+                show-key CDATA #REQUIRED>
