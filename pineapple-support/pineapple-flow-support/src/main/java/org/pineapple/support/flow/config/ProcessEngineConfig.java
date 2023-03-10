@@ -62,7 +62,7 @@ public class ProcessEngineConfig {
     @Bean(name = "processEngine")
     public ProcessEngine initProcessEngine() {
         log.info("初始化流程引擎开始");
-        ProcessEngineConfiguration config = null;
+        ProcessEngineConfiguration config;
         try {
             config = new StandaloneProcessEngineConfiguration()
                     .setJdbcDriver(driverClassName)
