@@ -42,6 +42,7 @@
         <fastjson2.version>2.0.22</fastjson2.version>
         <commons-pool2.version>2.11.1</commons-pool2.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <flowable.version>6.6.0</flowable.version>
         <mybatis.version>2.3.0</mybatis.version>
         <mysql-connector.version>8.0.29</mysql-connector.version>
         <postgresql-connector.version>42.5.1</postgresql-connector.version>
@@ -98,6 +99,12 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
+            <!-- flowable支持 -->
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter</artifactId>
+                <version>${flowable.version}</version>
+            </dependency>
             <!-- feign-form 支持 -->
             <dependency>
                 <groupId>io.github.openfeign.form</groupId>
@@ -149,7 +156,7 @@
             <!-- 持久化支持 -->
             <dependency>
                 <groupId>org.pineapple</groupId>
-                <artifactId>pineapple-durability-support</artifactId>
+                <artifactId>pineapple-data-support</artifactId>
                 <version>${pineapple-project.version}</version>
             </dependency>
             <!-- 切面支持模块 -->
@@ -162,6 +169,12 @@
             <dependency>
                 <groupId>org.pineapple</groupId>
                 <artifactId>pineapple-cache-support</artifactId>
+                <version>${pineapple-project.version}</version>
+            </dependency>
+            <!-- 流程支持模块 -->
+            <dependency>
+                <groupId>org.pineapple</groupId>
+                <artifactId>pineapple-flow-support</artifactId>
                 <version>${pineapple-project.version}</version>
             </dependency>
             <!-- 核心模块 -->

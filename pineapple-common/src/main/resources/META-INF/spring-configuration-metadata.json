@@ -1,0 +1,18 @@
+{
+  "groups": [
+    {
+      "name": "swagger",
+      "type": "org.pineapple.common.SwaggerProp",
+      "sourceType": "org.pineapple.common.SwaggerProp"
+    }
+  ],
+  "properties": [
+    {
+      "name": "swagger.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否开启swagger",
+      "sourceType": "org.pineapple.common.SwaggerProp"
+    }
+  ],
+  "hints": []
+}

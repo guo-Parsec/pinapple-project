@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.pineapple.common.valid.CurdValidateGroup;
-import org.pineapple.support.durability.BaseDto;
+import org.pineapple.support.data.BaseDto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

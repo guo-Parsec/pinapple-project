@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "id.snowflake",
+      "type": "org.pineapple.support.data.SnowflakeProp",
+      "sourceType": "org.pineapple.support.data.SnowflakeProp"
+    }
+  ],
+  "properties": [
+    {
+      "name": "id.snowflake.datacenter-id",
+      "type": "java.lang.Long",
+      "description": "数据中心ID",
+      "sourceType": "org.pineapple.support.data.SnowflakeProp"
+    },
+    {
+      "name": "id.snowflake.machine-id",
+      "type": "java.lang.Long",
+      "description": "机器ID",
+      "sourceType": "org.pineapple.support.data.SnowflakeProp"
+    }
+  ],
+  "hints": []
+}

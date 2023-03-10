@@ -57,10 +57,10 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     banner: false
-#id:
-#  snowflake:
-#    datacenter-id: 2
-#    machine-id: 1
+id:
+  snowflake:
+    datacenter-id: 2
+    machine-id: 1
 logging:
   pattern:
     console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%18.18t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"
@@ -68,3 +68,9 @@ logging:
     org.pineapple: debug
 swagger:
   enabled: true
+flow:
+  schema: flow
+  db-schema-type: db_schema_update_false
+  activity-font-name: 宋体
+  label-font-name: 宋体
+  annotation-font-name: 宋体

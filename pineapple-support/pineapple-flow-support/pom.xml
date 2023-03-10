@@ -6,25 +6,19 @@
 
     <parent>
         <groupId>org.pineapple</groupId>
-        <artifactId>pineapple-project</artifactId>
+        <artifactId>pineapple-support</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>pineapple-support</artifactId>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>pineapple-cache-support</module>
-        <module>pineapple-aspect-support</module>
-        <module>pineapple-data-support</module>
-        <module>pineapple-flow-support</module>
-    </modules>
+    <artifactId>pineapple-flow-support</artifactId>
+    <packaging>jar</packaging>
+    <description>pineapple流程支持</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.pineapple</groupId>
-            <artifactId>pineapple-common</artifactId>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 </project>

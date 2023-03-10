@@ -1,6 +1,6 @@
 package org.pineapple.system.core.mapper;
 
-import org.pineapple.support.durability.mapper.IMapper;
+import org.pineapple.support.data.mapper.IMapper;
 import org.pineapple.system.core.pojo.entity.SysDict;
 
 /**

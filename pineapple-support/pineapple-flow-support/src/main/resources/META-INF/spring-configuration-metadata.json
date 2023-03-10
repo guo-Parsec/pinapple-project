@@ -1,0 +1,71 @@
+{
+  "groups": [
+    {
+      "name": "flow",
+      "type": "org.pineapple.support.flow.FlowProp",
+      "sourceType": "org.pineapple.support.flow.FlowProp"
+    },
+    {
+      "name": "spring.datasource",
+      "type": "org.pineapple.support.flow.config.ProcessEngineConfig",
+      "sourceType": "org.pineapple.support.flow.config.ProcessEngineConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "flow.activity-font-name",
+      "type": "java.lang.String",
+      "description": "流程字体",
+      "sourceType": "org.pineapple.support.flow.FlowProp"
+    },
+    {
+      "name": "flow.annotation-font-name",
+      "type": "java.lang.String",
+      "description": "annotation字体",
+      "sourceType": "org.pineapple.support.flow.FlowProp"
+    },
+    {
+      "name": "flow.db-schema-type",
+      "type": "org.pineapple.support.flow.FlowDbSchemaType",
+      "description": "策略",
+      "sourceType": "org.pineapple.support.flow.FlowProp"
+    },
+    {
+      "name": "flow.label-font-name",
+      "type": "java.lang.String",
+      "description": "标签字体",
+      "sourceType": "org.pineapple.support.flow.FlowProp"
+    },
+    {
+      "name": "flow.schema",
+      "type": "java.lang.String",
+      "description": "使用库的名称",
+      "sourceType": "org.pineapple.support.flow.FlowProp"
+    },
+    {
+      "name": "spring.datasource.driver-class-name",
+      "type": "java.lang.String",
+      "description": "驱动类名称",
+      "sourceType": "org.pineapple.support.flow.config.ProcessEngineConfig"
+    },
+    {
+      "name": "spring.datasource.password",
+      "type": "java.lang.String",
+      "description": "密码",
+      "sourceType": "org.pineapple.support.flow.config.ProcessEngineConfig"
+    },
+    {
+      "name": "spring.datasource.url",
+      "type": "java.lang.String",
+      "description": "jdbc-url",
+      "sourceType": "org.pineapple.support.flow.config.ProcessEngineConfig"
+    },
+    {
+      "name": "spring.datasource.username",
+      "type": "java.lang.String",
+      "description": "用户名",
+      "sourceType": "org.pineapple.support.flow.config.ProcessEngineConfig"
+    }
+  ],
+  "hints": []
+}

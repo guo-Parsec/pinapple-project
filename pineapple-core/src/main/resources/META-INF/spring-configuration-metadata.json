@@ -1,0 +1,54 @@
+{
+  "groups": [
+    {
+      "name": "feign.okhttp.config",
+      "type": "org.pineapple.core.FeignOkHttpConfigProp",
+      "sourceType": "org.pineapple.core.FeignOkHttpConfigProp"
+    },
+    {
+      "name": "feign.okhttp.config.pool",
+      "type": "org.pineapple.core.FeignOkHttpConfigProp$FeignOkHttpPoolConfigProp",
+      "sourceType": "org.pineapple.core.FeignOkHttpConfigProp",
+      "sourceMethod": "getPool()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "feign.okhttp.config.connect-timeout",
+      "type": "java.time.Duration",
+      "description": "设置连接超时",
+      "sourceType": "org.pineapple.core.FeignOkHttpConfigProp"
+    },
+    {
+      "name": "feign.okhttp.config.pool.keep-alive-duration",
+      "type": "java.lang.Long",
+      "description": "连接存活时间(分钟)",
+      "sourceType": "org.pineapple.core.FeignOkHttpConfigProp$FeignOkHttpPoolConfigProp"
+    },
+    {
+      "name": "feign.okhttp.config.pool.max-idle-connections",
+      "type": "java.lang.Integer",
+      "description": "最大连接数",
+      "sourceType": "org.pineapple.core.FeignOkHttpConfigProp$FeignOkHttpPoolConfigProp"
+    },
+    {
+      "name": "feign.okhttp.config.read-timeout",
+      "type": "java.time.Duration",
+      "description": "设置读取超时",
+      "sourceType": "org.pineapple.core.FeignOkHttpConfigProp"
+    },
+    {
+      "name": "feign.okhttp.config.retry-on-connection-failure",
+      "type": "java.lang.Boolean",
+      "description": "是否自动重连",
+      "sourceType": "org.pineapple.core.FeignOkHttpConfigProp"
+    },
+    {
+      "name": "feign.okhttp.config.write-timeout",
+      "type": "java.time.Duration",
+      "description": "设置写入超时",
+      "sourceType": "org.pineapple.core.FeignOkHttpConfigProp"
+    }
+  ],
+  "hints": []
+}

@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>org.pineapple</groupId>
-            <artifactId>pineapple-durability-support</artifactId>
+            <artifactId>pineapple-data-support</artifactId>
         </dependency>
         <dependency>
             <groupId>org.pineapple</groupId>
