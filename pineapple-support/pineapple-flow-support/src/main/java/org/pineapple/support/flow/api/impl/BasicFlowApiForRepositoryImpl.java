@@ -1,19 +1,20 @@
 package org.pineapple.support.flow.api.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.google.common.collect.Maps;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.DeploymentQuery;
+import org.pineapple.common.define.PageDefine;
+import org.pineapple.common.utils.StreamUtil;
 import org.pineapple.support.flow.api.BasicFlowApiForRepository;
 import org.pineapple.support.flow.define.FlowDeployDefine;
 import org.pineapple.support.flow.pojo.dto.DeploymentPageQueryDto;
+import org.pineapple.support.flow.pojo.vo.DeploymentVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>流程资源实现类</p>
@@ -66,7 +67,7 @@ public class BasicFlowApiForRepositoryImpl implements BasicFlowApiForRepository 
      * @author hedwing
      * @since 2023/3/11
      */
-    public Map<String, Object> queryPageProcess(DeploymentPageQueryDto dto) {
+    public PageDefine<DeploymentVo> queryPageProcessDeployment(DeploymentPageQueryDto dto) {
         DeploymentQuery deploymentQuery = repositoryService.createDeploymentQuery();
         if (StrUtil.isNotBlank(dto.getDeploymentName())) {
             deploymentQuery.deploymentNameLike(dto.getDeploymentName());
@@ -74,15 +75,12 @@ public class BasicFlowApiForRepositoryImpl implements BasicFlowApiForRepository 
         if (StrUtil.isNotBlank(dto.getDeploymentKey())) {
             deploymentQuery.deploymentKeyLike(dto.getDeploymentKey());
         }
-        Map<String, Object> result = Maps.newHashMap();
-        long count = deploymentQuery.count();
-        result.put("total", count);
-        List<Deployment> deployments = deploymentQuery.orderByDeploymentTime().asc().listPage(dto.getPageIndex() - 1, dto.getPageSize());
-        // todo 流程定义
-        //List<Map<String, Object>> records = deployments.stream().map(deployment -> CastUtil.beanToMap(deployment, true))
-        //        .collect(Collectors.toList());
-        result.put("records", deployments);
-        return result;
+        long total = deploymentQuery.count();
+        Integer pageIndex = dto.getPageIndex();
+        Integer pageSize = dto.getPageSize();
+        List<Deployment> deployments = deploymentQuery.orderByDeploymentTime().asc().listPage(pageIndex - 1, pageSize);
+        List<DeploymentVo> deploymentVos = StreamUtil.castElementForList(deployments, DeploymentVo::buildFormTask);
+        return new PageDefine<>(pageIndex, pageSize, deploymentVos, total);
     }
 
     /**

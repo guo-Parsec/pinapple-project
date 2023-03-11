@@ -1,10 +1,10 @@
 package org.pineapple.support.flow.api;
 
 import org.flowable.engine.RepositoryService;
+import org.pineapple.common.define.PageDefine;
 import org.pineapple.support.flow.define.FlowDeployDefine;
 import org.pineapple.support.flow.pojo.dto.DeploymentPageQueryDto;
-
-import java.util.Map;
+import org.pineapple.support.flow.pojo.vo.DeploymentVo;
 
 /**
  * <p>流程资源</p>
@@ -31,7 +31,7 @@ public interface BasicFlowApiForRepository {
      * @author hedwing
      * @since 2023/3/11
      */
-    Map<String, Object> queryPageProcess(DeploymentPageQueryDto dto);
+    PageDefine<DeploymentVo> queryPageProcessDeployment(DeploymentPageQueryDto dto);
 
     /**
      * <p>获取RepositoryService</p>

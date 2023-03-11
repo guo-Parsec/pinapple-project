@@ -2,19 +2,20 @@ package org.pineapple.support.flow.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.pineapple.common.define.PageDefine;
 import org.pineapple.common.uniforms.UniformResultDefinition;
 import org.pineapple.common.uniforms.UniformResultTool;
 import org.pineapple.support.flow.CommonProcessFlowEngine;
 import org.pineapple.support.flow.api.BasicFlowApi;
 import org.pineapple.support.flow.define.FlowDeployDefine;
 import org.pineapple.support.flow.pojo.dto.DeploymentPageQueryDto;
+import org.pineapple.support.flow.pojo.vo.DeploymentVo;
 import org.pineapple.support.flow.pojo.vo.TaskVo;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>流程管理接口</p>
@@ -44,9 +45,9 @@ public class FlowController {
     }
 
     @ApiOperation(value = "流程部署查询")
-    @GetMapping("/page")
-    public UniformResultDefinition<Map<String, Object>> page(@Validated DeploymentPageQueryDto dto) {
-        return UniformResultTool.success(basicFlowApi.repository().queryPageProcess(dto));
+    @GetMapping("/deployment/page")
+    public UniformResultDefinition<PageDefine<DeploymentVo>> page(@Validated DeploymentPageQueryDto dto) {
+        return UniformResultTool.success(basicFlowApi.repository().queryPageProcessDeployment(dto));
     }
 
     @ApiOperation(value = "绘制流程图")

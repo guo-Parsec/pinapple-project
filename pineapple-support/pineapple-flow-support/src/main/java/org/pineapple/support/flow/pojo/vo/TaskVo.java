@@ -1,6 +1,5 @@
 package org.pineapple.support.flow.pojo.vo;
 
-import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -77,8 +76,8 @@ public class TaskVo extends AbstractVo {
         taskVo.setTaskDefinitionId(task.getTaskDefinitionId());
         taskVo.setTaskDefinitionKey(task.getTaskDefinitionKey());
         taskVo.setAssignee(task.getAssignee());
-        taskVo.setClaimTime(DateUtil.format(task.getClaimTime(), DatePattern.NORM_DATETIME_PATTERN));
-        taskVo.setCreateTime(DateUtil.format(task.getCreateTime(), DatePattern.NORM_DATETIME_PATTERN));
+        taskVo.setClaimTime(DateUtil.formatDateTime(task.getClaimTime()));
+        taskVo.setCreateTime(DateUtil.formatDateTime(task.getCreateTime()));
         return taskVo;
     }
 }
