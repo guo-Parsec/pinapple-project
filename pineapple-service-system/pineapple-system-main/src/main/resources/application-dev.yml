@@ -69,6 +69,10 @@ logging:
 swagger:
   enabled: true
 flow:
+  driver-class-name: org.postgresql.Driver
+  url: jdbc:postgresql://127.0.0.1/pineapple?currentSchema=flow&characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+  username: pineapple
+  password: 123456
   schema: flow
   db-schema-type: db_schema_update_false
   activity-font-name: 宋体

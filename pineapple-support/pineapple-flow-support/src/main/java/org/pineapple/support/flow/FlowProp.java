@@ -16,6 +16,27 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "flow")
 public class FlowProp {
+
+    /**
+     * jdbc - url
+     */
+    private String url;
+
+    /**
+     * 用户名
+     */
+    private String username;
+
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 驱动类名称
+     */
+    private String driverClassName;
+
     /**
      * 使用库的名称
      */

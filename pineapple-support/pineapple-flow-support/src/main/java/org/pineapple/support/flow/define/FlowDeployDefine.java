@@ -1,6 +1,5 @@
 package org.pineapple.support.flow.define;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +11,6 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-@Builder
 public class FlowDeployDefine {
     /**
      * 资源位置
@@ -28,6 +26,9 @@ public class FlowDeployDefine {
      * 流程名称
      */
     private String name;
+
+    public FlowDeployDefine() {
+    }
 
     public FlowDeployDefine(String resourceLocation, String key, String name) {
         this.resourceLocation = resourceLocation;

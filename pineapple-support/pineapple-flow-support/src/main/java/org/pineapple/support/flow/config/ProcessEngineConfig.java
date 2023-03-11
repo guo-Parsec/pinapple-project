@@ -9,7 +9,6 @@ import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.support.flow.FlowProp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,30 +29,6 @@ public class ProcessEngineConfig {
 
     private final FlowProp flowProp;
 
-    /**
-     * jdbc-url
-     */
-    @Value("${spring.datasource.url}")
-    private String url;
-
-    /**
-     * 驱动类名称
-     */
-    @Value("${spring.datasource.driver-class-name}")
-    private String driverClassName;
-
-    /**
-     * 用户名
-     */
-    @Value("${spring.datasource.username}")
-    private String username;
-
-    /**
-     * 密码
-     */
-    @Value("${spring.datasource.password}")
-    private String password;
-
     public ProcessEngineConfig(FlowProp flowProp) {
         this.flowProp = flowProp;
     }
@@ -65,11 +40,11 @@ public class ProcessEngineConfig {
         ProcessEngineConfiguration config;
         try {
             config = new StandaloneProcessEngineConfiguration()
-                    .setJdbcDriver(driverClassName)
+                    .setJdbcDriver(flowProp.getDriverClassName())
                     .setDatabaseSchema(flowProp.getSchema())
-                    .setJdbcUrl(url)
-                    .setJdbcUsername(username)
-                    .setJdbcPassword(password)
+                    .setJdbcUrl(flowProp.getUrl())
+                    .setJdbcUsername(flowProp.getUsername())
+                    .setJdbcPassword(flowProp.getPassword())
                     .setDatabaseSchemaUpdate(flowProp.getDbSchemaType().getValue())
                     .setActivityFontName(flowProp.getActivityFontName())
                     .setLabelFontName(flowProp.getLabelFontName())
