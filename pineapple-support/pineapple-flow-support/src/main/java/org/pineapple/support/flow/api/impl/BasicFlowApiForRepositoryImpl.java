@@ -5,6 +5,7 @@ import org.flowable.engine.RepositoryService;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.DeploymentQuery;
 import org.pineapple.common.define.PageDefine;
+import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.common.utils.StreamUtil;
 import org.pineapple.support.flow.api.BasicFlowApiForRepository;
 import org.pineapple.support.flow.define.FlowDeployDefine;
@@ -81,6 +82,79 @@ public class BasicFlowApiForRepositoryImpl implements BasicFlowApiForRepository 
         List<Deployment> deployments = deploymentQuery.orderByDeploymentTime().asc().listPage(pageIndex - 1, pageSize);
         List<DeploymentVo> deploymentVos = StreamUtil.castElementForList(deployments, DeploymentVo::buildFormTask);
         return new PageDefine<>(pageIndex, pageSize, deploymentVos, total);
+    }
+
+    /**
+     * <p>流程挂起,该流程会被立即挂起</p>
+     *
+     * @param deploymentId            部署id
+     * @param suspendProcessInstances 如果为真，所有提供的进程定义的进程实例也将被暂停。
+     * @author hedwing
+     * @since 2023/3/12
+     */
+    @Override
+    public void suspend(String deploymentId, boolean suspendProcessInstances) {
+        if (StrUtil.isBlank(deploymentId)) {
+            throw ErrorRecords.valid.record(log, "挂起流程时deploymentId不能为空");
+        }
+        Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
+        if (deployment == null) {
+            log.warn("挂起流程时根据deploymentId[{}]查询流程部署实例不存在,无法挂起!", deploymentId);
+            return;
+        }
+        repositoryService.suspendProcessDefinitionById(deploymentId, suspendProcessInstances, null);
+        if (suspendProcessInstances) {
+            log.debug("流程[deploymentId={}]挂起成功,其相关的流程实例也被暂停!", deploymentId);
+            return;
+        }
+        log.debug("流程[deploymentId={}]挂起成功,其相关的流程实例未被暂停!", deploymentId);
+    }
+
+    /**
+     * <p>流程激活,该流程会被立即激活</p>
+     *
+     * @param deploymentId             部署id
+     * @param activateProcessInstances 如果为真，所有提供的进程定义的进程实例也将被激活。
+     * @author hedwing
+     * @since 2023/3/12
+     */
+    @Override
+    public void activate(String deploymentId, boolean activateProcessInstances) {
+        if (StrUtil.isBlank(deploymentId)) {
+            throw ErrorRecords.valid.record(log, "激活流程时deploymentId不能为空");
+        }
+        Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
+        if (deployment == null) {
+            log.warn("激活流程时根据deploymentId[{}]查询流程部署实例不存在,无法激活!", deploymentId);
+            return;
+        }
+        repositoryService.activateProcessDefinitionById(deploymentId, activateProcessInstances, null);
+        if (activateProcessInstances) {
+            log.debug("流程[deploymentId={}]激活成功,其相关的流程实例也被激活!", deploymentId);
+            return;
+        }
+        log.debug("流程[deploymentId={}]激活成功,其相关的流程实例未被激活!", deploymentId);
+    }
+
+    /**
+     * <p>删除流程，并且级联删除</p>
+     *
+     * @param deploymentId 部署id
+     * @author hedwing
+     * @since 2023/3/12
+     */
+    @Override
+    public void delete(String deploymentId) {
+        if (StrUtil.isBlank(deploymentId)) {
+            throw ErrorRecords.valid.record(log, "删除流程时deploymentId不能为空");
+        }
+        Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
+        if (deployment == null) {
+            log.warn("删除流程时根据deploymentId[{}]查询流程部署实例不存在,无法删除!", deploymentId);
+            return;
+        }
+        repositoryService.deleteDeployment(deploymentId, true);
+        log.debug("流程[deploymentId={}]删除成功", deploymentId);
     }
 
     /**

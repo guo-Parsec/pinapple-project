@@ -50,12 +50,13 @@ public class BasicFlowApiForRuntimeImpl implements BasicFlowApiForRuntime {
      * <p>流程启动</p>
      *
      * @param dto 流程启动参数
+     * @return
      * @author hedwing
      * @since 2023/3/11
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void startProcess(ProcessStartDto dto) {
+    public ProcessInstance startProcess(ProcessStartDto dto) {
         log.debug("流程开始启动, 入参={}", dto);
         if (dto == null || StrUtil.isBlank(dto.getProcessDefinitionKey())) {
             throw ErrorRecords.valid.record(log, "流程定义id不能为空");
@@ -75,6 +76,7 @@ public class BasicFlowApiForRuntimeImpl implements BasicFlowApiForRuntime {
             basicFlowApiForTask.addCandidateUser(processInstanceId, candidateUserList);
         }
         log.debug("流程[{}]已被成功发起,流程信息为[processDefinitionId={}]", processInstance.getName(), processInstance.getProcessDefinitionId());
+        return processInstance;
     }
 
     @Autowired

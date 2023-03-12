@@ -59,8 +59,29 @@ public class FlowController {
 
     @ApiOperation(value = "通用两步流程启动")
     @PostMapping("/common-two-step-process/start.do")
-    public UniformResultDefinition<Void> startCommonTwoStepProcess() {
-        commonProcessFlowEngine.startCommonTwoStepProcess();
+    public UniformResultDefinition<Void> startCommonTwoStepProcess(String startUser) {
+        commonProcessFlowEngine.startCommonTwoStepProcess(startUser);
+        return UniformResultTool.success();
+    }
+
+    @ApiOperation(value = "通用两步流程再次提交")
+    @PostMapping("/common-two-step-process/submit-to-confirm.do")
+    public UniformResultDefinition<Void> submitToConfirm(String taskId, String userId) {
+        commonProcessFlowEngine.submitToConfirm(taskId, userId);
+        return UniformResultTool.success();
+    }
+
+    @ApiOperation(value = "通用两步流程确认")
+    @PostMapping("/common-two-step-process/conform.do")
+    public UniformResultDefinition<Void> confirmApply(String taskId, String userId, String confirm) {
+        commonProcessFlowEngine.confirmApply(taskId, userId, confirm);
+        return UniformResultTool.success();
+    }
+
+    @ApiOperation(value = "通用两步流程最终审核")
+    @PostMapping("/common-two-step-process/final-approve.do")
+    public UniformResultDefinition<Void> finalApprove(String taskId, String userId, String approve) {
+        commonProcessFlowEngine.finalApprove(taskId, userId, approve);
         return UniformResultTool.success();
     }
 

@@ -1,6 +1,8 @@
 package org.pineapple.support.flow.api;
 
+import org.flowable.engine.runtime.ProcessInstance;
 import org.pineapple.support.flow.pojo.dto.ProcessStartDto;
+import org.pineapple.support.flow.pojo.dto.TaskCompleteDto;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -61,8 +63,18 @@ public interface BasicFlowApi {
      * <p>流程启动</p>
      *
      * @param dto 流程启动参数
+     * @return 流程实例
      * @author hedwing
      * @since 2023/3/11
      */
-    void startProcess(ProcessStartDto dto);
+    ProcessInstance startProcess(ProcessStartDto dto);
+
+    /**
+     * <p>完成任务</p>
+     *
+     * @param dto 完成任务dto
+     * @author hedwing
+     * @since 2023/3/12
+     */
+    void completeTask(TaskCompleteDto dto);
 }

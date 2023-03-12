@@ -1,6 +1,7 @@
 package org.pineapple.support.flow.api;
 
 import org.flowable.engine.RuntimeService;
+import org.flowable.engine.runtime.ProcessInstance;
 import org.pineapple.support.flow.pojo.dto.ProcessStartDto;
 
 /**
@@ -23,8 +24,9 @@ public interface BasicFlowApiForRuntime {
      * <p>流程启动</p>
      *
      * @param dto 流程启动参数
+     * @return 流程实例
      * @author hedwing
      * @since 2023/3/11
      */
-    void startProcess(ProcessStartDto dto);
+    ProcessInstance startProcess(ProcessStartDto dto);
 }

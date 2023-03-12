@@ -2,16 +2,19 @@ package org.pineapple.support.flow.api.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.collect.Lists;
 import org.flowable.engine.TaskService;
 import org.flowable.task.api.Task;
 import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.common.utils.StreamUtil;
 import org.pineapple.support.flow.api.BasicFlowApiForTask;
+import org.pineapple.support.flow.pojo.dto.TaskCompleteDto;
 import org.pineapple.support.flow.pojo.vo.TaskVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -62,6 +65,27 @@ public class BasicFlowApiForTaskImpl implements BasicFlowApiForTask {
             return Lists.newArrayList();
         }
         return StreamUtil.castElementForList(taskList, TaskVo::buildFormTask);
+    }
+
+    /**
+     * <p>根据用户id获取被用户认领的任务</p>
+     *
+     * @param userId 用户id
+     * @param processInstanceId 流程实例id
+     * @return java.util.List<org.pineapple.support.flow.pojo.vo.TaskVo>
+     * @author hedwing
+     * @since 2023/3/11
+     */
+    @Override
+    public TaskVo findAssigneeTaskByUserIdAndProcessInstanceId(String userId, String processInstanceId) {
+        log.debug("用户[userId={}]获取任务[processInstanceId={}]", userId, processInstanceId);
+        Task task = taskService.createTaskQuery().taskAssignee(userId).processInstanceId(processInstanceId)
+                .orderByTaskCreateTime().desc().singleResult();
+        if (task == null) {
+            log.debug("用户[userId={}]无认领任务[processInstanceId={}]", userId, processInstanceId);
+            return new TaskVo();
+        }
+        return TaskVo.buildFormTask(task);
     }
 
     /**
@@ -133,5 +157,61 @@ public class BasicFlowApiForTaskImpl implements BasicFlowApiForTask {
         }
         log.debug("向流程实例[{}]最新创建的任务[{}]添加候选人", processInstanceId, task.getId());
         userIdList.forEach(userId -> taskService.addCandidateUser(task.getId(), userId));
+    }
+
+    /**
+     * <p>判断任务{@code taskId}是否为用户{@code userId}所认领的任务</p>
+     *
+     * @param taskId 任务id
+     * @param userId 用户id
+     * @return boolean
+     * @author hedwing
+     * @since 2023/3/12
+     */
+    @Override
+    public boolean isUserAssignee(String taskId, String userId) {
+        log.debug("判断任务[taskId={}]是否为用户[userId={}]所认领的任务", taskId, userId);
+        return taskService.createTaskQuery().taskAssignee(userId).taskId(taskId).count() == 1;
+    }
+
+    /**
+     * <p>完成当前任务</p>
+     *
+     * @param dto 任务完成DTO
+     * @author hedwing
+     * @since 2023/3/12
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void complete(TaskCompleteDto dto) {
+        if (dto == null) {
+            throw ErrorRecords.valid.record(log, "任务完成DTO不能为null");
+        }
+        log.debug("任务开始完成, 入参={}", dto);
+        String taskId = dto.getTaskId();
+        if (StrUtil.isBlank(taskId)) {
+            throw ErrorRecords.valid.record(log, "任务id不能为空");
+        }
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            log.warn("任务[taskId={}]不存在", taskId);
+            return;
+        }
+        String processInstanceId = task.getProcessInstanceId();
+        String completeUserId = dto.getCompleteUserId();
+        if (StrUtil.isBlank(completeUserId) || !isUserAssignee(taskId, completeUserId)) {
+            throw ErrorRecords.valid.record(log, "任务[taskId={}]未被用户[userId={}]认领，无法完成任务", taskId, completeUserId);
+        }
+        taskService.complete(taskId, dto.getVariables());
+        BasicFlowApiForTask basicFlowApiForTask = SpringUtil.getBean(BasicFlowApiForTask.class);
+        if (dto.isNextTaskWithAssignee() && StrUtil.isNotBlank(dto.getAssigneeUser())) {
+            String assigneeUser = dto.getAssigneeUser();
+            basicFlowApiForTask.assignee(processInstanceId, assigneeUser);
+        }
+        if (dto.isNextTaskWithCandidate() && CollUtil.isNotEmpty(dto.getCandidateUserList())) {
+            List<String> candidateUserList = dto.getCandidateUserList();
+            basicFlowApiForTask.addCandidateUser(processInstanceId, candidateUserList);
+        }
+        log.debug("任务[taskId={}]已被完成,流程信息为[processDefinitionId={}]", taskId, processInstanceId);
     }
 }

@@ -15,6 +15,7 @@ import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.common.utils.IOUtil;
 import org.pineapple.support.flow.api.*;
 import org.pineapple.support.flow.pojo.dto.ProcessStartDto;
+import org.pineapple.support.flow.pojo.dto.TaskCompleteDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,12 +126,25 @@ public class DefaultBasicFlowApi implements BasicFlowApi {
      * <p>流程启动</p>
      *
      * @param dto 流程启动参数
+     * @return 流程实例
      * @author hedwing
      * @since 2023/3/11
      */
     @Override
-    public void startProcess(ProcessStartDto dto) {
-        this.runtime().startProcess(dto);
+    public ProcessInstance startProcess(ProcessStartDto dto) {
+        return this.runtime().startProcess(dto);
+    }
+
+    /**
+     * <p>完成任务</p>
+     *
+     * @param dto 完成任务dto
+     * @author hedwing
+     * @since 2023/3/12
+     */
+    @Override
+    public void completeTask(TaskCompleteDto dto) {
+        this.task().complete(dto);
     }
 
     /**
