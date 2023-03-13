@@ -1,6 +1,9 @@
 package org.pineapple.system.core.service.impl;
 
 import com.google.common.collect.Lists;
+import org.pineapple.common.annotations.NotBlank;
+import org.pineapple.common.annotations.Valid;
+import org.pineapple.common.annotations.Validator;
 import org.pineapple.system.core.mapper.SysDictMapper;
 import org.pineapple.system.core.pojo.entity.SysDict;
 import org.pineapple.system.core.service.SysDictService;
@@ -17,12 +20,17 @@ import java.util.List;
  * @author guocq
  * @since 2023/2/9
  */
+@Validator
 @Service(value = "sysDictService")
 public class SysDictServiceImpl implements SysDictService {
     private static final Logger log = LoggerFactory.getLogger(SysDictServiceImpl.class);
     @Resource
     private SysDictMapper sysDictMapper;
 
+    @Valid(notBlank = {
+            @NotBlank(value = "#sysDict.typeCode", message = "数据字典类型码不能为空"),
+            @NotBlank(value = "#sysDict.typeName", message = "数据字典类型名不能为空"),
+    })
     @Override
     public void createSysDict(SysDict sysDict) {
         log.debug("新增数据");
