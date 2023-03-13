@@ -4,6 +4,7 @@ import org.pineapple.common.exceptions.SystemException;
 import org.pineapple.common.exceptions.SystemRuntimeException;
 import org.pineapple.common.uniforms.UniformResultDefinition;
 import org.pineapple.common.uniforms.UniformResultTool;
+import org.pineapple.common.utils.ErrorUtil;
 import org.pineapple.common.utils.ExceptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class GlobalException {
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public UniformResultDefinition<Void> validException(MethodArgumentNotValidException exception) {
         ObjectError objectError = exception.getBindingResult().getAllErrors().get(0);
-        log.error("参数校验失败", exception);
+        log.error("参数校验失败: {}", ErrorUtil.optimizeStackTrace(exception));
         return UniformResultTool.validFailed(objectError.getDefaultMessage());
     }
 
@@ -49,7 +50,7 @@ public class GlobalException {
     @ExceptionHandler({BindException.class})
     public UniformResultDefinition<Void> bindException(BindException exception) {
         ObjectError objectError = exception.getBindingResult().getAllErrors().get(0);
-        log.error("参数校验失败", exception);
+        log.error("参数校验失败: {}", ErrorUtil.optimizeStackTrace(exception));
         return UniformResultTool.validFailed(objectError.getDefaultMessage());
     }
 
@@ -63,7 +64,7 @@ public class GlobalException {
      */
     @ExceptionHandler({SystemRuntimeException.class})
     public UniformResultDefinition<Void> coreExceptionHandler(SystemRuntimeException exception) {
-        log.error("应用执行异常处理[SystemRuntimeException]", exception);
+        log.error("应用执行异常处理[SystemRuntimeException]: {}", ErrorUtil.optimizeStackTrace(exception));
         return UniformResultTool.failed(exception);
     }
 
@@ -77,7 +78,7 @@ public class GlobalException {
      */
     @ExceptionHandler({SystemException.class})
     public UniformResultDefinition<Void> coreExceptionHandler(SystemException exception) {
-        log.error("应用执行异常处理[SystemException]", exception);
+        log.error("应用执行异常处理[SystemException]: {}", ErrorUtil.optimizeStackTrace(exception));
         return UniformResultTool.failed(exception);
     }
 
@@ -91,7 +92,7 @@ public class GlobalException {
      */
     @ExceptionHandler({Exception.class})
     public UniformResultDefinition<Void> defaultExceptionHandler(Exception exception) {
-        log.error("应用执行异常处理[Exception]", exception);
+        log.error("应用执行异常处理[Exception]: {}", ErrorUtil.optimizeStackTrace(exception));
         return UniformResultTool.failed(ExceptionUtil.toModel(exception));
     }
 }

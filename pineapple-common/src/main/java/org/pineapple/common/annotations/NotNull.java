@@ -8,7 +8,7 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * <p>字符串非空校验</p>
+ * <p>非null校验</p>
  *
  * @author guocq
  * @since 2023/3/13
@@ -16,11 +16,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
-public @interface NotBlank {
+public @interface NotNull {
     /**
      * <p>指定字段(使用el表达式)</p>
      *
-     * @return {@link java.lang.String }
+     * @return {@link String }
      * @author guocq
      * @date 2023/3/13 16:03
      */
@@ -29,7 +29,7 @@ public @interface NotBlank {
     /**
      * <p>校验失败错误信息说明</p>
      *
-     * @return {@link java.lang.String }
+     * @return {@link String }
      * @author guocq
      * @date 2023/3/13 16:03
      */

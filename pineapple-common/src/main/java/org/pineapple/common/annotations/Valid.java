@@ -12,9 +12,30 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.PARAMETER})
 public @interface Valid {
-    String value() default "";
-
-    String message() default "";
-
+    /**
+     * <p>字符内容非空校验</p>
+     *
+     * @return {@link org.pineapple.common.annotations.NotBlank[] }
+     * @author guocq
+     * @date 2023/3/13 16:03
+     */
     NotBlank[] notBlank() default {};
+
+    /**
+     * <p>非null校验</p>
+     *
+     * @return {@link org.pineapple.common.annotations.NotNull[] }
+     * @author guocq
+     * @date 2023/3/13 16:10
+     */
+    NotNull[] notNull() default {};
+
+    /**
+     * <p>最小值最大值校验</p>
+     *
+     * @return {@link org.pineapple.common.annotations.MinAndMax[] }
+     * @author guocq
+     * @date 2023/3/13 16:10
+     */
+    MinAndMax[] minAndMax() default {};
 }

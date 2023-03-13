@@ -76,6 +76,33 @@ public class CastUtil {
     }
 
     /**
+     * <p>集合{@code coll}转换为map</p>
+     *
+     * @param coll        集合
+     * @param valueMapper value的生成策略
+     * @return {@link java.util.Map }
+     * @author guocq
+     * @date 2023/2/21 15:55
+     */
+    public static <K, V> Map<K, V> collectionToMap(Collection<K> coll, Function<K, V> valueMapper) {
+        return collectionToMap(coll, raw -> raw, valueMapper, true);
+    }
+
+    /**
+     * <p>集合{@code coll}转换为map</p>
+     *
+     * @param coll        集合
+     * @param keyMapper   key的生成策略
+     * @param valueMapper value的生成策略
+     * @return {@link java.util.Map }
+     * @author guocq
+     * @date 2023/2/21 15:55
+     */
+    public static <T, K, V> Map<K, V> collectionToMap(Collection<T> coll, Function<T, K> keyMapper, Function<T, V> valueMapper) {
+        return collectionToMap(coll, keyMapper, valueMapper, true);
+    }
+
+    /**
      * <p>集合{@code coll}转换为map, 当{@code isCoverMode}为{@code true}时，map的key重复时将后者覆盖前者；否则始终保持第一个数据的值</p>
      *
      * @param coll        集合

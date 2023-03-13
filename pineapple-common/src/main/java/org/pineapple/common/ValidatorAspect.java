@@ -2,11 +2,16 @@ package org.pineapple.common;
 
 import cn.hutool.aop.aspects.Aspect;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.comparator.CompareUtil;
 import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
+import org.pineapple.common.annotations.MinAndMax;
 import org.pineapple.common.annotations.NotBlank;
+import org.pineapple.common.annotations.NotNull;
 import org.pineapple.common.annotations.Valid;
+import org.pineapple.common.enums.MinAndMaxType;
 import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.common.utils.CastUtil;
 import org.pineapple.common.utils.SpelUtil;
@@ -17,7 +22,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Optional;
 
 /**
  * <p>校验器切面</p>
@@ -48,25 +53,102 @@ public class ValidatorAspect implements Aspect {
         if (ArrayUtil.isNotEmpty(notBlanks)) {
             processNotBlankValid(Lists.newArrayList(notBlanks), method, args);
         }
+        NotNull[] notNulls = valid.notNull();
+        if (ArrayUtil.isNotEmpty(notNulls)) {
+            processNotNullValid(Lists.newArrayList(notNulls), method, args);
+        }
+        MinAndMax[] minAndMaxes = valid.minAndMax();
+        if (ArrayUtil.isNotEmpty(minAndMaxes)) {
+            processMinAndMaxValid(Lists.newArrayList(minAndMaxes), method, args);
+        }
+        log.debug("校验目标[class={},method={}]参数校验通过", target.getClass().getName(), method.getName());
         return true;
     }
 
+    /**
+     * <p>处理非空校验</p>
+     *
+     * @param list   非空集合注解
+     * @param method 代理方法
+     * @param args   代理方法参数
+     * @author guocq
+     * @date 2023/3/13 16:02
+     */
     private void processNotBlankValid(List<NotBlank> list, Method method, Object[] args) {
-        Map<String, NotBlank> notBlankMap = CastUtil.collectionToMap(list, NotBlank::value, notBlank -> notBlank, true);
-        List<String> elList = Lists.newArrayList(notBlankMap.keySet());
-        Map<String, Object> resultMap = SpelUtil.parse(method, args, elList);
-        if (CollUtil.isEmpty(resultMap)) {
+       Map<String, NotBlank> annotationMap = CastUtil.collectionToMap(list, NotBlank::value, el -> el);
+        List<String> elList = Lists.newArrayList(annotationMap.keySet());
+        Map<String, Object> elVarMap = SpelUtil.parseElVarMap(method, args, elList);
+        if (CollUtil.isEmpty(elVarMap)) {
             return;
         }
-        AtomicReference<NotBlank> currNotBlank = new AtomicReference<>();
-        resultMap.forEach((el, val) -> {
-            if (StrUtil.isBlankIfStr(val)) {
-                currNotBlank.set(notBlankMap.get(el));
-                return;
-            }
-        });
-        if (currNotBlank.get() != null) {
-            throw ErrorRecords.valid.record(log, currNotBlank.get().message());
+        Optional<NotBlank> validResult = elVarMap.entrySet().stream()
+                .filter(entry -> StrUtil.isBlankIfStr(entry.getValue()))
+                .map(entry -> annotationMap.get(entry.getKey()))
+                .findFirst();
+        if (validResult.isPresent()) {
+            throw ErrorRecords.valid.record(log, validResult.get().message());
+        }
+    }
+
+    /**
+     * <p>处理非null校验</p>
+     *
+     * @param list   非null集合注解
+     * @param method 代理方法
+     * @param args   代理方法参数
+     * @author guocq
+     * @date 2023/3/13 16:23
+     */
+    private void processNotNullValid(List<NotNull> list, Method method, Object[] args) {
+        Map<String, NotNull> annotationMap = CastUtil.collectionToMap(list, NotNull::value, el -> el);
+        List<String> elList = Lists.newArrayList(annotationMap.keySet());
+        Map<String, Object> elVarMap = SpelUtil.parseElVarMap(method, args, elList);
+        if (CollUtil.isEmpty(elVarMap)) {
+            return;
+        }
+        Optional<NotNull> validResult = elVarMap.entrySet().stream()
+                .filter(entry -> ObjectUtil.isNull(entry.getValue()))
+                .map(entry -> annotationMap.get(entry.getKey()))
+                .findFirst();
+        if (validResult.isPresent()) {
+            throw ErrorRecords.valid.record(log, validResult.get().message());
+        }
+    }
+
+    /**
+     * <p>处理最大值最小值校验</p>
+     *
+     * @param list   非null集合注解
+     * @param method 代理方法
+     * @param args   代理方法参数
+     * @author guocq
+     * @date 2023/3/13 16:23
+     */
+    private void processMinAndMaxValid(List<MinAndMax> list, Method method, Object[] args) {
+        Map<String, MinAndMax> annotationMap = CastUtil.collectionToMap(list, MinAndMax::value, el -> el);
+        List<String> elList = Lists.newArrayList(annotationMap.keySet());
+        Map<String, Object> elVarMap = SpelUtil.parseElVarMap(method, args, elList);
+        if (CollUtil.isEmpty(elVarMap)) {
+            return;
+        }
+        Optional<MinAndMax> validResult = elVarMap.entrySet().stream()
+                .filter(entry -> {
+                    MinAndMax minAndMax = annotationMap.get(entry.getKey());
+                    assert entry.getValue() instanceof Integer;
+                    boolean gtMax = CompareUtil.compare((Integer) entry.getValue(), minAndMax.max()) > 0;
+                    boolean ltMin = CompareUtil.compare((Integer) entry.getValue(), minAndMax.min()) < 0;
+                    if (ObjectUtil.equals(minAndMax.type(), MinAndMaxType.ONLY_MAX) && gtMax) {
+                        return true;
+                    }
+                    if (ObjectUtil.equals(minAndMax.type(), MinAndMaxType.ONLY_MIN) && ltMin) {
+                        return true;
+                    }
+                    return ObjectUtil.equals(minAndMax.type(), MinAndMaxType.MIN_AND_MAX) && (gtMax || ltMin);
+                })
+                .map(entry -> annotationMap.get(entry.getKey()))
+                .findFirst();
+        if (validResult.isPresent()) {
+            throw ErrorRecords.valid.record(log, validResult.get().message());
         }
     }
 

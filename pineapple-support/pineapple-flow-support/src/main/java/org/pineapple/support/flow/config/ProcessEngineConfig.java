@@ -43,6 +43,7 @@ public class ProcessEngineConfig {
                     .setJdbcDriver(flowProp.getDriverClassName())
                     .setDatabaseSchema(flowProp.getSchema())
                     .setJdbcUrl(flowProp.getUrl())
+                    .setAsyncExecutorActivate(false)
                     .setJdbcUsername(flowProp.getUsername())
                     .setJdbcPassword(flowProp.getPassword())
                     .setDatabaseSchemaUpdate(flowProp.getDbSchemaType().getValue())
