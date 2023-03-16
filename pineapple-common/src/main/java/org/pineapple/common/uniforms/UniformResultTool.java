@@ -139,6 +139,7 @@ public class UniformResultTool {
      */
     public static <T> T grabDataNoException(UniformResultDefinition<T> definition) {
         if (!isOperateSuccess(definition)) {
+            log.error("抓取返回数据失败");
             return null;
         }
         return definition.getData();

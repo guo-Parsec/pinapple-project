@@ -1,8 +1,7 @@
-package org.pineapple.support.data;
+package org.pineapple.common;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.pineapple.common.AbstractVo;
 
 import java.util.StringJoiner;
 

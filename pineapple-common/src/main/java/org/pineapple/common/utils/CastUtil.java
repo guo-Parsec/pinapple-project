@@ -1,9 +1,7 @@
 package org.pineapple.common.utils;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.Filter;
-import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.google.common.collect.Lists;
@@ -144,27 +142,5 @@ public class CastUtil {
 //            throw ErrorRecords.valid.record(log, "coll和collection不能为空");
 //        }
         collection = ((Collection<?>) coll).stream().map(tClass::cast).collect(Collectors.toList());
-    }
-
-    public static void main(String[] args) {
-        int size = 1;
-        List<Integer> param = Lists.newArrayList();
-        for (int i = 1; i <= size; i++) {
-            param.add(i);
-        }
-        long start = 0;
-        long end = 0;
-        Object list = Lists.newArrayList(param);
-        List<Integer> resultList = null;
-        start = System.currentTimeMillis();
-        resultList = Convert.convert(new TypeReference<List<Integer>>() {
-        }, list);
-        end = System.currentTimeMillis();
-        System.out.println("使用HuTool工具的Convert耗时 " + (end - start) + " 毫秒");
-        System.out.println("---------------");
-        start = System.currentTimeMillis();
-        castColl(list, Integer.class, resultList);
-        end = System.currentTimeMillis();
-        System.out.println("使用自定义工具的castColl耗时 " + (end - start) + " 毫秒");
     }
 }

@@ -7,5 +7,18 @@ package org.pineapple.common.constant;
  * @since 2023/2/8
  */
 public class CommonConstant {
-//    public static final String
+    /**
+     * redis统一前缀
+     */
+    public static final String REDIS_KEY_PREFIX = "pineapple";
+
+    /**
+     * 占位符
+     */
+    public static final String PLACEHOLDER = "{}";
+
+    /**
+     * 冒号
+     */
+    public static final String COLON = ":";
 }

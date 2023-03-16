@@ -19,6 +19,7 @@
         <module>pineapple-aspect-support</module>
         <module>pineapple-data-support</module>
         <module>pineapple-flow-support</module>
+        <module>pineapple-security-support</module>
     </modules>
 
     <dependencies>

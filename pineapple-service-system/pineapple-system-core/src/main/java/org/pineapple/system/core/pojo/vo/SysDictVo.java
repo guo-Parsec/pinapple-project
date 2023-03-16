@@ -2,7 +2,7 @@ package org.pineapple.system.core.pojo.vo;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.pineapple.support.data.BaseVo;
+import org.pineapple.common.BaseVo;
 
 import java.util.StringJoiner;
 

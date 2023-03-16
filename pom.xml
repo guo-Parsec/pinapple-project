@@ -8,14 +8,14 @@
         <version>2.7.0</version>
         <relativePath/>
     </parent>
-    
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.pineapple</groupId>
     <artifactId>pineapple-project</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-    
+
     <modules>
         <module>pineapple-common</module>
         <module>pineapple-support</module>
@@ -24,6 +24,7 @@
         <module>pineapple-gateway</module>
         <module>pineapple-engine</module>
         <module>pineapple-generator</module>
+        <module>pineapple-auth-center</module>
     </modules>
 
     <properties>
@@ -51,8 +52,9 @@
         <pineapple-project.version>1.0.0</pineapple-project.version>
         <dom4j.version>2.1.3</dom4j.version>
         <mybatis-plus-generator-ui.version>2.0.1</mybatis-plus-generator-ui.version>
+        <spring-cloud-oauth2.version>2.2.5.RELEASE</spring-cloud-oauth2.version>
     </properties>
-    
+
     <dependencyManagement>
         <dependencies>
             <!-- Spring Cloud 相关依赖 -->
@@ -149,6 +151,7 @@
                 <artifactId>dom4j</artifactId>
                 <version>${dom4j.version}</version>
             </dependency>
+            <!-- mybatis-plus生成UI支持 -->
             <dependency>
                 <groupId>com.github.davidfantasy</groupId>
                 <artifactId>mybatis-plus-generator-ui</artifactId>
@@ -184,6 +187,12 @@
                 <artifactId>pineapple-flow-support</artifactId>
                 <version>${pineapple-project.version}</version>
             </dependency>
+            <!-- 流程支持模块 -->
+            <dependency>
+                <groupId>org.pineapple</groupId>
+                <artifactId>pineapple-security-support</artifactId>
+                <version>${pineapple-project.version}</version>
+            </dependency>
             <!-- 核心模块 -->
             <dependency>
                 <groupId>org.pineapple</groupId>
@@ -200,6 +209,12 @@
             <dependency>
                 <groupId>org.pineapple</groupId>
                 <artifactId>pineapple-system-api</artifactId>
+                <version>${pineapple-project.version}</version>
+            </dependency>
+            <!-- 认证中心API模块 -->
+            <dependency>
+                <groupId>org.pineapple</groupId>
+                <artifactId>pineapple-auth-api</artifactId>
                 <version>${pineapple-project.version}</version>
             </dependency>
         </dependencies>

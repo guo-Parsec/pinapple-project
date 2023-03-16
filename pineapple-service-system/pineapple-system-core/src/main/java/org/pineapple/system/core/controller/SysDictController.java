@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.pineapple.common.CommonWebApiDefineConstant;
 import org.pineapple.common.uniforms.UniformResultDefinition;
 import org.pineapple.common.uniforms.UniformResultTool;
-import org.pineapple.system.api.WebApiDefineConstant;
+import org.pineapple.system.api.SystemWebApiDefineConstant;
 import org.pineapple.system.core.pojo.entity.SysDict;
 import org.pineapple.system.core.service.SysDictService;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Api(tags = "系统字典管理")
 @RestController
-@RequestMapping(WebApiDefineConstant.WEB_API_DICT_PREFIX)
+@RequestMapping(SystemWebApiDefineConstant.WEB_API_DICT_PREFIX)
 public class SysDictController {
     private final SysDictService service;
 

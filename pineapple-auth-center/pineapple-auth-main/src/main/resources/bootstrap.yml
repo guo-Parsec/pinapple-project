@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: pineapple-auth-center
+  profiles:
+    active: dev
