@@ -2,8 +2,8 @@ package org.pineapple.core.facade.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import org.pineapple.common.entity.SystemDictEntity;
-import org.pineapple.core.facade.DictionaryFacade;
-import org.pineapple.core.retrieve.DictionaryRetrieve;
+import org.pineapple.core.facade.SystemDictFacade;
+import org.pineapple.core.retrieve.SystemDictRetrieve;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -15,11 +15,11 @@ import java.util.Set;
  * @author guocq
  * @since 2023/2/8
  */
-@Component(value = "dictionaryFacade")
-public class DictionaryFacadeImpl implements DictionaryFacade {
-    private final DictionaryRetrieve retrieve;
+@Component(value = "systemDictFacade")
+public class SystemDictFacadeImpl implements SystemDictFacade {
+    private final SystemDictRetrieve retrieve;
 
-    public DictionaryFacadeImpl(DictionaryRetrieve retrieve) {
+    public SystemDictFacadeImpl(SystemDictRetrieve retrieve) {
         this.retrieve = retrieve;
     }
 

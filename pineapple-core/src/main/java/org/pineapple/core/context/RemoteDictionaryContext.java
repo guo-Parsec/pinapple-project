@@ -5,7 +5,7 @@ import org.pineapple.common.annotations.Dictionary;
 import org.pineapple.common.context.AbstractDictionaryContext;
 import org.pineapple.common.entity.SystemDictEntity;
 import org.pineapple.common.error.ErrorRecords;
-import org.pineapple.core.facade.DictionaryFacade;
+import org.pineapple.core.facade.SystemDictFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -25,9 +25,9 @@ import static org.pineapple.common.constant.BeanNameDefineConstant.REMOTE_DICTIO
 public class RemoteDictionaryContext extends AbstractDictionaryContext {
     private static final Logger log = LoggerFactory.getLogger(RemoteDictionaryContext.class);
 
-    private final DictionaryFacade facade;
+    private final SystemDictFacade facade;
 
-    public RemoteDictionaryContext(DictionaryFacade facade) {
+    public RemoteDictionaryContext(SystemDictFacade facade) {
         this.facade = facade;
     }
 

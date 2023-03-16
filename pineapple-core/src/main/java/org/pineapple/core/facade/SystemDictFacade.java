@@ -8,7 +8,7 @@ import org.pineapple.common.entity.SystemDictEntity;
  * @author guocq
  * @since 2023/2/8
  */
-public interface DictionaryFacade {
+public interface SystemDictFacade {
     /**
      * <p>根据{@code typeCode}和{@code dictVal}查询单条数据字典数据</p>
      *

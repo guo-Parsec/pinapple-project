@@ -37,6 +37,11 @@ public class ErrorRecords {
      */
     public static final ErrorRecord<UnauthorizedException> unauthorized;
 
+    /**
+     * 未授权错误 {@link UnauthorizedException}
+     */
+    public static final ErrorRecord<UnsupportedOperationException> unsupported;
+
     static {
         error = (log, cause, model, format, args) -> {
             String messageText = getMessageText(format, args);
@@ -53,6 +58,10 @@ public class ErrorRecords {
         unauthorized = (log, cause, model, format, args) -> {
             String messageText = getMessageText(format, args);
             return recordAndIfCauseNull(log, cause, messageText) ? new UnauthorizedException(messageText) : new UnauthorizedException(messageText, cause);
+        };
+        unsupported = (log, cause, model, format, args) -> {
+            String messageText = getMessageText(format, args);
+            return recordAndIfCauseNull(log, cause, messageText) ? new UnsupportedOperationException(messageText) : new UnsupportedOperationException(messageText, cause);
         };
     }
 

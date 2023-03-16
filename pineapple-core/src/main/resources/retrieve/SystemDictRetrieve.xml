@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.pineapple.core.retrieve.DictionaryRetrieve">
+<mapper namespace="org.pineapple.core.retrieve.SystemDictRetrieve">
     <resultMap id="dictionaryResultMap" type="org.pineapple.common.entity.SystemDictEntity">
         <result column="type_code" jdbcType="VARCHAR" property="typeCode"/>
         <result column="type_name" jdbcType="VARCHAR" property="typeName"/>
@@ -23,6 +23,6 @@
         select
         <include refid="sysDictColumns"/>
         from `system`.sys_dict t
-        where type_code = #{typeCode,jdbcType=VARCHAR};
+        where type_code = #{typeCode,jdbcType=VARCHAR} limit 1;
     </select>
 </mapper>

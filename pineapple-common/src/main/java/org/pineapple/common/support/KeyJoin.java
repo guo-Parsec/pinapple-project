@@ -1,5 +1,6 @@
 package org.pineapple.common.support;
 
+import org.pineapple.common.NameInterface;
 import org.pineapple.common.enums.KeyCase;
 
 import java.util.List;
@@ -10,18 +11,7 @@ import java.util.List;
  * @author guocq
  * @since 2023/3/15
  */
-public interface KeyJoin {
-    /**
-     * <p>键拼接名称</p>
-     *
-     * @return {@link java.lang.String }
-     * @author guocq
-     * @date 2023/3/15 9:28
-     */
-    default String name() {
-        return this.getClass().getSimpleName();
-    }
-
+public interface KeyJoin extends NameInterface {
     /**
      * <p>添加新的key</p>
      *

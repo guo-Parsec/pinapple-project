@@ -12,7 +12,7 @@ import java.util.Set;
  * @since 2023/2/8
  */
 @Repository
-public interface DictionaryRetrieve {
+public interface SystemDictRetrieve {
     /**
      * <p>根据数据字典类型码{@code typeCode}查询字典数据</p>
      *

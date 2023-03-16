@@ -1,23 +1,14 @@
 package org.pineapple.support.security;
 
+import org.pineapple.common.NameInterface;
+
 /**
  * <p>安全上下文</p>
  *
  * @author guocq
  * @since 2023/3/14
  */
-public interface SecurityContext {
-    /**
-     * <p>上下文名称</p>
-     *
-     * @return {@link java.lang.String }
-     * @author guocq
-     * @date 2023/3/14 15:44
-     */
-    default String name() {
-        return this.getClass().getSimpleName();
-    }
-
+public interface SecurityContext extends NameInterface {
     /**
      * <p>销毁上下文</p>
      *
