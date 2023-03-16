@@ -1,6 +1,6 @@
 package org.pineapple.core.retrieve;
 
-import org.pineapple.common.define.DictionaryDefine;
+import org.pineapple.common.entity.SystemDictEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.Set;
@@ -21,5 +21,5 @@ public interface DictionaryRetrieve {
      * @author guocq
      * @date 2023/2/8 13:41
      */
-    Set<DictionaryDefine> findDictionaryByType(String typeCode);
+    Set<SystemDictEntity> findDictionaryByType(String typeCode);
 }

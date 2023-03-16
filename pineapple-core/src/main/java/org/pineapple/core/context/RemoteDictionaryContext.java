@@ -3,7 +3,7 @@ package org.pineapple.core.context;
 import cn.hutool.core.util.StrUtil;
 import org.pineapple.common.annotations.Dictionary;
 import org.pineapple.common.context.AbstractDictionaryContext;
-import org.pineapple.common.define.DictionaryDefine;
+import org.pineapple.common.entity.SystemDictEntity;
 import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.core.facade.DictionaryFacade;
 import org.slf4j.Logger;
@@ -61,11 +61,11 @@ public class RemoteDictionaryContext extends AbstractDictionaryContext {
      * @date 2023/2/2 15:56
      */
     @Override
-    public String findValueAfterTranslate(String code, Integer value, Dictionary dictionary) {
+    public String findValueAfterTranslate(String code, String value, Dictionary dictionary) {
         if (StrUtil.isBlank(code) || value == null) {
             throw ErrorRecords.valid.record(log, "字典类型[code]和字典值[value]不能为空");
         }
-        DictionaryDefine singleDictionary = facade.findSingleDictionary(code, value);
-        return singleDictionary == null ? dictionary.defaultVal() : singleDictionary.getDisplay();
+        SystemDictEntity singleDictionary = facade.findSingleDictionary(code, value);
+        return singleDictionary == null ? dictionary.defaultVal() : singleDictionary.getDictName();
     }
 }

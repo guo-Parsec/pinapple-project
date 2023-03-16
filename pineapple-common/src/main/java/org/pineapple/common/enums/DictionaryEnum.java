@@ -6,5 +6,5 @@ package org.pineapple.common.enums;
  * @author guocq
  * @since 2023/2/2
  */
-public interface DictionaryEnum extends BiEnumModel<Integer, String> {
+public interface DictionaryEnum extends BiEnumModel<String, String> {
 }

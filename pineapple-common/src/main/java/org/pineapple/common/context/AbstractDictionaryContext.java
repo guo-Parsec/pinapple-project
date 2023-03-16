@@ -44,7 +44,7 @@ public abstract class AbstractDictionaryContext implements DictionaryContext {
      * @author guocq
      * @date 2023/2/2 15:56
      */
-    public abstract String findValueAfterTranslate(String code, Integer value, Dictionary dictionary);
+    public abstract String findValueAfterTranslate(String code, String value, Dictionary dictionary);
 
     /**
      * <p>对目标类中的字段进行数据字典转义</p>
@@ -89,9 +89,9 @@ public abstract class AbstractDictionaryContext implements DictionaryContext {
         dictionaryReference.set(field.getAnnotation(Dictionary.class));
         String fieldName = dictionaryReference.get().fieldName();
         Object rawDictValue = ReflectUtil.getFieldValue(target, fieldName);
-        int dictValue;
+        String dictValue;
         try {
-            dictValue = Integer.parseInt(StrUtil.toStringOrNull(rawDictValue));
+            dictValue = StrUtil.toStringOrNull(rawDictValue);
         } catch (Exception e) {
             log.warn("目标对象{}的属性[{}]值[{}]转化为Integer类型失败", target, field.getName(), rawDictValue);
             return;

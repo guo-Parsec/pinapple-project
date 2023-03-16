@@ -1,4 +1,4 @@
-package org.pineapple.common.define;
+package org.pineapple.common.entity;
 
 import com.google.common.base.Objects;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.util.StringJoiner;
  */
 @Setter
 @Getter
-public class DictionaryDefine extends AbstractDomainModel {
+public class SystemDictEntity extends AbstractDomainModel {
     private static final long serialVersionUID = 3609974062302364509L;
 
     /**
@@ -29,19 +29,19 @@ public class DictionaryDefine extends AbstractDomainModel {
     private String typeName;
 
     /**
-     * 数据字典值
+     * 数据字典编码
      */
-    private Integer dictVal;
+    private String dictCode;
 
     /**
-     * 数据字典显示名称
+     * 数据字典名称
      */
-    private String display;
+    private String dictName;
 
     /**
      * 数据字典排序
      */
-    private Integer sort;
+    private Integer dictSort;
 
     @Override
     public boolean equals(Object o) {
@@ -51,21 +51,23 @@ public class DictionaryDefine extends AbstractDomainModel {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        DictionaryDefine that = (DictionaryDefine) o;
-        return Objects.equal(typeCode, that.typeCode) && Objects.equal(dictVal, that.dictVal);
+        SystemDictEntity that = (SystemDictEntity) o;
+        return Objects.equal(typeCode, that.typeCode) && Objects.equal(dictCode, that.dictCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(typeCode, dictVal);
+        return Objects.hashCode(typeCode, dictCode);
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", DictionaryDefine.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", SystemDictEntity.class.getSimpleName() + "[", "]")
                 .add("typeCode='" + typeCode + "'")
-                .add("dictVal=" + dictVal)
-                .add("display='" + display + "'")
+                .add("typeName='" + typeName + "'")
+                .add("dictCode='" + dictCode + "'")
+                .add("dictName='" + dictName + "'")
+                .add("dictSort=" + dictSort)
                 .toString();
     }
 }

@@ -55,10 +55,12 @@ public class LocalDictionaryContext extends AbstractDictionaryContext {
      * @date 2023/2/2 15:56
      */
     @Override
-    public String findValueAfterTranslate(String code, Integer value, Dictionary dictionary) {
+    public String findValueAfterTranslate(String code, String value, Dictionary dictionary) {
         Class<? extends DictionaryEnum> localEnums = dictionary.localEnums();
         Set<? extends DictionaryEnum> dictionaryEnums = Sets.newHashSet(localEnums.getEnumConstants());
-        Optional<String> dictNameOptional = dictionaryEnums.stream().filter(ele -> ele.getCode().equals(value)).map(BiEnumModel::getDesc).findFirst();
+        Optional<String> dictNameOptional = dictionaryEnums.stream()
+                .filter(ele -> ele.getCode().equals(value))
+                .map(BiEnumModel::getDesc).findFirst();
         return dictNameOptional.orElse(dictionary.defaultVal());
     }
 }

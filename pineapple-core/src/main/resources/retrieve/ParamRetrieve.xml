@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.pineapple.core.retrieve.ParamRetrieve">
+    <resultMap id="paramResultMap" type="org.pineapple.common.entity.SystemParamEntity">
+        <result column="group_code" jdbcType="VARCHAR" property="groupCode"/>
+        <result column="param_code" jdbcType="VARCHAR" property="paramCode"/>
+        <result column="param_name" jdbcType="VARCHAR" property="paramName"/>
+        <result column="param_desc" jdbcType="VARCHAR" property="paramDesc"/>
+        <result column="param_sort" jdbcType="INTEGER" property="paramSort"/>
+        <result column="param_value" jdbcType="VARCHAR" property="paramValue"/>
+    </resultMap>
+
+    <sql id="sysParamColumns">
+        <!--@sql select -->
+        t.group_code,
+        t.param_code,
+        t.param_name,
+        t.param_desc,
+        t.param_sort,
+        t.param_value
+        <!--@sql from `system`.sys_param t -->
+    </sql>
+
+    <select id="findParamByParamCode" parameterType="string" resultMap="paramResultMap">
+        select
+        <include refid="sysParamColumns"/>
+        from `system`.sys_param t
+        where t.param_code = #{paramCode,jdbcType=VARCHAR}
+        order by t.param_sort;
+    </select>
+</mapper>

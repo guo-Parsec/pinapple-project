@@ -1,7 +1,7 @@
 package org.pineapple.core.facade.impl;
 
 import cn.hutool.core.util.ObjectUtil;
-import org.pineapple.common.define.DictionaryDefine;
+import org.pineapple.common.entity.SystemDictEntity;
 import org.pineapple.core.facade.DictionaryFacade;
 import org.pineapple.core.retrieve.DictionaryRetrieve;
 import org.springframework.stereotype.Component;
@@ -27,16 +27,16 @@ public class DictionaryFacadeImpl implements DictionaryFacade {
      * <p>根据{@code typeCode}和{@code dictVal}查询单条数据字典数据</p>
      *
      * @param typeCode 数据字典类型码
-     * @param dictVal  数据字典值
-     * @return {@link DictionaryDefine }
+     * @param dictCode 数据字典值
+     * @return {@link SystemDictEntity }
      * @author guocq
      * @date 2023/2/8 14:30
      */
     @Override
-    public DictionaryDefine findSingleDictionary(String typeCode, Integer dictVal) {
-        Set<DictionaryDefine> dictionaryDefineSet = retrieve.findDictionaryByType(typeCode);
-        Optional<DictionaryDefine> optional = dictionaryDefineSet.stream()
-                .filter(dictionaryEntity -> ObjectUtil.equals(dictVal, dictionaryEntity.getDictVal()))
+    public SystemDictEntity findSingleDictionary(String typeCode, String dictCode) {
+        Set<SystemDictEntity> systemDictEntitySet = retrieve.findDictionaryByType(typeCode);
+        Optional<SystemDictEntity> optional = systemDictEntitySet.stream()
+                .filter(dictionaryEntity -> ObjectUtil.equals(dictCode, dictionaryEntity.getDictCode()))
                 .findFirst();
         return optional.orElse(null);
     }
