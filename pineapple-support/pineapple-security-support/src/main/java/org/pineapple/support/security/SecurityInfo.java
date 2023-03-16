@@ -65,15 +65,9 @@ public class SecurityInfo implements Serializable {
             this.online = false;
             return;
         }
-        if (SecurityUtil.isSecuritySignatureEmpty(this.detailsInfoValue)) {
-            this.hasTokenInfo = true;
-            this.hasDetailsInfo = false;
-            this.online = false;
-            return;
-        }
         this.hasTokenInfo = true;
-        this.hasDetailsInfo = true;
         this.online = true;
+        this.hasDetailsInfo = !SecurityUtil.isSecuritySignatureEmpty(this.detailsInfoValue);
     }
 
     @Override

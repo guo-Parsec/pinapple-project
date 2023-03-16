@@ -35,7 +35,7 @@ public class DefaultSecurityService implements SecurityService {
      */
     @Override
     public SecuritySignature login(String loginId, String rawPassword) {
-        log.info("用户[loginId={}]尝试登录系统", loginId);
+        log.trace("用户[loginId={}]尝试登录系统", loginId);
         if (StrUtil.isBlank(loginId)) {
             throw ErrorRecords.valid.record(log, "用户[loginId={}]登录系统失败,原因:userId不能为空", loginId);
         }
