@@ -2,6 +2,7 @@ package org.pineapple.common.strategy;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import org.pineapple.common.constant.BeanNameDefineConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author guocq
  * @since 2023/3/16
  */
-@Component(value = "md5Crypto")
+@Component(BeanNameDefineConstant.MD5_CRYPTO)
 public class Md5Crypto extends AbstractCryptStrategy {
     private static final Logger log = LoggerFactory.getLogger(Md5Crypto.class);
 

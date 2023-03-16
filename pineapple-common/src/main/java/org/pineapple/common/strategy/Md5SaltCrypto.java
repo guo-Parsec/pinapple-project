@@ -5,6 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestAlgorithm;
 import cn.hutool.crypto.digest.Digester;
+import org.pineapple.common.constant.BeanNameDefineConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ import java.util.Map;
  * @author guocq
  * @since 2023/3/16
  */
-@Component(value = "md5SaltCrypto")
+@Component(BeanNameDefineConstant.MD5_SALT_CRYPTO)
 public class Md5SaltCrypto extends AbstractCryptStrategy {
     private static final Logger log = LoggerFactory.getLogger(Md5SaltCrypto.class);
 

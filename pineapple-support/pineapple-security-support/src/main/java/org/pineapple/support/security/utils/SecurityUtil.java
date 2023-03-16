@@ -6,7 +6,7 @@ import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.common.support.BasicRedisKeyJoin;
 import org.pineapple.common.utils.RequestUtil;
 import org.pineapple.common.utils.SerialNumberUtil;
-import org.pineapple.support.security.SecuritySignature;
+import org.pineapple.support.security.entity.SecuritySignature;
 import org.pineapple.support.security.contant.SecurityCommonConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

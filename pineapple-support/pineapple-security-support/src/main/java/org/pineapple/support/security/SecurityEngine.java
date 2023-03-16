@@ -3,6 +3,8 @@ package org.pineapple.support.security;
 import cn.hutool.core.util.StrUtil;
 import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.common.utils.RedisUtil;
+import org.pineapple.support.security.entity.SecurityInfo;
+import org.pineapple.support.security.entity.SecuritySignature;
 import org.pineapple.support.security.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +63,7 @@ public class SecurityEngine {
      * <p>根据登录凭证获取安全信息</p>
      *
      * @param loginId 登录凭证
-     * @return {@link org.pineapple.support.security.SecurityInfo }
+     * @return {@link SecurityInfo }
      * @author guocq
      * @date 2023/3/15 17:27
      */

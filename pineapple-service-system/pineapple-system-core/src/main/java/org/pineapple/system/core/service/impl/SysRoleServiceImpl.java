@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
  * @author guocq
  * @since 2023-03-13
  */
-@Service
+@Service("sysRoleService")
 public class SysRoleServiceImpl implements SysRoleService {
-
 }

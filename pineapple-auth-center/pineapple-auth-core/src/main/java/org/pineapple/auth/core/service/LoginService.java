@@ -1,6 +1,6 @@
 package org.pineapple.auth.core.service;
 
-import org.pineapple.support.security.SecuritySignature;
+import org.pineapple.support.security.entity.SecuritySignature;
 
 /**
  * <p>登录业务类</p>

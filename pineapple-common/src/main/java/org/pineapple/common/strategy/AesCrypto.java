@@ -7,6 +7,7 @@ import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.symmetric.AES;
 import org.pineapple.common.AesProp;
+import org.pineapple.common.constant.BeanNameDefineConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ import java.util.Optional;
  * @author guocq
  * @since 2023/3/16
  */
-@Component(value = "aesCrypto")
+@Component(BeanNameDefineConstant.AES_CRYPTO)
 public class AesCrypto extends AbstractCryptStrategy {
     private static final Logger log = LoggerFactory.getLogger(AesCrypto.class);
 

@@ -2,7 +2,7 @@ package org.pineapple.auth.core.service.impl;
 
 import org.pineapple.auth.core.service.LoginService;
 import org.pineapple.support.security.SecurityService;
-import org.pineapple.support.security.SecuritySignature;
+import org.pineapple.support.security.entity.SecuritySignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

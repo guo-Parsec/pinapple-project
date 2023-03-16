@@ -1,6 +1,7 @@
 package org.pineapple.support.security;
 
 import org.pineapple.common.NameInterface;
+import org.pineapple.support.security.entity.SecuritySignature;
 
 /**
  * <p>安全上下文</p>
@@ -29,7 +30,7 @@ public interface SecurityContext extends NameInterface {
     /**
      * <p>安全上下文初始化</p>
      *
-     * @return {@link org.pineapple.support.security.SecuritySignature }
+     * @return {@link SecuritySignature }
      * @author guocq
      * @date 2023/3/14 15:39
      */

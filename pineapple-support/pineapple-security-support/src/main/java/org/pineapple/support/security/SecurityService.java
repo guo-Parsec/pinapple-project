@@ -1,5 +1,7 @@
 package org.pineapple.support.security;
 
+import org.pineapple.support.security.entity.SecuritySignature;
+
 /**
  * <p>安全业务接口</p>
  *
@@ -12,7 +14,7 @@ public interface SecurityService {
      *
      * @param loginId     登录凭证
      * @param rawPassword 原始密码
-     * @return {@link org.pineapple.support.security.SecuritySignature } 安全签名
+     * @return {@link SecuritySignature } 安全签名
      * @author guocq
      * @date 2023/3/15 15:04
      */
@@ -21,7 +23,7 @@ public interface SecurityService {
     /**
      * <p>获取安全签名信息</p>
      *
-     * @return {@link org.pineapple.support.security.SecuritySignature } 安全签名
+     * @return {@link SecuritySignature } 安全签名
      * @author guocq
      * @date 2023/3/15 15:05
      */
@@ -31,7 +33,7 @@ public interface SecurityService {
      * <p>从令牌文本中获取安全签名</p>
      *
      * @param tokenText 令牌文本
-     * @return {@link org.pineapple.support.security.SecuritySignature } 安全签名
+     * @return {@link SecuritySignature } 安全签名
      * @author guocq
      * @date 2023/3/15 15:06
      */
@@ -41,7 +43,7 @@ public interface SecurityService {
      * <p>根据令牌id获取安全签名</p>
      *
      * @param tokenId 令牌id
-     * @return {@link org.pineapple.support.security.SecuritySignature }
+     * @return {@link SecuritySignature }
      * @author guocq
      * @date 2023/3/15 16:37
      */

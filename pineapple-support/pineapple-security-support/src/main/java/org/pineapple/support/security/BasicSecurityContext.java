@@ -1,6 +1,7 @@
 package org.pineapple.support.security;
 
 import org.pineapple.common.utils.ErrorUtil;
+import org.pineapple.support.security.entity.SecuritySignature;
 import org.pineapple.support.security.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

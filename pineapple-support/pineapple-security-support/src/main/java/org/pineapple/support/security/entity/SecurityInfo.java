@@ -1,4 +1,4 @@
-package org.pineapple.support.security;
+package org.pineapple.support.security.entity;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.Getter;

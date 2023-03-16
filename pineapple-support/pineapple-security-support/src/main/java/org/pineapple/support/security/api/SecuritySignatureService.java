@@ -1,4 +1,6 @@
-package org.pineapple.support.security;
+package org.pineapple.support.security.api;
+
+import org.pineapple.support.security.entity.SecuritySignature;
 
 /**
  * <p>安全签名业务类</p>
@@ -12,7 +14,7 @@ public interface SecuritySignatureService {
      *
      * @param loginId     登录凭证
      * @param rawPassword 原始密码
-     * @return {@link org.pineapple.support.security.SecuritySignature }
+     * @return {@link SecuritySignature }
      * @author guocq
      * @date 2023/3/15 15:18
      */
