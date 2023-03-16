@@ -14,4 +14,11 @@
     <artifactId>pineapple-cache-support</artifactId>
     <packaging>jar</packaging>
     <description>pineapple缓存支持</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+    </dependencies>
 </project>

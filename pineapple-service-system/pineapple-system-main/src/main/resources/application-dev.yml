@@ -1,4 +1,10 @@
 spring:
+  cache:
+    type: redis
+    redis:
+      cache-null-values: false
+      key-prefix: pineapple:cache
+      time-to-live: PT4H
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://127.0.0.1/pineapple?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true&allowPublicKeyRetrieval=true
@@ -86,3 +92,8 @@ error:
   enable-print-stack-trace: true
   print-stack-trace-package: org.pineapple
   exclude-error-records: true
+crypto:
+  aes:
+    key: a1e92t273h480e5r
+    mode: ecb
+    padding: pkcs5padding

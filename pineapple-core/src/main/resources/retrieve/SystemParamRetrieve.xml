@@ -18,13 +18,13 @@
         t.param_desc,
         t.param_sort,
         t.param_value
-        <!--@sql from `system`.sys_param t -->
+        <!--@sql from "system".sys_param t -->
     </sql>
 
     <select id="findParamByParamCode" parameterType="string" resultMap="paramResultMap">
         select
         <include refid="sysParamColumns"/>
-        from `system`.sys_param t
+        from "system".sys_param t
         where t.param_code = #{paramCode,jdbcType=VARCHAR}
         order by t.param_sort;
     </select>

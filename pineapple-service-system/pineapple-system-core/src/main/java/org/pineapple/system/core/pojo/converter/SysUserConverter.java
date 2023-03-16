@@ -2,6 +2,8 @@ package org.pineapple.system.core.pojo.converter;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.StrUtil;
+import org.pineapple.common.context.DictionaryContext;
+import org.pineapple.core.context.DictionaryContextBuilder;
 import org.pineapple.system.api.vo.SysUserVo;
 import org.pineapple.system.core.pojo.entity.SysUser;
 import org.slf4j.Logger;
@@ -38,10 +40,13 @@ public class SysUserConverter {
         vo.setFirstName(sysUser.getFirstName());
         vo.setAvatarUrl(sysUser.getAvatarUrl());
         vo.setSexCode(sysUser.getSexCode());
+        vo.setUserType(sysUser.getUserType());
         vo.setUserStatus(sysUser.getUserStatus());
         vo.setBirthday(LocalDateTimeUtil.formatNormal(sysUser.getBirthday()));
         vo.setAddTime(LocalDateTimeUtil.formatNormal(sysUser.getAddTime()));
         vo.setEditTime(LocalDateTimeUtil.formatNormal(sysUser.getEditTime()));
+        DictionaryContext context = DictionaryContextBuilder.build();
+        context.translate(vo);
         return vo;
     }
 }

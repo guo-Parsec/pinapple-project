@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.pineapple.common.BaseVo;
+import org.pineapple.common.annotations.Dictionary;
 
 import java.util.StringJoiner;
 
@@ -42,11 +43,23 @@ public class SysUserVo extends BaseVo {
     @ApiModelProperty(value = "用户性别")
     private String sexCode;
 
+    @Dictionary(code = "sex_code",fieldName = "sexCode")
+    @ApiModelProperty(value = "用户性别字典值")
+    private String sexCodeName;
+
     @ApiModelProperty(value = "用户类型")
     private String userType;
 
+    @Dictionary(code = "user_type",fieldName = "userType")
+    @ApiModelProperty(value = "用户类型字典值")
+    private String userTypeName;
+
     @ApiModelProperty(value = "用户状态")
     private String userStatus;
+
+    @Dictionary(code = "user_status",fieldName = "userStatus")
+    @ApiModelProperty(value = "用户状态字典值")
+    private String userStatusName;
 
     @ApiModelProperty(value = "用户出生日期")
     private String birthday;

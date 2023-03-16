@@ -16,13 +16,13 @@
         t.dict_code,
         t.dict_name,
         t.dict_sort
-        <!--@sql from `system`.sys_dict t -->
+        <!--@sql from "system".sys_dict t -->
     </sql>
 
     <select id="findDictionaryByType" parameterType="string" resultMap="dictionaryResultMap">
         select
         <include refid="sysDictColumns"/>
-        from `system`.sys_dict t
-        where type_code = #{typeCode,jdbcType=VARCHAR} limit 1;
+        from "system".sys_dict t
+        where type_code = #{typeCode,jdbcType=VARCHAR};
     </select>
 </mapper>

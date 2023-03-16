@@ -8,6 +8,8 @@ import org.pineapple.core.facade.SystemParamFacade;
 import org.pineapple.core.retrieve.SystemParamRetrieve;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,9 +23,10 @@ import org.springframework.stereotype.Component;
 public class SystemParamFacadeImpl implements SystemParamFacade {
     private static final Logger log = LoggerFactory.getLogger(SystemParamFacadeImpl.class);
 
-    private final SystemParamRetrieve systemParamRetrieve;
+    private SystemParamRetrieve systemParamRetrieve;
 
-    public SystemParamFacadeImpl(SystemParamRetrieve systemParamRetrieve) {
+    @Autowired
+    public void setSystemParamRetrieve(SystemParamRetrieve systemParamRetrieve) {
         this.systemParamRetrieve = systemParamRetrieve;
     }
 
@@ -35,8 +38,9 @@ public class SystemParamFacadeImpl implements SystemParamFacade {
      * @author guocq
      * @date 2023/3/16 11:54
      */
-    @Valid(notBlank = @NotBlank(value = "#paramCode", message = "参数编码不能为空"))
     @Override
+    @Valid(notBlank = @NotBlank(value = "#paramCode", message = "参数编码不能为空"))
+    @Cacheable(cacheNames = {"system_param_entity_single"}, key = "'param_code_' + #paramCode")
     public SystemParamEntity findParamByParamCode(String paramCode) {
         log.debug("根据参数编码[paramCode={}]获取系统参数开始", paramCode);
         SystemParamEntity systemParamEntity = systemParamRetrieve.findParamByParamCode(paramCode);
