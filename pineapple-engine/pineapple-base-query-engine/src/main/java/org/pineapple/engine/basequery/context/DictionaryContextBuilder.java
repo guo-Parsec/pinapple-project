@@ -1,11 +1,9 @@
-package org.pineapple.core.context;
+package org.pineapple.engine.basequery.context;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.collect.Maps;
 import org.pineapple.common.constant.BeanNameDefineConstant;
-import org.pineapple.engine.basequery.context.DictionaryContext;
-import org.pineapple.engine.basequery.context.LocalDictionaryContext;
 import org.pineapple.common.error.ErrorRecords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 
 /**
- * <p>数据字典</p>
+ * <p>数据字典上下文构建器</p>
  *
  * @author guocq
  * @since 2023/2/8

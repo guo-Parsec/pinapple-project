@@ -1,8 +1,7 @@
-package org.pineapple.core.context;
+package org.pineapple.engine.basequery.context;
 
 import cn.hutool.core.util.StrUtil;
 import org.pineapple.common.annotations.Dictionary;
-import org.pineapple.engine.basequery.context.AbstractDictionaryContext;
 import org.pineapple.engine.basequery.entity.SystemDictEntity;
 import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.engine.basequery.facade.SystemDictFacade;

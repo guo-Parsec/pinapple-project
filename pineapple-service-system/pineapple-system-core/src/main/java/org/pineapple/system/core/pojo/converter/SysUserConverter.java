@@ -2,11 +2,14 @@ package org.pineapple.system.core.pojo.converter;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.StrUtil;
-import org.pineapple.core.context.DictionaryContextBuilder;
+import org.pineapple.common.constant.BeanNameDefineConstant;
+import org.pineapple.engine.basequery.annotations.DictConverter;
+import org.pineapple.engine.basequery.annotations.DictTranslate;
 import org.pineapple.system.api.vo.SysUserVo;
 import org.pineapple.system.core.pojo.entity.SysUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>系统用户转换类</p>
@@ -14,6 +17,8 @@ import org.slf4j.LoggerFactory;
  * @author guocq
  * @since 2023/3/14
  */
+@DictConverter
+@Component("sysUserConverter")
 public class SysUserConverter {
     private static final Logger log = LoggerFactory.getLogger(SysUserConverter.class);
 
@@ -25,6 +30,7 @@ public class SysUserConverter {
      * @author guocq
      * @date 2023/3/14 11:17
      */
+    @DictTranslate(context = BeanNameDefineConstant.REMOTE_DICTIONARY_CONTEXT)
     public static SysUserVo entityToVo(SysUser sysUser) {
         if (sysUser == null) {
             log.debug("SysUser转SysUserVo时, sysUser为null");
@@ -44,7 +50,7 @@ public class SysUserConverter {
         vo.setBirthday(LocalDateTimeUtil.formatNormal(sysUser.getBirthday()));
         vo.setAddTime(LocalDateTimeUtil.formatNormal(sysUser.getAddTime()));
         vo.setEditTime(LocalDateTimeUtil.formatNormal(sysUser.getEditTime()));
-        DictionaryContextBuilder.build().translate(vo);
+//        DictionaryContextBuilder.build().translate(vo);
         return vo;
     }
 }
