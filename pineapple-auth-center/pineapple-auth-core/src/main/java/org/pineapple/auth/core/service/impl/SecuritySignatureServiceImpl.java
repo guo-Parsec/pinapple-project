@@ -5,15 +5,15 @@ import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.collect.Maps;
 import org.pineapple.auth.core.SecurityResultEnum;
 import org.pineapple.common.constant.BeanNameDefineConstant;
-import org.pineapple.common.entity.SystemParamEntity;
+import org.pineapple.engine.basequery.entity.SystemParamEntity;
 import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.common.strategy.CryptoStrategy;
 import org.pineapple.common.strategy.Md5SaltCrypto;
 import org.pineapple.common.uniforms.UniformResultTool;
 import org.pineapple.core.constant.SystemParamConstant;
-import org.pineapple.core.facade.SystemParamFacade;
-import org.pineapple.support.security.entity.SecuritySignature;
-import org.pineapple.support.security.api.SecuritySignatureService;
+import org.pineapple.engine.basequery.facade.SystemParamFacade;
+import org.pineapple.engine.security.entity.SecuritySignature;
+import org.pineapple.engine.security.api.SecuritySignatureService;
 import org.pineapple.system.api.SysUserClient;
 import org.pineapple.system.api.vo.SysUserVo;
 import org.slf4j.Logger;
@@ -55,15 +55,15 @@ public class SecuritySignatureServiceImpl implements SecuritySignatureService {
      * @date 2023/3/16 14:53
      */
     @PostConstruct
-    private void findCryptoStrategy() {
+    public void findCryptoStrategy() {
         SystemParamEntity systemParamEntity = systemParamFacade.findParamByParamCode(SystemParamConstant.PARAM_CODE_USER_PASSWORD_CRYPTO_STRATEGY);
         if (systemParamEntity == null || StrUtil.isBlank(systemParamEntity.getParamValue())) {
             log.debug("加解密策略采用[cryptoStrategy={}]", defaultCryptoStrategy.name());
             this.defaultCryptoStrategy = SpringUtil.getBean(BeanNameDefineConstant.MD5_SALT_CRYPTO, CryptoStrategy.class);
             return;
         }
-        CryptoStrategy cryptoStrategy = SpringUtil.getBean(systemParamEntity.getParamValue(), CryptoStrategy.class);
-        log.debug("加解密策略采用[cryptoStrategy={}]", cryptoStrategy.name());
+        this.defaultCryptoStrategy = SpringUtil.getBean(systemParamEntity.getParamValue(), CryptoStrategy.class);
+        log.debug("加解密策略采用[cryptoStrategy={}]", this.defaultCryptoStrategy.name());
     }
 
     /**

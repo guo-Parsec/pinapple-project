@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.pineapple.common.DomainModel;
-import org.pineapple.common.context.DictionaryContext;
+import org.pineapple.engine.basequery.context.DictionaryContext;
 import org.pineapple.common.utils.CastUtil;
 import org.pineapple.support.aspect.annotations.DictionaryTranslateMethod;
 import org.springframework.stereotype.Component;

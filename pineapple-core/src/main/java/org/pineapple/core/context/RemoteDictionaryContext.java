@@ -2,10 +2,10 @@ package org.pineapple.core.context;
 
 import cn.hutool.core.util.StrUtil;
 import org.pineapple.common.annotations.Dictionary;
-import org.pineapple.common.context.AbstractDictionaryContext;
-import org.pineapple.common.entity.SystemDictEntity;
+import org.pineapple.engine.basequery.context.AbstractDictionaryContext;
+import org.pineapple.engine.basequery.entity.SystemDictEntity;
 import org.pineapple.common.error.ErrorRecords;
-import org.pineapple.core.facade.SystemDictFacade;
+import org.pineapple.engine.basequery.facade.SystemDictFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

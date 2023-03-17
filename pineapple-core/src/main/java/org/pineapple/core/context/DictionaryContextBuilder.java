@@ -4,8 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.collect.Maps;
 import org.pineapple.common.constant.BeanNameDefineConstant;
-import org.pineapple.common.context.DictionaryContext;
-import org.pineapple.common.context.LocalDictionaryContext;
+import org.pineapple.engine.basequery.context.DictionaryContext;
+import org.pineapple.engine.basequery.context.LocalDictionaryContext;
 import org.pineapple.common.error.ErrorRecords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class DictionaryContextBuilder {
     /**
      * <p>构建{@link DictionaryContext},默认采用{@link RemoteDictionaryContext}</p>
      *
-     * @return {@link org.pineapple.common.context.DictionaryContext }
+     * @return {@link org.pineapple.engine.basequery.context.DictionaryContext }
      * @author guocq
      * @date 2023/2/8 14:56
      */
@@ -46,7 +46,7 @@ public class DictionaryContextBuilder {
      * <p>构建{@link DictionaryContext},默认采用{@link RemoteDictionaryContext}</p>
      *
      * @param contextName 上下文名称
-     * @return {@link org.pineapple.common.context.DictionaryContext }
+     * @return {@link org.pineapple.engine.basequery.context.DictionaryContext }
      * @author guocq
      * @date 2023/2/8 14:56
      */
@@ -62,7 +62,7 @@ public class DictionaryContextBuilder {
      * <p>构建{@link DictionaryContext}</p>
      *
      * @param contextClass 指定上下文类行
-     * @return {@link org.pineapple.common.context.DictionaryContext }
+     * @return {@link org.pineapple.engine.basequery.context.DictionaryContext }
      * @author guocq
      * @date 2023/2/8 14:56
      */

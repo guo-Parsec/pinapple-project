@@ -187,22 +187,22 @@
                 <artifactId>pineapple-flow-support</artifactId>
                 <version>${pineapple-project.version}</version>
             </dependency>
-            <!-- 流程支持模块 -->
-            <dependency>
-                <groupId>org.pineapple</groupId>
-                <artifactId>pineapple-security-support</artifactId>
-                <version>${pineapple-project.version}</version>
-            </dependency>
             <!-- 核心模块 -->
             <dependency>
                 <groupId>org.pineapple</groupId>
                 <artifactId>pineapple-core</artifactId>
                 <version>${pineapple-project.version}</version>
             </dependency>
-            <!-- 查询引擎支持 -->
+            <!-- 安全引擎支持 -->
             <dependency>
                 <groupId>org.pineapple</groupId>
-                <artifactId>pineapple-query-engine</artifactId>
+                <artifactId>pineapple-security-engine</artifactId>
+                <version>${pineapple-project.version}</version>
+            </dependency>
+            <!-- 基础查询引擎支持 -->
+            <dependency>
+                <groupId>org.pineapple</groupId>
+                <artifactId>pineapple-base-query-engine</artifactId>
                 <version>${pineapple-project.version}</version>
             </dependency>
             <!-- 系统API模块 -->

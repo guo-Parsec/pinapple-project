@@ -16,7 +16,8 @@ import org.springframework.context.annotation.ComponentScan;
         "org.pineapple.common",
         "org.pineapple.support",
         "org.pineapple.core",
-        "org.pineapple.auth"
+        "org.pineapple.auth",
+        "org.pineapple.engine"
 })
 @EnableFeignClients(basePackages = {"org.pineapple.**.api"})
 @EnableDiscoveryClient

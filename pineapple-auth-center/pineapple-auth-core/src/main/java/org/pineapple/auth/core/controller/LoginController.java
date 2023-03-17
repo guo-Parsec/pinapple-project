@@ -6,7 +6,7 @@ import org.pineapple.auth.api.AuthWebApiDefineConstant;
 import org.pineapple.auth.core.service.LoginService;
 import org.pineapple.common.uniforms.UniformResultDefinition;
 import org.pineapple.common.uniforms.UniformResultTool;
-import org.pineapple.support.security.entity.SecuritySignature;
+import org.pineapple.engine.security.entity.SecuritySignature;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
