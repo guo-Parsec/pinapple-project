@@ -3,13 +3,18 @@ package org.pineapple.engine.security;
 import cn.hutool.core.util.StrUtil;
 import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.common.utils.RedisUtil;
+import org.pineapple.engine.basequery.entity.SystemParamEntity;
+import org.pineapple.engine.basequery.facade.SystemParamFacade;
+import org.pineapple.engine.security.contant.SystemParamConstant;
 import org.pineapple.engine.security.entity.SecurityInfo;
 import org.pineapple.engine.security.entity.SecuritySignature;
 import org.pineapple.engine.security.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -24,8 +29,15 @@ public class SecurityEngine {
 
     private final RedisUtil redisUtil;
 
+    private SystemParamFacade systemParamFacade;
+
     public SecurityEngine(RedisUtil redisUtil) {
         this.redisUtil = redisUtil;
+    }
+
+    @Autowired
+    public void setSystemParamFacade(SystemParamFacade systemParamFacade) {
+        this.systemParamFacade = systemParamFacade;
     }
 
     /**
@@ -153,9 +165,22 @@ public class SecurityEngine {
         }
         String securityTokenKey = SecurityUtil.generateSecurityTokenKey(tokenId);
         String securityUserKey = SecurityUtil.generateSecurityUserKey(loginId);
-        long defaultTokenExpireTime = 6L;
+        long defaultTokenExpireTime = this.findTokenExpireTime();
         redisUtil.set(securityUserKey, signature, defaultTokenExpireTime, TimeUnit.HOURS);
         redisUtil.set(securityTokenKey, securityUserKey, defaultTokenExpireTime, TimeUnit.HOURS);
         log.trace("根据签名[signature={}]存储登录信息成功", signature);
+    }
+
+    /**
+     * <p>获取过期时间</p>
+     *
+     * @return {@link java.lang.Long }
+     * @author guocq
+     * @date 2023/3/17 9:48
+     */
+    private Long findTokenExpireTime() {
+        SystemParamEntity systemParamEntity = systemParamFacade.findParamByParamCode(SystemParamConstant.PARAM_CODE_TOKEN_EXPIRE_TIME_HOUR);
+        String tokenExpireTimeString = Optional.ofNullable(systemParamEntity).map(SystemParamEntity::getParamValue).orElse("6");
+        return Long.valueOf(tokenExpireTimeString);
     }
 }
