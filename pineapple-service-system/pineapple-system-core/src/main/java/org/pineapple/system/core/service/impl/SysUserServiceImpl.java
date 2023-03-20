@@ -30,6 +30,9 @@ public class SysUserServiceImpl implements SysUserService {
     @Resource
     private SysUserMapper sysUserMapper;
 
+    @Resource
+    private SysUserConverter converter;
+
     /**
      * <p>加载系统用户</p>
      *
@@ -49,6 +52,6 @@ public class SysUserServiceImpl implements SysUserService {
         if (sysUser == null) {
             log.debug("根据登录凭证[loginId={}]加载用户不存在", loginId);
         }
-        return SysUserConverter.entityToVo(sysUser);
+        return converter.entityToVo(sysUser);
     }
 }

@@ -9,6 +9,7 @@ import java.lang.annotation.*;
  * @since 2023/3/17
  */
 @Documented
+@Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 public @interface DictConverter {
