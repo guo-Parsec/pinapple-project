@@ -4,4 +4,4 @@ server:
     context-path: /system
 spring:
   profiles:
-    active: dev
+    active: common,data,biz,log

@@ -1,0 +1,30 @@
+id:
+  snowflake:
+    # 雪花算法数据中心id
+    datacenter-id: 1
+    # 雪花算法机器id
+    machine-id: 1
+swagger:
+  # 是否开启swagger
+  enabled: true
+flow:
+  driver-class-name: org.postgresql.Driver
+  url: jdbc:postgresql://127.0.0.1/pineapple?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+  username: pineapple
+  password: 123456
+  schema: flow
+  db-schema-type: db_schema_update_false
+  activity-font-name: 宋体
+  label-font-name: 宋体
+  annotation-font-name: 宋体
+#flowable:
+#  async-executor-activate: false
+error:
+  enable-print-stack-trace: true
+  print-stack-trace-package: org.pineapple
+  exclude-error-records: true
+crypto:
+  aes:
+    key: a1e92t273h480e5r
+    mode: ecb
+    padding: pkcs5padding

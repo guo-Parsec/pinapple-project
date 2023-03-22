@@ -1,0 +1,37 @@
+swagger:
+  # 是否开启swagger
+  enabled: true
+error:
+  enable-print-stack-trace: true
+  print-stack-trace-package: org.pineapple
+  exclude-error-records: true
+crypto:
+  aes:
+    key: a1e92t273h480e5r
+    mode: ecb
+    padding: pkcs5padding
+pineapple:
+  gateway:
+    white:
+      urls:
+        - /security/**
+        - "/swagger-resources/**"
+        - "/swagger/**"
+        - /webjars/**
+        - /**/v2/**
+        - /**/v3/**
+        - /swagger-ui/**
+        - /swagger-ui.html/**
+        - /doc.html/**
+        - /favicon.ico
+        - /csrf
+        - "/"
+        - "/doc.html"
+        - "/swagger-resources/**"
+        - "/swagger/**"
+        - "/*/v2/api-docs"
+        - "/*/v3/api-docs"
+        - "/*/*.js"
+        - "/*/*.css"
+        - "/*/*.png"
+        - "/*/*.ico"
