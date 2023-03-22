@@ -49,11 +49,11 @@ public class BasicSecurityContext implements SecurityContext {
         log.info("安全上下文[{}]开始获取核心组件", this.name());
         SecuritySignature securitySignature = contextCore.get();
         if (SecurityUtil.isSecuritySignatureEmpty(securitySignature)) {
-            log.debug("安全上下文[{}]获取到的安全签名为空", this.name());
+            log.trace("安全上下文[{}]获取到的安全签名为空", this.name());
             try {
-                log.debug("安全上下文[{}]开始使用安全引擎重新获取安全签名", this.name());
+                log.trace("安全上下文[{}]开始使用安全引擎重新获取安全签名", this.name());
                 securitySignature = securityService.findSignature();
-                log.debug("安全上下文[{}]使用安全引擎重新获取安全签名成功, 安全签名为[securitySignature={}]", this.name(), securitySignature);
+                log.trace("安全上下文[{}]使用安全引擎重新获取安全签名成功, 安全签名为[securitySignature={}]", this.name(), securitySignature);
                 contextCore.set(securitySignature);
             } catch (Exception e) {
                 securitySignature = null;

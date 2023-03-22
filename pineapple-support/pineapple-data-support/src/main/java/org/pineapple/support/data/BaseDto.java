@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.pineapple.common.AbstractDto;
 import org.pineapple.common.valid.CurdValidateGroup;
+import org.pineapple.common.valid.FieldValidateResult;
 
 import javax.validation.constraints.NotNull;
 import java.util.StringJoiner;
@@ -25,6 +26,17 @@ public abstract class BaseDto extends AbstractDto {
      */
     @NotNull(message = "主键不能为空", groups = {CurdValidateGroup.Edit.class})
     protected Long id;
+
+    /**
+     * <p>校验结果</p>
+     *
+     * @return {@link org.pineapple.common.valid.FieldValidateResult }
+     * @author guocq
+     * @date 2023/3/21 13:48
+     */
+    public FieldValidateResult beforeCreateValidate() {
+        return FieldValidateResult.validateSuccess();
+    }
 
     @Override
     public boolean equals(Object o) {

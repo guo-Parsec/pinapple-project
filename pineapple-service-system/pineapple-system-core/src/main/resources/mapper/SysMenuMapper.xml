@@ -1,5 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.pineapple.system.core.mapper.SysMenuMapper">
+    <resultMap id="BaseResultMap" type="org.pineapple.system.core.pojo.entity.SysMenu">
+        <!--@mbg.generated-->
+        <!--@Table "system".sys_menu-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <result column="menu_code" jdbcType="VARCHAR" property="menuCode"/>
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName"/>
+        <result column="menu_title" jdbcType="VARCHAR" property="menuTitle"/>
+        <result column="menu_type" jdbcType="VARCHAR" property="menuType"/>
+        <result column="menu_icon" jdbcType="VARCHAR" property="menuIcon"/>
+        <result column="api_uri" jdbcType="VARCHAR" property="apiUri"/>
+        <result column="view_page_uri" jdbcType="VARCHAR" property="viewPageUri"/>
+        <result column="view_page_location" jdbcType="VARCHAR" property="viewPageLocation"/>
+        <result column="menu_sort" jdbcType="INTEGER" property="menuSort"/>
+        <result column="menu_desc" jdbcType="VARCHAR" property="menuDesc"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="edit_time" jdbcType="TIMESTAMP" property="editTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@sql select -->
+        t.id,
+        t.parent_id,
+        t.menu_code,
+        t.menu_name,
+        t.menu_title,
+        t.menu_type,
+        t.menu_icon,
+        t.api_uri,
+        t.view_page_uri,
+        t.view_page_location,
+        t.menu_sort,
+        t.menu_desc,
+        t.add_time,
+        t.edit_time
+        <!--@sql from "system".sys_menu t -->
+    </sql>
 
+    <select id="findMenuCodeByRoleId" resultType="java.lang.String">
+        select t.menu_code
+        from "system".sys_menu t
+        where t.id in (select menu_id
+                       from "system".sys_role_menu rm where rm.role_id in
+        <foreach collection="roleIdSet" open="(" close=")" separator="," item="roleId">
+            #{roleId,jdbcType=BIGINT}
+        </foreach>
+        )
+    </select>
 </mapper>

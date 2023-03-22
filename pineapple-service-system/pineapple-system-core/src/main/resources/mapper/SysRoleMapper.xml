@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.pineapple.system.core.mapper.SysRoleMapper">
+    <resultMap id="SysRoleResultMap" type="org.pineapple.system.core.pojo.entity.SysRole">
+        <!--@mbg.generated-->
+        <!--@Table "system".sys_role-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="role_code" jdbcType="VARCHAR" property="roleCode"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="role_sort" jdbcType="INTEGER" property="roleSort"/>
+        <result column="role_desc" jdbcType="VARCHAR" property="roleDesc"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="edit_time" jdbcType="TIMESTAMP" property="editTime"/>
+    </resultMap>
+    <sql id="sys_role_columns">
+        <!--@sql select -->
+        r.id,
+        r.role_code,
+        r.role_name,
+        r.role_sort,
+        r.role_desc,
+        r.add_time,
+        r.edit_time
+        <!--@sql from "system".sys_role r -->
+    </sql>
 
+    <select id="findRoleCodeByUserId" parameterType="java.lang.Long" resultType="java.lang.String">
+        select r.role_code
+        from "system".sys_role r
+        where r.id in (select role_id from "system".sys_user_role ur where ur.user_id = #{userId,jdbcType=BIGINT})
+    </select>
 </mapper>

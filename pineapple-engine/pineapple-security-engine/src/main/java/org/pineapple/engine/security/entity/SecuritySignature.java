@@ -62,19 +62,19 @@ public class SecuritySignature implements Serializable {
      * @date 2022/12/28 10:03
      */
     public void putTokenId(String tokenId) {
-        log.debug("开始注入令牌id信息,令牌id为={}", tokenId);
+        log.trace("开始注入令牌id信息,令牌id为={}", tokenId);
         if (StrUtil.isBlank(tokenId)) {
             throw ErrorRecords.valid.record(log, "令牌id不能为空");
         }
         this.setTokenDetails(Optional.ofNullable(this.getTokenDetails()).map(token -> {
-            log.debug("当前签名中[{}]已存在令牌信息，原令牌信息[token={}]将被更新", this, token);
+            log.trace("当前签名中[{}]已存在令牌信息，原令牌信息[token={}]将被更新", this, token);
             token.setId(tokenId);
             token.setContent(SecurityCommonConstant.EFFECTIVE_TOKEN_PREFIX + tokenId);
-            log.debug("当前签名[{}]中已存在令牌信息，更新后的令牌信息为{}", this, token);
+            log.trace("当前签名[{}]中已存在令牌信息，更新后的令牌信息为{}", this, token);
             return token;
         }).orElseGet(() -> {
             TokenDetails token = TokenDetails.ofId(tokenId);
-            log.debug("当前签名[{}]中不存在令牌信息,将生成新的令牌{}", this, token);
+            log.trace("当前签名[{}]中不存在令牌信息,将生成新的令牌{}", this, token);
             return token;
         }));
     }
@@ -87,7 +87,7 @@ public class SecuritySignature implements Serializable {
      * @date 2023/3/15 15:54
      */
     public String findTokenId() {
-        log.debug("开始获取令牌id信息,当前签名为={}", this);
+        log.trace("开始获取令牌id信息,当前签名为={}", this);
         TokenDetails tokenDetails = this.getTokenDetails();
         if (tokenDetails == null) {
             log.error("当前签名[signature={}]中未保存令牌信息", this);
@@ -97,7 +97,7 @@ public class SecuritySignature implements Serializable {
         if (StrUtil.isBlank(tokenId)) {
             throw ErrorRecords.error.record(log, "当前令牌[token={}]格式有误", tokenDetails);
         }
-        log.debug("当前令牌[token={}]中的tokenId是={}", tokenDetails, tokenId);
+        log.trace("当前令牌[token={}]中的tokenId是={}", tokenDetails, tokenId);
         return tokenId;
     }
 

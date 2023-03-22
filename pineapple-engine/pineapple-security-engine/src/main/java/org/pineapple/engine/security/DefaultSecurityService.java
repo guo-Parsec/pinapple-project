@@ -49,11 +49,7 @@ public class DefaultSecurityService implements SecurityService {
             throw ErrorRecords.valid.record(log, "用户[loginId={}]登录系统失败,原因:加载的安全签名不存在", loginId);
         }
         signature.putTokenId(SecurityUtil.generateTokenSerialNumber());
-        boolean isOnline = this.isOnlineWithLoginId(loginId);
-        if (isOnline) {
-            log.debug("用户[loginId={}]仍在线,系统将强制其下线", loginId);
-            this.logoutWithLoginId(loginId);
-        }
+        this.logoutWithLoginId(loginId);
         securityEngine.putSecurityInfo(signature);
         log.info("用户[loginId={}]登录系统成功,其访问令牌为[token={}]", loginId, signature.getTokenDetails());
         return signature;

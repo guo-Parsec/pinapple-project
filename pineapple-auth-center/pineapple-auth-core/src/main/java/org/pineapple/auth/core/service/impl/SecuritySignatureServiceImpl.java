@@ -1,5 +1,6 @@
 package org.pineapple.auth.core.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.collect.Maps;
@@ -14,6 +15,8 @@ import org.pineapple.engine.basequery.facade.SystemParamFacade;
 import org.pineapple.engine.security.api.SecuritySignatureService;
 import org.pineapple.engine.security.contant.SystemParamConstant;
 import org.pineapple.engine.security.entity.SecuritySignature;
+import org.pineapple.system.api.SysMenuClient;
+import org.pineapple.system.api.SysRoleClient;
 import org.pineapple.system.api.SysUserClient;
 import org.pineapple.system.api.vo.SysUserVo;
 import org.slf4j.Logger;
@@ -25,6 +28,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>安全签名Service实现类</p>
@@ -38,6 +42,12 @@ public class SecuritySignatureServiceImpl implements SecuritySignatureService {
     private static final Logger log = LoggerFactory.getLogger(SecuritySignatureServiceImpl.class);
     @Resource
     private SysUserClient sysUserClient;
+
+    @Resource
+    private SysRoleClient sysRoleClient;
+
+    @Resource
+    private SysMenuClient sysMenuClient;
 
     private SystemParamFacade systemParamFacade;
 
@@ -90,7 +100,12 @@ public class SecuritySignatureServiceImpl implements SecuritySignatureService {
         signature.setId(sysUserVo.getId());
         signature.setLoginId(sysUserVo.getLoginId());
         signature.setDetails(sysUserVo);
-        // todo 权限添加
+        Set<String> roleCodes = UniformResultTool.grabDataNoException(sysRoleClient.findRoleCodeByUserId(Long.valueOf(sysUserVo.getId())));
+        signature.setRoles(roleCodes);
+        if (CollUtil.isNotEmpty(roleCodes)) {
+            Set<String> menuCodes = UniformResultTool.grabDataNoException(sysMenuClient.findMenuCodeByRoleCode(roleCodes));
+            signature.setPermissions(menuCodes);
+        }
         log.debug("根据登录凭证[loginId={}]加载签名信息完成,签名信息为[signature={}]", loginId, signature);
         return signature;
     }

@@ -134,7 +134,7 @@ public class RequestUtil {
         if (headMap.containsKey(name)) {
             return headMap.get(name);
         }
-        log.debug("在请求中找不到键为[name={}]的请求头", name);
+        log.warn("在请求中找不到键为[name={}]的请求头", name);
         return null;
     }
 

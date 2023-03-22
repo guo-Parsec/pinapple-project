@@ -21,4 +21,9 @@ public class CommonConstant {
      * 冒号
      */
     public static final String COLON = ":";
+
+    /**
+     * in参数最大支持数量
+     */
+    public static final Integer MAX_IN_COUNT = 500;
 }
