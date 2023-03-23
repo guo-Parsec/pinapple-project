@@ -1,6 +1,7 @@
 package org.pineapple.system.api;
 
 import org.pineapple.common.uniforms.UniformResultDefinition;
+import org.pineapple.system.api.vo.SysMenuVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,4 +27,15 @@ public interface SysMenuClient {
      */
     @GetMapping("/find-menu-code/by/role-code")
     UniformResultDefinition<Set<String>> findMenuCodeByRoleCode(@RequestParam("roleCodeSet") Set<String> roleCodeSet);
+
+    /**
+     * <p>根据菜单编码列表获取菜单信息</p>
+     *
+     * @param menuCodeSet 菜单编码列表
+     * @return {@link org.pineapple.common.uniforms.UniformResultDefinition<java.util.Set> }
+     * @author guocq
+     * @date 2023/3/23 9:59
+     */
+    @GetMapping("find-sys-menu/by/menu-codes")
+    UniformResultDefinition<Set<SysMenuVo>> findSysMenuByMenuCodes(@RequestParam("menuCodeSet") Set<String> menuCodeSet);
 }

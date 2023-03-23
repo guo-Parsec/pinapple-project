@@ -1,8 +1,10 @@
 package org.pineapple.engine.security;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.utils.UrlUtil;
 import org.pineapple.engine.security.api.SecuritySignatureService;
 import org.pineapple.engine.security.entity.SecurityInfo;
 import org.pineapple.engine.security.entity.SecuritySignature;
@@ -10,6 +12,10 @@ import org.pineapple.engine.security.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>默认安全业务类</p>
@@ -50,7 +56,9 @@ public class DefaultSecurityService implements SecurityService {
         }
         signature.putTokenId(SecurityUtil.generateTokenSerialNumber());
         this.logoutWithLoginId(loginId);
+        Set<Map<String, Object>> resourceEntitySet = signatureService.loadUserResourceEntity(signature);
         securityEngine.putSecurityInfo(signature);
+        securityEngine.putResourceEntitySet(signature, resourceEntitySet);
         log.info("用户[loginId={}]登录系统成功,其访问令牌为[token={}]", loginId, signature.getTokenDetails());
         return signature;
     }
@@ -216,6 +224,7 @@ public class DefaultSecurityService implements SecurityService {
     public void logoutWithTokenId(String tokenId) {
         log.debug("开始根据令牌id[tokenId={}]退出登录", tokenId);
         securityEngine.closeSecurityInfoWithTokenId(tokenId);
+        securityEngine.closeResourceEntitySetWithTokenId(tokenId);
         log.debug("根据令牌id[tokenId={}]退出登录成功", tokenId);
     }
 
@@ -230,6 +239,77 @@ public class DefaultSecurityService implements SecurityService {
     public void logoutWithLoginId(String loginId) {
         log.debug("开始根据登录凭证[loginId={}]退出登录", loginId);
         securityEngine.closeSecurityInfoWithLoginId(loginId);
+        securityEngine.closeResourceEntitySetWithLoginId(loginId);
         log.debug("根据登录凭证[loginId={}]退出登录成功", loginId);
+    }
+
+    /**
+     * <p>根据令牌文本{@code tokenText}判断用户是否拥有对资源{@code requestUrl}的权限</p>
+     *
+     * @param requestUrl 请求路径
+     * @param tokenText  令牌文本
+     * @return {@link boolean }
+     * @author guocq
+     * @date 2023/3/23 11:00
+     */
+    @Override
+    public boolean hasResourceWithTokenText(String requestUrl, String tokenText) {
+        if (StrUtil.isBlank(tokenText)) {
+            throw ErrorRecords.valid.record(log, "根据令牌文本[tokenText={}]判断用户是否拥有对资源[requestUrl={}]的权限失败,原因:令牌文本不存在", tokenText, requestUrl);
+        }
+        log.debug("根据令牌文本[tokenText={}]判断用户是否拥有对资源[requestUrl={}]的权限", tokenText, requestUrl);
+        return hasResourceWithTokenId(requestUrl, SecurityUtil.findEffectiveTokenId(tokenText));
+    }
+
+    /**
+     * <p>根据令牌id{@code tokenId}判断用户是否拥有对资源{@code requestUrl}的权限</p>
+     *
+     * @param requestUrl 请求路径
+     * @param tokenId    令牌id
+     * @return {@link boolean }
+     * @author guocq
+     * @date 2023/3/23 11:00
+     */
+    @Override
+    public boolean hasResourceWithTokenId(String requestUrl, String tokenId) {
+        log.debug("根据令牌id[tokenId={}]判断用户是否拥有对资源[requestUrl={}]的权限", tokenId, requestUrl);
+        return hasResource(requestUrl, securityEngine.findResourceEntitySetWithTokenId(tokenId));
+    }
+
+    /**
+     * <p>根据登陆凭证{@code loginId}判断用户是否拥有对资源{@code requestUrl}的权限</p>
+     *
+     * @param requestUrl 请求路径
+     * @param loginId    登陆凭证
+     * @return {@link boolean }
+     * @author guocq
+     * @date 2023/3/23 11:00
+     */
+    @Override
+    public boolean hasResourceWithLoginId(String requestUrl, String loginId) {
+        log.debug("根据登录凭证[loginId={}]判断用户是否拥有对资源[requestUrl={}]的权限", loginId, requestUrl);
+        return hasResource(requestUrl, securityEngine.findResourceEntitySetWithLoginId(loginId));
+    }
+
+    /**
+     * <p>判断用户是否拥有对资源{@code requestUrl}的权限</p>
+     *
+     * @param requestUrl        请求路径
+     * @param resourceEntitySet 资源实体信息集合
+     * @return {@link boolean }
+     * @author guocq
+     * @date 2023/3/23 11:25
+     */
+    private boolean hasResource(String requestUrl, Set<Map<String, Object>> resourceEntitySet) {
+        if (CollUtil.isEmpty(resourceEntitySet)) {
+            return false;
+        }
+        Set<String> apiUrlSet = resourceEntitySet.stream().map(ele -> (String) ele.get("apiUrl"))
+                .filter(StrUtil::isNotBlank)
+                .collect(Collectors.toSet());
+        if (CollUtil.isEmpty(apiUrlSet)) {
+            return false;
+        }
+        return UrlUtil.matches(requestUrl, apiUrlSet);
     }
 }

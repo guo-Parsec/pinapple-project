@@ -1,9 +1,11 @@
 package org.pineapple.auth.core.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import org.pineapple.auth.core.SecurityResultEnum;
 import org.pineapple.common.constant.BeanNameDefineConstant;
 import org.pineapple.common.error.ErrorRecords;
@@ -18,6 +20,7 @@ import org.pineapple.engine.security.entity.SecuritySignature;
 import org.pineapple.system.api.SysMenuClient;
 import org.pineapple.system.api.SysRoleClient;
 import org.pineapple.system.api.SysUserClient;
+import org.pineapple.system.api.vo.SysMenuVo;
 import org.pineapple.system.api.vo.SysUserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +32,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>安全签名Service实现类</p>
@@ -108,5 +112,30 @@ public class SecuritySignatureServiceImpl implements SecuritySignatureService {
         }
         log.debug("根据登录凭证[loginId={}]加载签名信息完成,签名信息为[signature={}]", loginId, signature);
         return signature;
+    }
+
+    /**
+     * <p>根据签名信息{@code loginId}加载资源实体</p>
+     *
+     * @param signature 签名信息
+     * @return 资源实体集合
+     * @author guocq
+     * @date 2023/3/23 9:51
+     */
+    @Override
+    public Set<Map<String, Object>> loadUserResourceEntity(SecuritySignature signature) {
+        log.debug("根据签名信息[signature={}]加载资源实体集合开始", signature);
+        Set<String> permissions = signature.getPermissions();
+        if (CollUtil.isEmpty(permissions)) {
+            log.warn("根据签名信息[signature={}]加载资源实体集合为空", signature);
+            return Sets.newHashSet();
+        }
+        Set<SysMenuVo> resourceSet = UniformResultTool.grabDataNoException(sysMenuClient.findSysMenuByMenuCodes(permissions));
+        if (CollUtil.isEmpty(resourceSet)) {
+            log.warn("根据签名信息[signature={}]加载资源实体集合为空", signature);
+            return Sets.newHashSet();
+        }
+        log.debug("根据签名信息[signature={}]加载资源实体集合成功, 资源实体集合为[resourceSet={}]", signature, resourceSet);
+        return resourceSet.stream().map(BeanUtil::beanToMap).collect(Collectors.toSet());
     }
 }

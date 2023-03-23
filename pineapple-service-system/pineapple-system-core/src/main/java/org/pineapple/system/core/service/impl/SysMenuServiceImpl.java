@@ -20,7 +20,7 @@ import org.pineapple.system.core.pojo.dto.SysMenuDto;
 import org.pineapple.system.core.pojo.entity.SysMenu;
 import org.pineapple.system.core.pojo.entity.SysRole;
 import org.pineapple.system.core.pojo.query.SysMenuQuery;
-import org.pineapple.system.core.pojo.vo.SysMenuVo;
+import org.pineapple.system.api.vo.SysMenuVo;
 import org.pineapple.system.core.service.SysMenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +59,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @date 2023/3/21 11:28
      */
     @Override
-    @Cacheable(cacheNames = "sys_role", key = "'find_menu_code_by_role_code_' + #roleCodeSet")
+    @Cacheable(cacheNames = "sys_menu", key = "'find_menu_code_by_role_code_' + #roleCodeSet")
     public Set<String> findMenuCodeByRoleCode(Set<String> roleCodeSet) {
         if (CollUtil.isEmpty(roleCodeSet)) {
             throw ErrorRecords.valid.record(log, "根据角色码列表[roleCodeSet={}]查询菜单码信息时,角色码列表不能为空", roleCodeSet);
@@ -79,6 +79,26 @@ public class SysMenuServiceImpl implements SysMenuService {
             return Sets.newHashSet();
         }
         return menuCode;
+    }
+
+    /**
+     * <p>根据菜单编码列表获取菜单信息</p>
+     *
+     * @param menuCodeSet 菜单编码列表
+     * @return {@link Set<SysMenuVo> }
+     * @author guocq
+     * @date 2023/3/23 9:34
+     */
+    @Override
+    public Set<SysMenuVo> findSysMenuByMenuCodes(Set<String> menuCodeSet) {
+        if (CollUtil.isEmpty(menuCodeSet)) {
+            throw ErrorRecords.valid.record(log, "根据菜单编码列表[menuCodeSet={}]查询菜单信息时,菜单码列表不能为空", menuCodeSet);
+        }
+        log.debug("根据菜单编码列表[menuCodeSet={}]查询菜单信息", menuCodeSet);
+        Wrapper<SysMenu> wrapper = new LambdaQueryWrapper<SysMenu>()
+                .in(SysMenu::getMenuCode, menuCodeSet);
+        List<SysMenu> sysMenus = sysMenuMapper.selectList(wrapper);
+        return sysMenus.stream().map(sysMenuConverter::entityToVo).collect(Collectors.toSet());
     }
 
     /**

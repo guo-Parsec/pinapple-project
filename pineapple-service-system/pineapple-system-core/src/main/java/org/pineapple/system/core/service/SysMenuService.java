@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.pineapple.common.PageDto;
 import org.pineapple.system.core.pojo.dto.SysMenuDto;
 import org.pineapple.system.core.pojo.query.SysMenuQuery;
-import org.pineapple.system.core.pojo.vo.SysMenuVo;
+import org.pineapple.system.api.vo.SysMenuVo;
 
 import java.util.Set;
 
@@ -24,6 +24,16 @@ public interface SysMenuService {
      * @date 2023/3/21 11:28
      */
     Set<String> findMenuCodeByRoleCode(Set<String> roleCodeSet);
+
+    /**
+     * <p>根据菜单编码列表获取菜单信息</p>
+     *
+     * @param menuCodeSet 菜单编码列表
+     * @return {@link Set<SysMenuVo> }
+     * @author guocq
+     * @date 2023/3/23 9:34
+     */
+    Set<SysMenuVo> findSysMenuByMenuCodes(Set<String> menuCodeSet);
 
     /**
      * <p>新增菜单信息</p>

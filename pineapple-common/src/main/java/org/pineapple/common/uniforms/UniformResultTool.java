@@ -1,6 +1,7 @@
 package org.pineapple.common.uniforms;
 
 import cn.hutool.core.util.ObjectUtil;
+import org.pineapple.common.enums.ResultEnumModel;
 import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.common.enums.UniformResultEnum;
 import org.pineapple.common.exceptions.ExceptionModel;
@@ -49,6 +50,19 @@ public class UniformResultTool {
      */
     public static <T> UniformResultDefinition<T> failed() {
         return new UniformResultDefinition<>(UniformResultEnum.ERROR);
+    }
+
+    /**
+     * <p>失败结果返回，不携带返回数据</p>
+     *
+     * @param model   错误码
+     * @param message 错误信息
+     * @return {@link org.pineapple.common.uniforms.UniformResultDefinition<T> }
+     * @author guocq
+     * @date 2023/3/23 10:51
+     */
+    public static <T> UniformResultDefinition<T> failed(ResultEnumModel model, String message) {
+        return new UniformResultDefinition<>(model, message);
     }
 
     /**

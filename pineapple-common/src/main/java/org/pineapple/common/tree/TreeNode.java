@@ -1,4 +1,4 @@
-package org.pineapple.core;
+package org.pineapple.common.tree;
 
 import org.pineapple.common.DomainModel;
 

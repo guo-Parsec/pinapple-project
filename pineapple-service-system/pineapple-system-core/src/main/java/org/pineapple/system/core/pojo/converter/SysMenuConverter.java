@@ -4,7 +4,7 @@ import org.pineapple.common.constant.BeanNameDefineConstant;
 import org.pineapple.core.converter.BaseConverter;
 import org.pineapple.engine.basequery.annotations.DictTranslate;
 import org.pineapple.system.core.pojo.entity.SysMenu;
-import org.pineapple.system.core.pojo.vo.SysMenuVo;
+import org.pineapple.system.api.vo.SysMenuVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

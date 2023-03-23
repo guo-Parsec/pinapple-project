@@ -121,4 +121,37 @@ public interface SecurityService {
      * @date 2023/3/15 15:09
      */
     void logoutWithLoginId(String loginId);
+
+    /**
+     * <p>根据令牌文本{@code tokenText}判断用户是否拥有对资源{@code requestUrl}的权限</p>
+     *
+     * @param requestUrl 请求路径
+     * @param tokenText  令牌文本
+     * @return {@link boolean }
+     * @author guocq
+     * @date 2023/3/23 11:00
+     */
+    boolean hasResourceWithTokenText(String requestUrl, String tokenText);
+
+    /**
+     * <p>根据令牌id{@code tokenId}判断用户是否拥有对资源{@code requestUrl}的权限</p>
+     *
+     * @param requestUrl 请求路径
+     * @param tokenId    令牌id
+     * @return {@link boolean }
+     * @author guocq
+     * @date 2023/3/23 11:00
+     */
+    boolean hasResourceWithTokenId(String requestUrl, String tokenId);
+
+    /**
+     * <p>根据登陆凭证{@code loginId}判断用户是否拥有对资源{@code requestUrl}的权限</p>
+     *
+     * @param requestUrl 请求路径
+     * @param loginId    登陆凭证
+     * @return {@link boolean }
+     * @author guocq
+     * @date 2023/3/23 11:00
+     */
+    boolean hasResourceWithLoginId(String requestUrl, String loginId);
 }

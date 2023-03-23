@@ -13,7 +13,10 @@ import org.springframework.context.annotation.Import;
  * @since 2023/2/16
  */
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+        "org.pineapple.gateway",
+        "org.pineapple.engine.security"
+})
 @Import({SpringUtil.class})
 public class GatewayApplication {
     public static void main(String[] args) {

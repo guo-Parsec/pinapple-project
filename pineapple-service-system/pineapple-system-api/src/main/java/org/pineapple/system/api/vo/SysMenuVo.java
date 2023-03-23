@@ -1,11 +1,11 @@
-package org.pineapple.system.core.pojo.vo;
+package org.pineapple.system.api.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.pineapple.common.annotations.Dictionary;
-import org.pineapple.core.AbstractTreeNode;
+import org.pineapple.common.tree.AbstractTreeNode;
 
 import java.util.StringJoiner;
 

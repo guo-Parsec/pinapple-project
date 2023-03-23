@@ -31,4 +31,10 @@ public class SecurityCommonConstant {
      * redis安全业务类存储令牌信息key
      */
     public static String REDIS_BIZ_KEY_FOR_TOKEN = "token";
+
+
+    /**
+     * redis安全业务类存储资源实体集合信息key
+     */
+    public static String REDIS_BIZ_KEY_FOR_RESOURCE_ENTITY_SET = "res-entity-set";
 }

@@ -35,7 +35,7 @@ public class SecurityUtil {
     }
 
     /**
-     * <p>根据用户id生成用户信息存储的key</p>
+     * <p>根据登录凭证生成用户信息存储的key</p>
      *
      * @param loginId 登录凭证
      * @return {@link String }
@@ -54,6 +54,28 @@ public class SecurityUtil {
                 .build();
         log.debug("根据用户[loginId={}]生成用户信息存储的key为{}", loginId, securityUserKey);
         return securityUserKey;
+    }
+
+    /**
+     * <p>根据登录凭证生成资源实体信息集合存储的key</p>
+     *
+     * @param loginId 登录凭证
+     * @return {@link java.lang.String }
+     * @author guocq
+     * @date 2023/3/23 10:14
+     */
+    public static String generateResourceEntitySetKey(String loginId) {
+        if (StrUtil.isBlank(loginId)) {
+            throw ErrorRecords.valid.record(log, "根据用户[loginId={}]生成资源实体信息集合存储的key时, [loginId]不能为空", loginId);
+        }
+        log.debug("开始根据用户[loginId={}]生成资源实体信息集合存储的key", loginId);
+        String resourceEntitySetKey = new BasicRedisKeyJoin(false)
+                .join(SecurityCommonConstant.REDIS_BIZ_SECURITY_KEY_PREFIX)
+                .join(SecurityCommonConstant.REDIS_BIZ_KEY_FOR_RESOURCE_ENTITY_SET)
+                .join(loginId)
+                .build();
+        log.debug("根据用户[loginId={}]生成资源实体信息集合存储的key为{}", loginId, resourceEntitySetKey);
+        return resourceEntitySetKey;
     }
 
     /**

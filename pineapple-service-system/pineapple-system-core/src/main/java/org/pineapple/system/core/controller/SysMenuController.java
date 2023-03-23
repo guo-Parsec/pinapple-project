@@ -11,7 +11,7 @@ import org.pineapple.common.valid.CurdValidateGroup;
 import org.pineapple.system.api.SystemWebApiDefineConstant;
 import org.pineapple.system.core.pojo.dto.SysMenuDto;
 import org.pineapple.system.core.pojo.query.SysMenuQuery;
-import org.pineapple.system.core.pojo.vo.SysMenuVo;
+import org.pineapple.system.api.vo.SysMenuVo;
 import org.pineapple.system.core.service.SysMenuService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -62,8 +62,14 @@ public class SysMenuController {
     }
 
     @ApiOperation(value = "分页查询系统菜单")
-    @PostMapping(value = CommonWebApiDefineConstant.COMMON_PAGE_ACTION_API, produces = "application/json;charset=UTF-8")
+    @PostMapping(CommonWebApiDefineConstant.COMMON_PAGE_ACTION_API)
     public UniformResultDefinition<IPage<SysMenuVo>> pageQuerySysMenu(@Validated(CurdValidateGroup.Page.class) @RequestBody PageDto<SysMenuQuery> pageDto) {
         return UniformResultTool.success(service.pageQuerySysMenu(pageDto));
+    }
+
+    @ApiOperation(value = "根据菜单编码列表获取菜单信息")
+    @GetMapping("find-sys-menu/by/menu-codes")
+    public UniformResultDefinition<Set<SysMenuVo>> findSysMenuByMenuCodes(@RequestParam("menuCodeSet") Set<String> menuCodeSet) {
+        return UniformResultTool.success(service.findSysMenuByMenuCodes(menuCodeSet));
     }
 }
