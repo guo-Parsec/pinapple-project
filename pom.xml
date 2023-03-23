@@ -43,6 +43,7 @@
         <cglib.version>3.2.7</cglib.version>
         <fastjson2.version>2.0.22</fastjson2.version>
         <commons-pool2.version>2.11.1</commons-pool2.version>
+        <commons-io.version>2.11.0</commons-io.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <flowable.version>6.6.0</flowable.version>
         <mybatis.version>2.3.0</mybatis.version>
@@ -138,6 +139,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-pool2</artifactId>
                 <version>${commons-pool2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
             <!-- swagger-ui集成 -->
             <dependency>
