@@ -1,7 +1,7 @@
 package org.pineapple.system.core.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.pineapple.common.PageDto;
+import org.pineapple.common.pojo.dto.PageDto;
 import org.pineapple.system.core.pojo.dto.SysMenuDto;
 import org.pineapple.system.core.pojo.query.SysMenuQuery;
 import org.pineapple.system.api.vo.SysMenuVo;

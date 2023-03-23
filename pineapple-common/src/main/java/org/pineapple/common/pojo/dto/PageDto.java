@@ -1,4 +1,4 @@
-package org.pineapple.common;
+package org.pineapple.common.pojo.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

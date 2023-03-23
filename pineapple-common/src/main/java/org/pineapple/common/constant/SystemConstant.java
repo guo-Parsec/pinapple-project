@@ -1,4 +1,4 @@
-package org.pineapple.common;
+package org.pineapple.common.constant;
 
 /**
  * <p>系统常量</p>

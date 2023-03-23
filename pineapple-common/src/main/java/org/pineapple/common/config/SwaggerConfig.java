@@ -3,7 +3,7 @@ package org.pineapple.common.config;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.pineapple.common.SwaggerProp;
-import org.pineapple.common.SystemConstant;
+import org.pineapple.common.constant.SystemConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

@@ -2,7 +2,7 @@ package org.pineapple.engine.basequery.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.pineapple.common.AbstractDomainModel;
+import org.pineapple.common.pojo.AbstractDomainModel;
 
 /**
  * <p>系统菜单实体</p>

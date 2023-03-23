@@ -2,6 +2,7 @@ package org.pineapple.engine.security;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.collect.Sets;
 import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.common.utils.RedisUtil;
@@ -13,7 +14,6 @@ import org.pineapple.engine.security.entity.SecuritySignature;
 import org.pineapple.engine.security.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -33,15 +33,8 @@ public class SecurityEngine {
 
     private final RedisUtil redisUtil;
 
-    private SystemParamFacade systemParamFacade;
-
     public SecurityEngine(RedisUtil redisUtil) {
         this.redisUtil = redisUtil;
-    }
-
-    @Autowired
-    public void setSystemParamFacade(SystemParamFacade systemParamFacade) {
-        this.systemParamFacade = systemParamFacade;
     }
 
     /**
@@ -286,7 +279,8 @@ public class SecurityEngine {
      * @date 2023/3/17 9:48
      */
     private Long findTokenExpireTime() {
-        SystemParamEntity systemParamEntity = systemParamFacade.findParamByParamCode(SystemParamConstant.PARAM_CODE_TOKEN_EXPIRE_TIME_HOUR);
+        SystemParamFacade facade = SpringUtil.getBean(SystemParamFacade.class);
+        SystemParamEntity systemParamEntity = facade.findParamByParamCode(SystemParamConstant.PARAM_CODE_TOKEN_EXPIRE_TIME_HOUR);
         String tokenExpireTimeString = Optional.ofNullable(systemParamEntity).map(SystemParamEntity::getParamValue).orElse("6");
         return Long.valueOf(tokenExpireTimeString);
     }

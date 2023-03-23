@@ -2,7 +2,7 @@ package org.pineapple.common.uniforms;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.pineapple.common.AbstractDomainModel;
+import org.pineapple.common.pojo.AbstractDomainModel;
 import org.pineapple.common.enums.ResultEnumModel;
 import org.pineapple.common.exceptions.ExceptionModel;
 import org.pineapple.common.utils.ExceptionUtil;

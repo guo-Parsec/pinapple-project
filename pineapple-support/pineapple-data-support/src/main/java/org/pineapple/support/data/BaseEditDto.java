@@ -1,6 +1,6 @@
 package org.pineapple.support.data;
 
-import org.pineapple.common.AbstractDto;
+import org.pineapple.common.pojo.dto.AbstractDto;
 
 import javax.validation.constraints.NotNull;
 

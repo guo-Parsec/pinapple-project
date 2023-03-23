@@ -1,4 +1,4 @@
-package org.pineapple.common;
+package org.pineapple.common.pojo;
 
 import java.io.Serializable;
 

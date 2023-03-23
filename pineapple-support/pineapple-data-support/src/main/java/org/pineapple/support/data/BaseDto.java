@@ -3,7 +3,7 @@ package org.pineapple.support.data;
 import com.google.common.base.Objects;
 import lombok.Getter;
 import lombok.Setter;
-import org.pineapple.common.AbstractDto;
+import org.pineapple.common.pojo.dto.AbstractDto;
 import org.pineapple.common.valid.CurdValidateGroup;
 import org.pineapple.common.valid.FieldValidateResult;
 

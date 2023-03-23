@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.pineapple.common.PageDto;
+import org.pineapple.common.pojo.dto.PageDto;
 import org.pineapple.common.constant.CommonConstant;
 import org.pineapple.common.error.ErrorRecords;
 import org.pineapple.common.support.ListCut;

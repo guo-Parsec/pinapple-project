@@ -1,4 +1,6 @@
-package org.pineapple.common;
+package org.pineapple.common.pojo.vo;
+
+import org.pineapple.common.pojo.AbstractDomainModel;
 
 /**
  * <p>抽象展示对象</p>

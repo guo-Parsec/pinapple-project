@@ -3,7 +3,7 @@ package org.pineapple.system.core.pojo.vo;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
-import org.pineapple.common.BaseVo;
+import org.pineapple.common.pojo.vo.BaseVo;
 
 import java.util.StringJoiner;
 

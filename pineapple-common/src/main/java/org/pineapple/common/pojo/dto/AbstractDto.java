@@ -1,4 +1,6 @@
-package org.pineapple.common;
+package org.pineapple.common.pojo.dto;
+
+import org.pineapple.common.pojo.AbstractDomainModel;
 
 /**
  * <p>抽象传输对象</p>

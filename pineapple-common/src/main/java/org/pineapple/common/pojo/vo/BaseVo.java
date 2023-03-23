@@ -1,4 +1,4 @@
-package org.pineapple.common;
+package org.pineapple.common.pojo.vo;
 
 import lombok.Getter;
 import lombok.Setter;

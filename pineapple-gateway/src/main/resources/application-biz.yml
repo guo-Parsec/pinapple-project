@@ -14,7 +14,7 @@ pineapple:
   gateway:
     white:
       urls:
-        - /security/**
+        - /auth/**
         - "/swagger-resources/**"
         - "/swagger/**"
         - /webjars/**

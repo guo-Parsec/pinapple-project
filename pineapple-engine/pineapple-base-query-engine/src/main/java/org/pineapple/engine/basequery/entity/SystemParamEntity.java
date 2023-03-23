@@ -3,7 +3,7 @@ package org.pineapple.engine.basequery.entity;
 import com.google.common.base.Objects;
 import lombok.Getter;
 import lombok.Setter;
-import org.pineapple.common.AbstractDomainModel;
+import org.pineapple.common.pojo.AbstractDomainModel;
 
 import java.util.StringJoiner;
 

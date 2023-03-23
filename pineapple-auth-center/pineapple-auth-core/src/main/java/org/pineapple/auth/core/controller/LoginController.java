@@ -8,7 +8,7 @@ import org.pineapple.common.uniforms.UniformResultDefinition;
 import org.pineapple.common.uniforms.UniformResultTool;
 import org.pineapple.engine.security.entity.SecuritySignature;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -28,9 +28,9 @@ public class LoginController {
 
     @ApiOperation(value = "登录操作")
     @PostMapping(value = AuthWebApiDefineConstant.WEB_API_LOGIN + ".do")
-    public UniformResultDefinition<SecuritySignature> doLogin(@RequestParam("loginId") String loginId,
-                                                              @RequestParam("password") String password,
-                                                              @RequestParam("verifyCode") String verifyCode) {
+    public UniformResultDefinition<SecuritySignature> doLogin(@RequestBody String loginId,
+                                                              @RequestBody String password,
+                                                              @RequestBody String verifyCode) {
         return UniformResultTool.success(service.login(loginId, password, verifyCode));
     }
 }

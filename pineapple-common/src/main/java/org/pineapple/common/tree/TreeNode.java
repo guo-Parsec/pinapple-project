@@ -1,6 +1,6 @@
 package org.pineapple.common.tree;
 
-import org.pineapple.common.DomainModel;
+import org.pineapple.common.pojo.DomainModel;
 
 import java.io.Serializable;
 import java.util.Collection;

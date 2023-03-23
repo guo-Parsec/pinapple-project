@@ -3,7 +3,7 @@ package org.pineapple.common.tree;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.pineapple.common.BaseVo;
+import org.pineapple.common.pojo.vo.BaseVo;
 
 import java.io.Serializable;
 import java.util.Collection;

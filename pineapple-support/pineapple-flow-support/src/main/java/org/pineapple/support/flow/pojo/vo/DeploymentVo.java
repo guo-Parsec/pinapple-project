@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.flowable.engine.repository.Deployment;
-import org.pineapple.common.AbstractVo;
+import org.pineapple.common.pojo.vo.AbstractVo;
 
 import java.util.StringJoiner;
 

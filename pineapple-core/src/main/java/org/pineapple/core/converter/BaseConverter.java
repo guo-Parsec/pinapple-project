@@ -3,7 +3,7 @@ package org.pineapple.core.converter;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
-import org.pineapple.common.BaseVo;
+import org.pineapple.common.pojo.vo.BaseVo;
 import org.pineapple.engine.basequery.annotations.DictConverter;
 import org.pineapple.support.data.BaseEntity;
 

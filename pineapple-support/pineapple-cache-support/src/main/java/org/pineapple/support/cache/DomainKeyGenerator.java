@@ -5,7 +5,7 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import org.pineapple.common.DomainModel;
+import org.pineapple.common.pojo.DomainModel;
 import org.pineapple.common.NameInterface;
 import org.pineapple.common.constant.CommonConstant;
 import org.pineapple.common.error.ErrorRecords;

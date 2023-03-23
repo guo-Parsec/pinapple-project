@@ -1,5 +1,7 @@
 package org.pineapple.common;
 
+import org.pineapple.common.constant.SystemConstant;
+
 /**
  * <p>通用网络API定义常量</p>
  *

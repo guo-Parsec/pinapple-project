@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.google.common.base.Objects;
 import lombok.Getter;
 import lombok.Setter;
-import org.pineapple.common.AbstractDomainModel;
+import org.pineapple.common.pojo.AbstractDomainModel;
 
 /**
  * <p>抽象实体类</p>

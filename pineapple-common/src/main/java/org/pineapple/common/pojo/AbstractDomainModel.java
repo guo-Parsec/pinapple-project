@@ -1,4 +1,4 @@
-package org.pineapple.common;
+package org.pineapple.common.pojo;
 
 /**
  * <p>领域模型抽象类</p>

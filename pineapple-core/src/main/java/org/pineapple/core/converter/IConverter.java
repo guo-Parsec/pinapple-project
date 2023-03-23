@@ -1,6 +1,6 @@
 package org.pineapple.core.converter;
 
-import org.pineapple.common.BaseVo;
+import org.pineapple.common.pojo.vo.BaseVo;
 import org.pineapple.support.data.BaseEntity;
 
 /**
