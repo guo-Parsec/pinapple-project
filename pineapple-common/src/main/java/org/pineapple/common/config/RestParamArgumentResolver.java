@@ -1,10 +1,11 @@
 package org.pineapple.common.config;
 
+import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONException;
 import com.alibaba.fastjson2.JSONObject;
-import com.google.common.collect.Sets;
+import com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
 import org.pineapple.common.annotations.RestParam;
 import org.pineapple.common.support.error.ErrorRecords;
@@ -18,8 +19,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.Set;
+import java.util.Map;
 
 /**
  * <p>{@link RestParam}解析器</p>
@@ -66,8 +66,7 @@ public class RestParamArgumentResolver implements HandlerMethodArgumentResolver 
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        String jsonBody = getRequestBody(webRequest);
-        JSONObject jsonObject = JSON.parseObject(jsonBody);
+        JSONObject jsonObject = getRequestJsonObject(webRequest);
         // 根据@RestParam注解value作为json解析的key
         RestParam restParam = parameter.getParameterAnnotation(RestParam.class);
         if (restParam == null) {
@@ -75,57 +74,26 @@ public class RestParamArgumentResolver implements HandlerMethodArgumentResolver 
         }
         String key = StrUtil.isNotBlank(restParam.value()) ? restParam.value() : parameter.getParameterName();
         Object val = jsonObject.get(key);
-        Class<?> parameterType = parameter.getParameterType();
-        if (val != null) {
-            // 基本类型
-            if (parameterType.isPrimitive()) {
-                return parsePrimitive(parameterType.getName(), val);
-            }
-            // 基本类型包装类
-            if (isBasicDataTypes(parameterType)) {
-                return parseBasicTypeWrapper(parameterType, val);
-            }
-            // 字符串类型
-            if (parameterType == String.class) {
-                return val.toString();
-            }
-            return JSON.parseObject(val.toString(), parameterType);
+        if (val == null && restParam.required()) {
+            throw ErrorRecords.valid.record(log, "参数[{}]不可为空", key);
         }
-        // 解析不到则将整个json串解析为当前参数类型
-        if (isBasicDataTypes(parameterType)) {
-            if (restParam.required()) {
-                throw ErrorRecords.valid.record(log, "参数 {} 不能为空", key);
-            }
+        return this.resolveParameterVal(parameter.getParameterType(), val);
+    }
+
+    private Object resolveParameterVal(Class<?> parameterType, Object rawVal) {
+        if (rawVal == null) {
             return null;
         }
-        if (!restParam.parseAllFields()) {
-            if (restParam.required()) {
-                throw ErrorRecords.valid.record(log, "参数 {} 不能为空", key);
-            }
-            return null;
+        if (parameterType.isPrimitive()) {
+            return parsePrimitive(parameterType.getName(), rawVal);
         }
-        Object result;
-        try {
-            result = JSON.parseObject(jsonObject.toString(), parameterType);
-        } catch (JSONException jsonException) {
-            result = null;
+        if (ClassUtil.isPrimitiveWrapper(parameterType)) {
+            return parseBasicTypeWrapper(parameterType, rawVal);
         }
-        if (restParam.required()) {
-            throw ErrorRecords.valid.record(log, "参数 {} 不能为空", key);
+        if (parameterType == String.class) {
+            return rawVal.toString();
         }
-        boolean haveValue = false;
-        Field[] declaredFields = parameterType.getDeclaredFields();
-        for (Field field : declaredFields) {
-            field.setAccessible(true);
-            if (field.get(result) != null) {
-                haveValue = true;
-                break;
-            }
-        }
-        if (!haveValue) {
-            throw ErrorRecords.valid.record(log, "参数 {} 不能为空", key);
-        }
-        return result;
+        return JSON.parseObject(rawVal.toString(), parameterType);
     }
 
     /**
@@ -195,37 +163,19 @@ public class RestParamArgumentResolver implements HandlerMethodArgumentResolver 
     }
 
     /**
-     * <p>判断是否为基本数据类型包装类</p>
-     *
-     * @param clazz 类型
-     * @return {@link boolean }
-     * @author guocq
-     * @date 2023/3/23 15:20
-     */
-    private boolean isBasicDataTypes(Class<?> clazz) {
-        Set<Class<?>> classSet = Sets.newHashSet();
-        classSet.add(Integer.class);
-        classSet.add(Long.class);
-        classSet.add(Short.class);
-        classSet.add(Float.class);
-        classSet.add(Double.class);
-        classSet.add(Boolean.class);
-        classSet.add(Byte.class);
-        classSet.add(Character.class);
-        return classSet.contains(clazz);
-    }
-
-    /**
-     * <p>从请求体中获取json字符串</p>
+     * <p>从请求体中获取json对象</p>
      *
      * @param webRequest 请求
-     * @return {@link String }
+     * @return {@link JSONObject }
      * @author guocq
      * @date 2023/3/23 14:32
      */
-    private String getRequestBody(NativeWebRequest webRequest) {
-        HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
+    private JSONObject getRequestJsonObject(NativeWebRequest webRequest) {
         String jsonBody = (String) webRequest.getAttribute(JSON_BODY_ATTRIBUTE, NativeWebRequest.SCOPE_REQUEST);
+        HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
+        if (servletRequest == null) {
+            throw ErrorRecords.error.record(log, "从webRequest中获取HttpServletRequest失败");
+        }
         if (StrUtil.isBlank(jsonBody)) {
             try {
                 jsonBody = IOUtils.toString(servletRequest.getReader());
@@ -234,6 +184,19 @@ public class RestParamArgumentResolver implements HandlerMethodArgumentResolver 
                 throw ErrorRecords.error.record(log, e, "从请求中获取JSON字符串失败");
             }
         }
-        return jsonBody;
+        if (StrUtil.isEmpty(jsonBody)) {
+            Map<String, String[]> parameterMap = servletRequest.getParameterMap();
+            Map<String, Object> parameters = Maps.newHashMap();
+            parameterMap.forEach((key, value) -> {
+                if (ArrayUtil.length(value) == 1) {
+                    parameters.put(key, value[0]);
+                    return;
+                }
+                parameters.put(key, value);
+            });
+            jsonBody = JSON.toJSONString(parameters);
+            webRequest.setAttribute(JSON_BODY_ATTRIBUTE, jsonBody, NativeWebRequest.SCOPE_REQUEST);
+        }
+        return JSONObject.parseObject(jsonBody);
     }
 }
