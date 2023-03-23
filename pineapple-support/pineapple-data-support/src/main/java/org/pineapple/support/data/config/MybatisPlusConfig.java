@@ -38,7 +38,7 @@ public class MybatisPlusConfig implements MetaObjectHandler {
         // 防止全表更新与删除：攻击SQL阻断解析器、加入解析链，防止恶意进行delete、update全表操作
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
         // 自动分页
-        PaginationInnerInterceptor pageInterceptor = new PaginationInnerInterceptor(DbType.MYSQL);
+        PaginationInnerInterceptor pageInterceptor = new PaginationInnerInterceptor(DbType.POSTGRE_SQL);
         pageInterceptor.setMaxLimit(500L);
         interceptor.addInnerInterceptor(pageInterceptor);
         return interceptor;

@@ -5,13 +5,22 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import org.pineapple.common.PageDto;
+import org.pineapple.common.constant.CommonConstant;
 import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.ListCut;
 import org.pineapple.system.core.mapper.SysMenuMapper;
 import org.pineapple.system.core.mapper.SysRoleMapper;
+import org.pineapple.system.core.pojo.converter.SysMenuConverter;
 import org.pineapple.system.core.pojo.dto.SysMenuDto;
 import org.pineapple.system.core.pojo.entity.SysMenu;
 import org.pineapple.system.core.pojo.entity.SysRole;
+import org.pineapple.system.core.pojo.query.SysMenuQuery;
+import org.pineapple.system.core.pojo.vo.SysMenuVo;
 import org.pineapple.system.core.service.SysMenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +47,8 @@ public class SysMenuServiceImpl implements SysMenuService {
     private SysMenuMapper sysMenuMapper;
     @Resource
     private SysRoleMapper sysRoleMapper;
+    @Resource
+    private SysMenuConverter sysMenuConverter;
 
     /**
      * <p>根据角色码列表获取菜单码</p>
@@ -121,8 +132,38 @@ public class SysMenuServiceImpl implements SysMenuService {
             log.warn("待删除的主键集合为空");
             return;
         }
-        sysMenuMapper.deleteBatchIds(idSet);
+        List<List<Long>> idLists = new ListCut<Long>().put(Lists.newArrayList(idSet), CommonConstant.MAX_IN_COUNT).cut();
+        idLists.forEach(sysMenuMapper::deleteBatchIds);
         log.debug("删除菜单信息[idSet={}]成功", idSet);
+    }
+
+    /**
+     * <p>分页查询系统菜单</p>
+     *
+     * @param pageDto 分页参数
+     * @return 系统菜单分页数据
+     * @author guocq
+     * @date 2023/3/22 14:37
+     */
+    @Override
+    public IPage<SysMenuVo> pageQuerySysMenu(PageDto<SysMenuQuery> pageDto) {
+        log.debug("分页查询系统菜单[pageDto={}]", pageDto);
+        Page<SysMenu> page = new Page<>(pageDto.getPageIndex(), pageDto.getPageSize());
+        LambdaQueryWrapper<SysMenu> wrapper = new LambdaQueryWrapper<>();
+        Page<SysMenu> sysMenuPage = null;
+        SysMenuQuery queryDto = pageDto.getQueryDto();
+        if (queryDto == null) {
+            sysMenuPage = sysMenuMapper.selectPage(page, wrapper);
+            return sysMenuPage.convert(sysMenuConverter::entityToVo);
+        }
+        wrapper.eq(StrUtil.isNotBlank(queryDto.getMenuCode()), SysMenu::getMenuCode, queryDto.getMenuCode())
+                .like(StrUtil.isNotBlank(queryDto.getMenuName()), SysMenu::getMenuName, queryDto.getMenuName())
+                .like(StrUtil.isNotBlank(queryDto.getMenuTitle()), SysMenu::getMenuTitle, queryDto.getMenuTitle())
+                .in(CollUtil.isNotEmpty(queryDto.getMenuTypeSet()), SysMenu::getMenuType, queryDto.getMenuTypeSet())
+                .orderByAsc(SysMenu::getParentId)
+                .orderByAsc(SysMenu::getMenuSort);
+        sysMenuPage = sysMenuMapper.selectPage(page, wrapper);
+        return sysMenuPage.convert(sysMenuConverter::entityToVo);
     }
 
 

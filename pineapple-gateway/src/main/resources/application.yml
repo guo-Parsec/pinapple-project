@@ -2,4 +2,4 @@ server:
   port: 16000
 spring:
   profiles:
-    active: common,data,biz,log
+    include: common,data,biz,log

@@ -1,83 +1,67 @@
-package org.pineapple.system.core.pojo.dto;
+package org.pineapple.system.core.pojo.vo;
 
-import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.pineapple.common.valid.FieldValidateResult;
-import org.pineapple.support.data.BaseDto;
+import org.pineapple.common.annotations.Dictionary;
+import org.pineapple.core.AbstractTreeNode;
 
 import java.util.StringJoiner;
 
 /**
- * <p>系统菜单DTO</p>
+ * <p>系统菜单vo</p>
  *
  * @author guocq
- * @since 2023/3/21
+ * @since 2023/3/22
  */
 @Setter
 @Getter
-@ApiModel(value = "系统菜单DTO")
-public class SysMenuDto extends BaseDto {
-    private static final long serialVersionUID = 428277118975244529L;
-
-    @ApiModelProperty(value = "上级菜单主键")
-    protected Long parentId;
-
+@ApiModel(value = "系统菜单vo")
+public class SysMenuVo extends AbstractTreeNode<Long> {
+    private static final long serialVersionUID = 621527041465684582L;
     @ApiModelProperty(value = "菜单编码")
-    protected String menuCode;
+    private String menuCode;
 
     @ApiModelProperty(value = "菜单名称")
-    protected String menuName;
+    private String menuName;
 
     @ApiModelProperty(value = "菜单标题")
-    protected String menuTitle;
+    private String menuTitle;
 
     @ApiModelProperty(value = "菜单类型")
-    protected String menuType;
+    private String menuType;
+
+    @Dictionary(code = "menu_type", fieldName = "menuType")
+    @ApiModelProperty(value = "菜单类型字典值")
+    private String menuTypeName;
 
     @ApiModelProperty(value = "菜单图标")
-    protected String menuIcon;
+    private String menuIcon;
 
     @ApiModelProperty(value = "接口uri")
-    protected String apiUri;
+    private String apiUri;
 
     @ApiModelProperty(value = "页面显示路径")
-    protected String viewPageUri;
+    private String viewPageUri;
 
     @ApiModelProperty(value = "页面文件存储地址")
-    protected String viewPageLocation;
+    private String viewPageLocation;
 
     @ApiModelProperty(value = "菜单排序")
-    protected Integer menuSort;
+    private Integer menuSort;
 
     @ApiModelProperty(value = "菜单备注信息")
-    protected String menuDesc;
-
-    /**
-     * <p>校验结果</p>
-     *
-     * @return {@link FieldValidateResult }
-     * @author guocq
-     * @date 2023/3/21 13:48
-     */
-    @Override
-    public FieldValidateResult beforeCreateValidate() {
-        if (StrUtil.hasBlank(menuCode, menuName, menuType)) {
-            return FieldValidateResult.validateFailed("menuCode", "");
-        }
-        return super.beforeCreateValidate();
-    }
+    private String menuDesc;
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", SysMenuDto.class.getSimpleName() + "[", "]")
-                .add("parentId=" + parentId)
+        return new StringJoiner(", ", SysMenuVo.class.getSimpleName() + "[", "]")
                 .add("menuCode='" + menuCode + "'")
                 .add("menuName='" + menuName + "'")
                 .add("menuTitle='" + menuTitle + "'")
                 .add("menuType='" + menuType + "'")
+                .add("menuTypeName='" + menuTypeName + "'")
                 .add("menuIcon='" + menuIcon + "'")
                 .add("apiUri='" + apiUri + "'")
                 .add("viewPageUri='" + viewPageUri + "'")
@@ -85,8 +69,12 @@ public class SysMenuDto extends BaseDto {
                 .add("menuSort=" + menuSort)
                 .add("menuDesc='" + menuDesc + "'")
                 .add("id=" + id)
+                .add("parentId=" + parentId)
+                .add("children=" + children)
+                .add("root=" + root)
+                .add("leaf=" + leaf)
+                .add("addTime='" + addTime + "'")
+                .add("editTime='" + editTime + "'")
                 .toString();
     }
-
-
 }

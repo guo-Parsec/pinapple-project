@@ -1,6 +1,10 @@
 package org.pineapple.system.core.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.pineapple.common.PageDto;
 import org.pineapple.system.core.pojo.dto.SysMenuDto;
+import org.pineapple.system.core.pojo.query.SysMenuQuery;
+import org.pineapple.system.core.pojo.vo.SysMenuVo;
 
 import java.util.Set;
 
@@ -47,4 +51,14 @@ public interface SysMenuService {
      * @date 2023/3/21 14:36
      */
     void deleteSysMenu(Set<Long> idSet);
+
+    /**
+     * <p>分页查询系统菜单</p>
+     *
+     * @param pageDto 分页参数
+     * @return 系统菜单分页数据
+     * @author guocq
+     * @date 2023/3/22 14:37
+     */
+    IPage<SysMenuVo> pageQuerySysMenu(PageDto<SysMenuQuery> pageDto);
 }

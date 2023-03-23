@@ -4,4 +4,4 @@ server:
     context-path: /auth
 spring:
   profiles:
-    active: common,data,biz,log
+    include: common,data,biz,log

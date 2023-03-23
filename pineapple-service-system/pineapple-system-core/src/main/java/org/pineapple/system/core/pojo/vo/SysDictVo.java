@@ -1,5 +1,6 @@
 package org.pineapple.system.core.pojo.vo;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.pineapple.common.BaseVo;
@@ -14,6 +15,7 @@ import java.util.StringJoiner;
  */
 @Setter
 @Getter
+@ApiModel(value = "基础数据展示层")
 public class SysDictVo extends BaseVo {
     private static final long serialVersionUID = 6705554841452206642L;
     /**

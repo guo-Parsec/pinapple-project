@@ -8,4 +8,7 @@ package org.pineapple.common;
  */
 public abstract class AbstractDto extends AbstractDomainModel {
     private static final long serialVersionUID = 7794904298260884777L;
+
+    public AbstractDto() {
+    }
 }
