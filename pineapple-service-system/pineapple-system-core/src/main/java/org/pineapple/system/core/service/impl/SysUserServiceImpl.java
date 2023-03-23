@@ -41,7 +41,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @author guocq
      * @date 2023/3/14 11:17
      */
-    @Cacheable(cacheNames = {"sys_user_vo_single"}, key = "'login_id_' + #loginId")
+    @Cacheable(cacheNames = {"sys_user_vo_single"}, key = "'login_id_' + #loginId", unless="#result == null")
     @Valid(notBlank = {@NotBlank(value = "#loginId", message = "登录凭证不能为空")})
     @Override
     public SysUserVo loadUser(String loginId) {
