@@ -50,5 +50,9 @@
             <groupId>org.pineapple</groupId>
             <artifactId>pineapple-security-engine</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.pineapple</groupId>
+            <artifactId>pineapple-system-api</artifactId>
+        </dependency>
     </dependencies>
 </project>

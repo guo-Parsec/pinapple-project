@@ -145,7 +145,8 @@ public class DefaultSecurityService implements SecurityService {
     @Override
     public boolean isOnlineWithTokenText(String tokenText) {
         if (StrUtil.isBlank(tokenText)) {
-            throw ErrorRecords.valid.record(log, "根据令牌文本[tokenText={}]判断是否在线失败,原因:令牌文本不存在", tokenText);
+            log.error("根据令牌文本[tokenText={}]判断是否在线失败,原因:令牌文本不存在", tokenText);
+            return false;
         }
         log.debug("根据令牌文本[tokenText={}]判断是否在线", tokenText);
         return isOnlineWithTokenId(SecurityUtil.findEffectiveTokenId(tokenText));
