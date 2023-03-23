@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.collect.Maps;
 import org.pineapple.common.constant.BeanNameDefineConstant;
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

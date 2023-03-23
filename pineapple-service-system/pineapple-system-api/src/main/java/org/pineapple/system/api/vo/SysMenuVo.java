@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.pineapple.common.annotations.Dictionary;
-import org.pineapple.common.tree.AbstractTreeNode;
+import org.pineapple.common.support.tree.AbstractTreeNode;
 
 import java.util.StringJoiner;
 

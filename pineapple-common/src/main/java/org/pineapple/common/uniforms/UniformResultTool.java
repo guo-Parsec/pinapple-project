@@ -2,7 +2,7 @@ package org.pineapple.common.uniforms;
 
 import cn.hutool.core.util.ObjectUtil;
 import org.pineapple.common.enums.ResultEnumModel;
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.pineapple.common.enums.UniformResultEnum;
 import org.pineapple.common.exceptions.ExceptionModel;
 import org.slf4j.Logger;

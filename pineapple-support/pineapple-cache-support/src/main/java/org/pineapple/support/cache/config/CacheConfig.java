@@ -2,7 +2,7 @@ package org.pineapple.support.cache.config;
 
 import cn.hutool.core.util.StrUtil;
 import org.pineapple.common.constant.CommonConstant;
-import org.pineapple.common.support.RedisKeyJoin;
+import org.pineapple.common.support.keyjoin.RedisKeyJoin;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;

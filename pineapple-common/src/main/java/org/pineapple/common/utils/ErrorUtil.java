@@ -5,7 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.collect.Sets;
 import org.pineapple.common.GlobalExceptionProp;
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 
 import java.util.Set;
 

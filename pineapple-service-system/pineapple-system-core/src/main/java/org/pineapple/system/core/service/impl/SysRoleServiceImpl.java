@@ -2,9 +2,8 @@ package org.pineapple.system.core.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Sets;
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.pineapple.system.core.mapper.SysRoleMapper;
 import org.pineapple.system.core.service.SysRoleService;
 import org.slf4j.Logger;

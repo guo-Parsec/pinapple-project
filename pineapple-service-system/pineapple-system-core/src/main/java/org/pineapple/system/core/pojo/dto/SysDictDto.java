@@ -3,7 +3,7 @@ package org.pineapple.system.core.pojo.dto;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
-import org.pineapple.common.valid.CurdValidateGroup;
+import org.pineapple.common.support.valid.CurdValidateGroup;
 import org.pineapple.support.data.BaseDto;
 
 import javax.validation.constraints.NotEmpty;

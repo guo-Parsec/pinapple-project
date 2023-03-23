@@ -1,6 +1,6 @@
 package org.pineapple.common.utils;
 
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AdvisedSupport;
@@ -8,8 +8,6 @@ import org.springframework.aop.framework.AopProxy;
 import org.springframework.aop.support.AopUtils;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Proxy;
 
 /**
  * <p>代理工具类</p>

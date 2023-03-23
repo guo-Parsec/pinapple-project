@@ -3,7 +3,7 @@ package org.pineapple.support.flow.api.impl;
 import cn.hutool.core.util.StrUtil;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.history.HistoricProcessInstance;
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.pineapple.support.flow.api.BasicFlowApiForHistory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

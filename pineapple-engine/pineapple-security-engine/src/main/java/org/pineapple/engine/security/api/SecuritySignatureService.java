@@ -1,6 +1,6 @@
 package org.pineapple.engine.security.api;
 
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.pineapple.engine.security.entity.SecuritySignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

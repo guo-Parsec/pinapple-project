@@ -4,8 +4,8 @@ import com.google.common.base.Objects;
 import lombok.Getter;
 import lombok.Setter;
 import org.pineapple.common.pojo.dto.AbstractDto;
-import org.pineapple.common.valid.CurdValidateGroup;
-import org.pineapple.common.valid.FieldValidateResult;
+import org.pineapple.common.support.valid.CurdValidateGroup;
+import org.pineapple.common.support.valid.FieldValidateResult;
 
 import javax.validation.constraints.NotNull;
 import java.util.StringJoiner;
@@ -30,7 +30,7 @@ public abstract class BaseDto extends AbstractDto {
     /**
      * <p>校验结果</p>
      *
-     * @return {@link org.pineapple.common.valid.FieldValidateResult }
+     * @return {@link FieldValidateResult }
      * @author guocq
      * @date 2023/3/21 13:48
      */

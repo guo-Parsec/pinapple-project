@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.flowable.engine.ProcessEngine;
 import org.flowable.engine.ProcessEngineConfiguration;
 import org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration;
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.pineapple.support.flow.FlowProp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

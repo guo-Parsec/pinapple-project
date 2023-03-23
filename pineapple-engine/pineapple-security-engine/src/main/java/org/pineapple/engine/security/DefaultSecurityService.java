@@ -3,7 +3,7 @@ package org.pineapple.engine.security;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.pineapple.common.utils.UrlUtil;
 import org.pineapple.engine.security.api.SecuritySignatureService;
 import org.pineapple.engine.security.entity.SecurityInfo;

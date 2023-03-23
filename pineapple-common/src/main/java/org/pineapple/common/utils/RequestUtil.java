@@ -2,7 +2,7 @@ package org.pineapple.common.utils;
 
 import com.google.common.collect.Maps;
 import org.pineapple.common.enums.KeyCase;
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;

@@ -1,7 +1,7 @@
 package org.pineapple.support.data.utils;
 
 import com.baomidou.mybatisplus.core.override.MybatisMapperProxy;
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

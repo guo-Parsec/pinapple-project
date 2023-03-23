@@ -8,7 +8,7 @@ import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.pineapple.common.constant.CommonConstant;
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;

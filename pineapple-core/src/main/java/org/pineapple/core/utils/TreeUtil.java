@@ -2,7 +2,7 @@ package org.pineapple.core.utils;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.google.common.collect.Lists;
-import org.pineapple.common.tree.TreeNode;
+import org.pineapple.common.support.tree.TreeNode;
 
 import java.io.Serializable;
 import java.util.Iterator;

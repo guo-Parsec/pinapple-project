@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.pineapple.common.valid.FieldValidateResult;
+import org.pineapple.common.support.valid.FieldValidateResult;
 import org.pineapple.support.data.BaseDto;
 
 import java.util.StringJoiner;

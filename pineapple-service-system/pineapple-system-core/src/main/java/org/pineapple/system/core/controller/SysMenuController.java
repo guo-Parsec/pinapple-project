@@ -7,7 +7,7 @@ import org.pineapple.common.CommonWebApiDefineConstant;
 import org.pineapple.common.pojo.dto.PageDto;
 import org.pineapple.common.uniforms.UniformResultDefinition;
 import org.pineapple.common.uniforms.UniformResultTool;
-import org.pineapple.common.valid.CurdValidateGroup;
+import org.pineapple.common.support.valid.CurdValidateGroup;
 import org.pineapple.system.api.SystemWebApiDefineConstant;
 import org.pineapple.system.core.pojo.dto.SysMenuDto;
 import org.pineapple.system.core.pojo.query.SysMenuQuery;

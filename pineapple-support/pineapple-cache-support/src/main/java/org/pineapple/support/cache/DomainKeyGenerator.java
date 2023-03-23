@@ -8,7 +8,7 @@ import cn.hutool.core.util.StrUtil;
 import org.pineapple.common.pojo.DomainModel;
 import org.pineapple.common.NameInterface;
 import org.pineapple.common.constant.CommonConstant;
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.interceptor.KeyGenerator;

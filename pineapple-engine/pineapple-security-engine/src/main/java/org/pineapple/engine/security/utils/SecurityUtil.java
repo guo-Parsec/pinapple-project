@@ -2,8 +2,8 @@ package org.pineapple.engine.security.utils;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import org.pineapple.common.error.ErrorRecords;
-import org.pineapple.common.support.BasicRedisKeyJoin;
+import org.pineapple.common.support.error.ErrorRecords;
+import org.pineapple.common.support.keyjoin.BasicRedisKeyJoin;
 import org.pineapple.common.utils.RequestUtil;
 import org.pineapple.common.utils.SerialNumberUtil;
 import org.pineapple.engine.security.contant.SecurityCommonConstant;

@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.collect.Sets;
-import org.pineapple.common.error.ErrorRecords;
+import org.pineapple.common.support.error.ErrorRecords;
 import org.pineapple.common.utils.RedisUtil;
 import org.pineapple.engine.basequery.entity.SystemParamEntity;
 import org.pineapple.engine.basequery.facade.SystemParamFacade;
