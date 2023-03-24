@@ -65,6 +65,12 @@
       "type": "java.lang.String",
       "description": "用户名",
       "sourceType": "org.pineapple.support.flow.FlowProp"
+    },
+    {
+      "name": "flow.enable",
+      "type": "java.lang.Boolean",
+      "description": "是否生效",
+      "sourceType": "org.pineapple.support.flow.FlowProp"
     }
   ],
   "hints": []

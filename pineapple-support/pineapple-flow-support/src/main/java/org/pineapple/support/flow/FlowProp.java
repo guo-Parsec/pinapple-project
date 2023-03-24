@@ -16,7 +16,10 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "flow")
 public class FlowProp {
-
+    /**
+     * 是否生效
+     */
+    private Boolean enable;
     /**
      * jdbc - url
      */

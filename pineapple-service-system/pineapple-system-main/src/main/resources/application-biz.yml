@@ -17,6 +17,7 @@ flow:
   activity-font-name: 宋体
   label-font-name: 宋体
   annotation-font-name: 宋体
+  enable: false
 flowable:
   async-executor-activate: false
 error:

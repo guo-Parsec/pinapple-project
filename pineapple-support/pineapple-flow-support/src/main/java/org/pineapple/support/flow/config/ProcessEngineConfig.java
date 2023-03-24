@@ -9,6 +9,7 @@ import org.pineapple.common.support.error.ErrorRecords;
 import org.pineapple.support.flow.FlowProp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,7 @@ import org.springframework.context.annotation.Primary;
 @Getter
 @Setter
 @Configuration
+//@Confi
 @ConfigurationProperties(prefix = "spring.datasource")
 public class ProcessEngineConfig {
     private static final Logger log = LoggerFactory.getLogger(ProcessEngineConfig.class);
@@ -35,6 +37,7 @@ public class ProcessEngineConfig {
 
     @Primary
     @Bean(name = "processEngine")
+    @ConditionalOnProperty(prefix = "flow", name = "enabled", havingValue = "true")
     public ProcessEngine initProcessEngine() {
         log.info("初始化流程引擎开始");
         ProcessEngineConfiguration config;
