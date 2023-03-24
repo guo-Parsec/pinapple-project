@@ -12,6 +12,9 @@ import org.pineapple.common.pojo.dto.PageDto;
  */
 @Setter
 @Getter
-public class SysMenuPageQuery {
-    private PageDto<SysMenuQuery> dto;
+public class SysMenuPageQuery extends PageDto {
+    /**
+     * 查询参数
+     */
+    private SysMenuQuery queryDto;
 }

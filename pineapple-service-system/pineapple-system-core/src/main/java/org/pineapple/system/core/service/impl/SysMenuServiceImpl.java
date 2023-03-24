@@ -9,18 +9,18 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.pineapple.common.pojo.dto.PageDto;
 import org.pineapple.common.constant.CommonConstant;
-import org.pineapple.common.support.error.ErrorRecords;
 import org.pineapple.common.support.collcut.ListCut;
+import org.pineapple.common.support.error.ErrorRecords;
+import org.pineapple.system.api.vo.SysMenuVo;
 import org.pineapple.system.core.mapper.SysMenuMapper;
 import org.pineapple.system.core.mapper.SysRoleMapper;
 import org.pineapple.system.core.pojo.converter.SysMenuConverter;
 import org.pineapple.system.core.pojo.dto.SysMenuDto;
 import org.pineapple.system.core.pojo.entity.SysMenu;
 import org.pineapple.system.core.pojo.entity.SysRole;
+import org.pineapple.system.core.pojo.query.SysMenuPageQuery;
 import org.pineapple.system.core.pojo.query.SysMenuQuery;
-import org.pineapple.system.api.vo.SysMenuVo;
 import org.pineapple.system.core.service.SysMenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -166,7 +166,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @date 2023/3/22 14:37
      */
     @Override
-    public IPage<SysMenuVo> pageQuerySysMenu(PageDto<SysMenuQuery> pageDto) {
+    public IPage<SysMenuVo> pageQuerySysMenu(SysMenuPageQuery pageDto) {
         log.debug("分页查询系统菜单[pageDto={}]", pageDto);
         Page<SysMenu> page = new Page<>(pageDto.getPageIndex(), pageDto.getPageSize());
         LambdaQueryWrapper<SysMenu> wrapper = new LambdaQueryWrapper<>();

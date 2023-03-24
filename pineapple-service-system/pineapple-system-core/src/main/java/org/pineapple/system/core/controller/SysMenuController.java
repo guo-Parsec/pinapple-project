@@ -63,8 +63,8 @@ public class SysMenuController {
 
     @ApiOperation(value = "分页查询系统菜单")
     @PostMapping(CommonWebApiDefineConstant.COMMON_PAGE_ACTION_API)
-    public UniformResultDefinition<IPage<SysMenuVo>> pageQuerySysMenu(@Validated(CurdValidateGroup.Page.class) @RestParam("param") SysMenuPageQuery pageDto) {
-        return UniformResultTool.success(service.pageQuerySysMenu(pageDto.getDto()));
+    public UniformResultDefinition<IPage<SysMenuVo>> pageQuerySysMenu(@Validated(CurdValidateGroup.Page.class) @RestParam SysMenuPageQuery pageDto) {
+        return UniformResultTool.success(service.pageQuerySysMenu(pageDto));
     }
 
     @ApiOperation(value = "根据菜单编码列表获取菜单信息")

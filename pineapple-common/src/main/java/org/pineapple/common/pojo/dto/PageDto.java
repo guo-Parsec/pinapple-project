@@ -16,14 +16,14 @@ import java.util.StringJoiner;
  */
 @Setter
 @Getter
-public class PageDto<D> {
+public class PageDto {
     /**
      * 当前页
      */
     @NotNull(message = "当前页不能为空")
     @Min(value = 1, message = "当前页不能小于1")
     @ApiModelProperty(value = "当前页")
-    private Integer pageIndex;
+    protected Integer pageIndex;
 
     /**
      * 页大小
@@ -31,20 +31,13 @@ public class PageDto<D> {
     @NotNull(message = "页大小不能为空")
     @Min(value = 1, message = "页大小不能小于1")
     @ApiModelProperty(value = "页大小")
-    private Integer pageSize;
-
-    /**
-     * 查询参数
-     */
-    @ApiModelProperty(value = "查询参数")
-    private D queryDto;
+    protected Integer pageSize;
 
     @Override
     public String toString() {
         return new StringJoiner(", ", PageDto.class.getSimpleName() + "[", "]")
                 .add("pageIndex=" + pageIndex)
                 .add("pageSize=" + pageSize)
-                .add("queryDto=" + queryDto)
                 .toString();
     }
 }
