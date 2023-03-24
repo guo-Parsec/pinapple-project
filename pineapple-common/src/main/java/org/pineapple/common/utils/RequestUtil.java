@@ -1,5 +1,6 @@
 package org.pineapple.common.utils;
 
+import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Maps;
 import org.pineapple.common.enums.KeyCase;
 import org.pineapple.common.support.error.ErrorRecords;
@@ -127,12 +128,17 @@ public class RequestUtil {
      * @date 2023/3/15 11:16
      */
     public static String findHeadByName(HttpServletRequest request, String name, boolean isIgnoreCase) {
-        if (!isIgnoreCase) {
-            return request.getHeader(name);
+        String headValue = request.getHeader(name);
+        if (StrUtil.isNotBlank(headValue)) {
+            return headValue;
         }
-        Map<String, String> headMap = getHeadMap(request);
-        if (headMap.containsKey(name)) {
-            return headMap.get(name);
+        if (!isIgnoreCase) {
+            return headValue;
+        }
+        String lowerName = name.toLowerCase(Locale.ROOT);
+        Map<String, String> headMap = getHeadMap(request, KeyCase.LOWER);
+        if (headMap.containsKey(lowerName)) {
+            return headMap.get(lowerName);
         }
         log.warn("在请求中找不到键为[name={}]的请求头", name);
         return null;
