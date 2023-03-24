@@ -5,6 +5,7 @@ import org.pineapple.system.api.vo.SysMenuVo;
 import org.pineapple.system.core.pojo.dto.SysMenuDto;
 import org.pineapple.system.core.pojo.query.SysMenuPageQuery;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -70,4 +71,14 @@ public interface SysMenuService {
      * @date 2023/3/22 14:37
      */
     IPage<SysMenuVo> pageQuerySysMenu(SysMenuPageQuery pageDto);
+
+    /**
+     * <p>获取当前用户的系统菜单</p>
+     *
+     * @param permissions 权限集合
+     * @return {@link java.util.List<org.pineapple.system.api.vo.SysMenuVo> }
+     * @author guocq
+     * @date 2023/3/24 11:00
+     */
+    List<SysMenuVo> findSysMenuOfCurrentUser(Set<String> permissions);
 }

@@ -8,6 +8,8 @@ import org.pineapple.common.annotations.RestParam;
 import org.pineapple.common.support.valid.CurdValidateGroup;
 import org.pineapple.common.uniforms.UniformResultDefinition;
 import org.pineapple.common.uniforms.UniformResultTool;
+import org.pineapple.engine.security.annotations.SecurityParam;
+import org.pineapple.engine.security.contant.SecurityCommonConstant;
 import org.pineapple.system.api.SystemWebApiDefineConstant;
 import org.pineapple.system.api.vo.SysMenuVo;
 import org.pineapple.system.core.pojo.dto.SysMenuDto;
@@ -16,6 +18,7 @@ import org.pineapple.system.core.service.SysMenuService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -71,5 +74,11 @@ public class SysMenuController {
     @GetMapping("find-sys-menu/by/menu-codes")
     public UniformResultDefinition<Set<SysMenuVo>> findSysMenuByMenuCodes(@RequestParam("menuCodeSet") Set<String> menuCodeSet) {
         return UniformResultTool.success(service.findSysMenuByMenuCodes(menuCodeSet));
+    }
+
+    @ApiOperation(value = "获取当前用户的系统菜单")
+    @GetMapping("find-sys-menu/of/current-user")
+    public UniformResultDefinition<List<SysMenuVo>> findSysMenuOfCurrentUser(@SecurityParam(SecurityCommonConstant.PERMISSIONS_KEY) Set<String> permissions) {
+        return UniformResultTool.success(service.findSysMenuOfCurrentUser(permissions));
     }
 }

@@ -12,6 +12,8 @@ import com.google.common.collect.Sets;
 import org.pineapple.common.constant.CommonConstant;
 import org.pineapple.common.support.collcut.ListCut;
 import org.pineapple.common.support.error.ErrorRecords;
+import org.pineapple.core.utils.TreeUtil;
+import org.pineapple.engine.security.SecurityService;
 import org.pineapple.system.api.vo.SysMenuVo;
 import org.pineapple.system.core.mapper.SysMenuMapper;
 import org.pineapple.system.core.mapper.SysRoleMapper;
@@ -49,6 +51,11 @@ public class SysMenuServiceImpl implements SysMenuService {
     private SysRoleMapper sysRoleMapper;
     @Resource
     private SysMenuConverter sysMenuConverter;
+    private final SecurityService securityService;
+
+    public SysMenuServiceImpl(SecurityService securityService) {
+        this.securityService = securityService;
+    }
 
     /**
      * <p>根据角色码列表获取菜单码</p>
@@ -184,6 +191,31 @@ public class SysMenuServiceImpl implements SysMenuService {
                 .orderByAsc(SysMenu::getMenuSort);
         sysMenuPage = sysMenuMapper.selectPage(page, wrapper);
         return sysMenuPage.convert(sysMenuConverter::entityToVo);
+    }
+
+    /**
+     * <p>获取当前用户的系统菜单</p>
+     *
+     * @param permissions 权限集合
+     * @return {@link List<SysMenuVo> }
+     * @author guocq
+     * @date 2023/3/24 11:00
+     */
+    @Override
+    public List<SysMenuVo> findSysMenuOfCurrentUser(Set<String> permissions) {
+        if (CollUtil.isEmpty(permissions)) {
+            throw ErrorRecords.valid.record(log, "获取当前用户失败");
+        }
+        Wrapper<SysMenu> wrapper = new LambdaQueryWrapper<SysMenu>()
+                .in(SysMenu::getMenuCode, permissions);
+        List<SysMenu> sysMenus = sysMenuMapper.selectList(wrapper);
+        List<SysMenuVo> menuVos = sysMenus.stream().map(sysMenuConverter::entityToVo).collect(Collectors.toList());
+        menuVos.add(SysMenuVo.rootMenu);
+        menuVos = TreeUtil.generateTree(menuVos, SysMenuVo.rootMenu.getId());
+        if (CollUtil.isEmpty(menuVos)) {
+            return Lists.newArrayList();
+        }
+        return menuVos;
     }
 
 

@@ -20,6 +20,13 @@ import java.util.StringJoiner;
 @ApiModel(value = "系统菜单vo")
 public class SysMenuVo extends AbstractTreeNode<Long> {
     private static final long serialVersionUID = 621527041465684582L;
+
+    public static final SysMenuVo rootMenu = new SysMenuVo(0L);
+
+    static {
+        rootMenu.setMenuName("根目录");
+    }
+
     @ApiModelProperty(value = "菜单编码")
     private String menuCode;
 
@@ -53,6 +60,13 @@ public class SysMenuVo extends AbstractTreeNode<Long> {
 
     @ApiModelProperty(value = "菜单备注信息")
     private String menuDesc;
+
+    public SysMenuVo() {
+    }
+
+    public SysMenuVo(Long id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

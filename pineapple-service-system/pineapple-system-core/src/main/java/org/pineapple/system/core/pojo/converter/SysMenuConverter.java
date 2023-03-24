@@ -36,6 +36,8 @@ public class SysMenuConverter extends BaseConverter<SysMenu, SysMenuVo> {
         }
         SysMenuVo vo = new SysMenuVo();
         super.entityToVo(entity, vo);
+        vo.setId(entity.getId());
+        vo.setParentId(entity.getParentId());
         vo.setMenuCode(entity.getMenuCode());
         vo.setMenuName(entity.getMenuName());
         vo.setMenuTitle(entity.getMenuTitle());
