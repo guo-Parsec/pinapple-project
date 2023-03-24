@@ -36,4 +36,9 @@ public class BeanNameDefineConstant {
      * 默认安全服务类
      */
     public static final String DEFAULT_SECURITY_SERVICE = "defaultSecurityService";
+
+    /**
+     * 应用配置类
+     */
+    public static final String APP_SETTING = "appSetting";
 }

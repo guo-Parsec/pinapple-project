@@ -8,9 +8,14 @@ package org.pineapple.common.constant;
  */
 public class CommonConstant {
     /**
+     * 项目名称
+     */
+    public static final String PROJECT_NAME = "pineapple";
+
+    /**
      * redis统一前缀
      */
-    public static final String REDIS_KEY_PREFIX = "pineapple";
+    public static final String REDIS_KEY_PREFIX = PROJECT_NAME;
 
     /**
      * 占位符
