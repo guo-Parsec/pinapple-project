@@ -67,6 +67,6 @@ public class UniformResultResponseAdvice implements ResponseBodyAdvice<Object> {
                 throw ErrorRecords.error.record(log, "String类型返回值包装异常");
             }
         }
-        return UniformResultTool.success(body);
+        return body == null ? UniformResultTool.success() : UniformResultTool.success(body);
     }
 }

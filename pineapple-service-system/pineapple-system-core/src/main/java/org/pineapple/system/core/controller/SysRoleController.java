@@ -2,8 +2,6 @@ package org.pineapple.system.core.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.pineapple.common.uniforms.UniformResultDefinition;
-import org.pineapple.common.uniforms.UniformResultTool;
 import org.pineapple.system.api.SystemWebApiDefineConstant;
 import org.pineapple.system.core.service.SysRoleService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +29,7 @@ public class SysRoleController {
 
     @ApiOperation(value = "根据用户id获取角色信息")
     @GetMapping("/find-role-code/by/user-id")
-    public UniformResultDefinition<Set<String>> findRoleCodeByUserId(@RequestParam("userId") Long userId) {
-        return UniformResultTool.success(service.findRoleCodeByUserId(userId));
+    public Set<String> findRoleCodeByUserId(@RequestParam("userId") Long userId) {
+        return service.findRoleCodeByUserId(userId);
     }
 }

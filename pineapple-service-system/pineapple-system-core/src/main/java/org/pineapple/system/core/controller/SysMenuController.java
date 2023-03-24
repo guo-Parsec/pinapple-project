@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.pineapple.common.CommonWebApiDefineConstant;
-import org.pineapple.common.annotations.NoneUniformResultWrap;
 import org.pineapple.common.annotations.RestParam;
-import org.pineapple.common.uniforms.UniformResultDefinition;
-import org.pineapple.common.uniforms.UniformResultTool;
 import org.pineapple.system.api.SystemWebApiDefineConstant;
 import org.pineapple.system.api.vo.SysMenuVo;
 import org.pineapple.system.core.pojo.dto.SysMenuDto;
@@ -37,29 +34,26 @@ public class SysMenuController {
 
     @ApiOperation(value = "根据角色码列表获取菜单码")
     @GetMapping("/find-menu-code/by/role-code")
-    public UniformResultDefinition<Set<String>> findMenuCodeByRoleCode(@RequestParam("roleCodeSet") Set<String> roleCodeSet) {
-        return UniformResultTool.success(service.findMenuCodeByRoleCode(roleCodeSet));
+    public Set<String> findMenuCodeByRoleCode(@RequestParam("roleCodeSet") Set<String> roleCodeSet) {
+        return service.findMenuCodeByRoleCode(roleCodeSet);
     }
 
     @ApiOperation(value = "新增系统菜单")
     @PostMapping(CommonWebApiDefineConstant.COMMON_CREATE_ACTION_API)
-    public UniformResultDefinition<Void> createSysMenu(@Validated @RequestBody SysMenuDto dto) {
+    public void createSysMenu(@Validated @RequestBody SysMenuDto dto) {
         service.createSysMenu(dto);
-        return UniformResultTool.success();
     }
 
     @ApiOperation(value = "修改系统菜单")
     @PutMapping(CommonWebApiDefineConstant.COMMON_EDIT_ACTION_API)
-    public UniformResultDefinition<Void> updateSysMenu(@Validated @RequestBody SysMenuDto dto) {
+    public void updateSysMenu(@Validated @RequestBody SysMenuDto dto) {
         service.updateSysMenu(dto);
-        return UniformResultTool.success();
     }
 
     @ApiOperation(value = "删除系统菜单")
     @DeleteMapping(CommonWebApiDefineConstant.COMMON_SOFT_REMOVE_ACTION_API)
-    public UniformResultDefinition<Void> deleteSysMenu(@RequestBody Set<Long> idSet) {
+    public void deleteSysMenu(@RequestBody Set<Long> idSet) {
         service.deleteSysMenu(idSet);
-        return UniformResultTool.success();
     }
 
     @ApiOperation(value = "分页查询系统菜单")
@@ -78,16 +72,5 @@ public class SysMenuController {
     @GetMapping("find-sys-menu/by/permissions")
     public List<SysMenuVo> findSysMenuByPermissions(@RestParam Set<String> permissions) {
         return service.findSysMenuByPermissions(permissions);
-    }
-
-    @GetMapping(value = "/testStr")
-    public String testStr(@RestParam String text) {
-        return text;
-    }
-
-    @GetMapping(value = "/testNoWrapper")
-    @NoneUniformResultWrap
-    public String testNoWrapper(@RestParam String text) {
-        return text;
     }
 }

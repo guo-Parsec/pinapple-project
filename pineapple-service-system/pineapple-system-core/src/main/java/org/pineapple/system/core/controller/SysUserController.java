@@ -2,12 +2,13 @@ package org.pineapple.system.core.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.pineapple.common.uniforms.UniformResultDefinition;
-import org.pineapple.common.uniforms.UniformResultTool;
 import org.pineapple.system.api.SystemWebApiDefineConstant;
 import org.pineapple.system.api.vo.SysUserVo;
 import org.pineapple.system.core.service.SysUserService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>系统用户管理</p>
@@ -27,7 +28,7 @@ public class SysUserController {
 
     @ApiOperation(value = "加载用户信息")
     @GetMapping("/load-user")
-    public UniformResultDefinition<SysUserVo> loadUser(@RequestParam("loginId") String loginId) {
-        return UniformResultTool.success(service.loadUser(loginId));
+    public SysUserVo loadUser(@RequestParam("loginId") String loginId) {
+        return service.loadUser(loginId);
     }
 }
