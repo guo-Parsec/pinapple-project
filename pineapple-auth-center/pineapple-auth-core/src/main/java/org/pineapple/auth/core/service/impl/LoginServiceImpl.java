@@ -1,13 +1,17 @@
 package org.pineapple.auth.core.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import org.pineapple.auth.core.pojo.vo.LoginResultVo;
 import org.pineapple.auth.core.service.LoginService;
 import org.pineapple.engine.security.SecurityService;
 import org.pineapple.engine.security.entity.SecuritySignature;
+import org.pineapple.system.api.client.SysMenuClient;
 import org.pineapple.system.api.vo.SysUserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>登录业务实现类</p>
@@ -18,6 +22,8 @@ import org.springframework.stereotype.Service;
 @Service(value = "loginService")
 public class LoginServiceImpl implements LoginService {
     private final static Logger log = LoggerFactory.getLogger(LoginServiceImpl.class);
+    @Resource
+    private SysMenuClient sysMenuClient;
 
     private final SecurityService securityService;
 
@@ -48,6 +54,9 @@ public class LoginServiceImpl implements LoginService {
         }
         LoginResultVo loginResultVo = new LoginResultVo();
         loginResultVo.setSignature(signature);
+        if (CollUtil.isNotEmpty(signature.getPermissions())) {
+            loginResultVo.setMenuVos(sysMenuClient.findSysMenuByPermissions(signature.getPermissions()));
+        }
         return loginResultVo;
     }
 }

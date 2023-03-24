@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.pineapple.engine.security.entity.SecuritySignature;
 import org.pineapple.system.api.vo.SysMenuVo;
 
+import java.util.List;
+
 /**
  * <p>登录结果返回</p>
  *
@@ -21,5 +23,5 @@ public class LoginResultVo {
     private SecuritySignature signature;
 
     @ApiModelProperty(value = "菜单信息")
-    private SysMenuVo menu;
+    private List<SysMenuVo> menuVos;
 }
