@@ -194,7 +194,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     /**
-     * <p>获取当前用户的系统菜单</p>
+     * <p>获取根据权限码值获取系统菜单树状结构</p>
      *
      * @param permissions 权限集合
      * @return {@link List<SysMenuVo> }
@@ -202,7 +202,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @date 2023/3/24 11:00
      */
     @Override
-    public List<SysMenuVo> findSysMenuOfCurrentUser(Set<String> permissions) {
+    public List<SysMenuVo> findSysMenuByPermissions(Set<String> permissions) {
         if (CollUtil.isEmpty(permissions)) {
             throw ErrorRecords.valid.record(log, "获取当前用户失败");
         }

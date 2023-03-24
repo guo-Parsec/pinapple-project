@@ -11,15 +11,14 @@ import org.pineapple.common.constant.BeanNameDefineConstant;
 import org.pineapple.common.support.error.ErrorRecords;
 import org.pineapple.common.support.strategy.CryptoStrategy;
 import org.pineapple.common.support.strategy.Md5SaltCrypto;
-import org.pineapple.common.uniforms.UniformResultTool;
 import org.pineapple.engine.basequery.entity.SystemParamEntity;
 import org.pineapple.engine.basequery.facade.SystemParamFacade;
 import org.pineapple.engine.security.api.SecuritySignatureService;
 import org.pineapple.engine.security.contant.SystemParamConstant;
 import org.pineapple.engine.security.entity.SecuritySignature;
-import org.pineapple.system.api.SysMenuClient;
-import org.pineapple.system.api.SysRoleClient;
-import org.pineapple.system.api.SysUserClient;
+import org.pineapple.system.api.client.SysMenuClient;
+import org.pineapple.system.api.client.SysRoleClient;
+import org.pineapple.system.api.client.SysUserClient;
 import org.pineapple.system.api.vo.SysMenuVo;
 import org.pineapple.system.api.vo.SysUserVo;
 import org.slf4j.Logger;
@@ -91,7 +90,7 @@ public class SecuritySignatureServiceImpl implements SecuritySignatureService {
     @Override
     public SecuritySignature loadSignature(String loginId, String rawPassword) {
         log.debug("根据登录凭证[loginId={}]加载签名信息开始", loginId);
-        SysUserVo sysUserVo = UniformResultTool.grabDataNoException(sysUserClient.loadUser(loginId));
+        SysUserVo sysUserVo = sysUserClient.loadUser(loginId);
         if (sysUserVo == null) {
             throw ErrorRecords.unauthorized.record(log, SecurityResultEnum.NOT_FOUND_USER, "根据登录凭证[loginId={}]获取用户失败", loginId);
         }
@@ -104,10 +103,10 @@ public class SecuritySignatureServiceImpl implements SecuritySignatureService {
         signature.setId(sysUserVo.getId());
         signature.setLoginId(sysUserVo.getLoginId());
         signature.setDetails(sysUserVo);
-        Set<String> roleCodes = UniformResultTool.grabDataNoException(sysRoleClient.findRoleCodeByUserId(Long.valueOf(sysUserVo.getId())));
+        Set<String> roleCodes = sysRoleClient.findRoleCodeByUserId(Long.valueOf(sysUserVo.getId()));
         signature.setRoles(roleCodes);
         if (CollUtil.isNotEmpty(roleCodes)) {
-            Set<String> menuCodes = UniformResultTool.grabDataNoException(sysMenuClient.findMenuCodeByRoleCode(roleCodes));
+            Set<String> menuCodes = sysMenuClient.findMenuCodeByRoleCode(roleCodes);
             signature.setPermissions(menuCodes);
         }
         log.debug("根据登录凭证[loginId={}]加载签名信息完成,签名信息为[signature={}]", loginId, signature);
@@ -130,7 +129,7 @@ public class SecuritySignatureServiceImpl implements SecuritySignatureService {
             log.warn("根据签名信息[signature={}]加载资源实体集合为空", signature);
             return Sets.newHashSet();
         }
-        Set<SysMenuVo> resourceSet = UniformResultTool.grabDataNoException(sysMenuClient.findSysMenuByMenuCodes(permissions));
+        Set<SysMenuVo> resourceSet = sysMenuClient.findSysMenuByMenuCodes(permissions);
         if (CollUtil.isEmpty(resourceSet)) {
             log.warn("根据签名信息[signature={}]加载资源实体集合为空", signature);
             return Sets.newHashSet();

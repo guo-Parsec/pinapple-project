@@ -4,12 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.pineapple.common.CommonWebApiDefineConstant;
+import org.pineapple.common.annotations.NoneUniformResultWrap;
 import org.pineapple.common.annotations.RestParam;
-import org.pineapple.common.support.valid.CurdValidateGroup;
 import org.pineapple.common.uniforms.UniformResultDefinition;
 import org.pineapple.common.uniforms.UniformResultTool;
-import org.pineapple.engine.security.annotations.SecurityParam;
-import org.pineapple.engine.security.contant.SecurityCommonConstant;
 import org.pineapple.system.api.SystemWebApiDefineConstant;
 import org.pineapple.system.api.vo.SysMenuVo;
 import org.pineapple.system.core.pojo.dto.SysMenuDto;
@@ -66,19 +64,30 @@ public class SysMenuController {
 
     @ApiOperation(value = "分页查询系统菜单")
     @PostMapping(CommonWebApiDefineConstant.COMMON_PAGE_ACTION_API)
-    public UniformResultDefinition<IPage<SysMenuVo>> pageQuerySysMenu(@Validated(CurdValidateGroup.Page.class) @RestParam SysMenuPageQuery pageDto) {
-        return UniformResultTool.success(service.pageQuerySysMenu(pageDto));
+    public IPage<SysMenuVo> pageQuerySysMenu(@Validated @RestParam SysMenuPageQuery pageDto) {
+        return service.pageQuerySysMenu(pageDto);
     }
 
     @ApiOperation(value = "根据菜单编码列表获取菜单信息")
     @GetMapping("find-sys-menu/by/menu-codes")
-    public UniformResultDefinition<Set<SysMenuVo>> findSysMenuByMenuCodes(@RequestParam("menuCodeSet") Set<String> menuCodeSet) {
-        return UniformResultTool.success(service.findSysMenuByMenuCodes(menuCodeSet));
+    public Set<SysMenuVo> findSysMenuByMenuCodes(@RequestParam("menuCodeSet") Set<String> menuCodeSet) {
+        return service.findSysMenuByMenuCodes(menuCodeSet);
     }
 
-    @ApiOperation(value = "获取当前用户的系统菜单")
-    @GetMapping("find-sys-menu/of/current-user")
-    public UniformResultDefinition<List<SysMenuVo>> findSysMenuOfCurrentUser(@SecurityParam(SecurityCommonConstant.PERMISSIONS_KEY) Set<String> permissions) {
-        return UniformResultTool.success(service.findSysMenuOfCurrentUser(permissions));
+    @ApiOperation(value = "获取根据权限码值获取系统菜单树状结构")
+    @GetMapping("find-sys-menu/by/permissions")
+    public List<SysMenuVo> findSysMenuByPermissions(@RestParam Set<String> permissions) {
+        return service.findSysMenuByPermissions(permissions);
+    }
+
+    @GetMapping(value = "/testStr")
+    public String testStr(@RestParam String text) {
+        return text;
+    }
+
+    @GetMapping(value = "/testNoWrapper")
+    @NoneUniformResultWrap
+    public String testNoWrapper(@RestParam String text) {
+        return text;
     }
 }

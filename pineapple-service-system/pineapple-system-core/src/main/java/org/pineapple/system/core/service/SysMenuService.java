@@ -73,12 +73,12 @@ public interface SysMenuService {
     IPage<SysMenuVo> pageQuerySysMenu(SysMenuPageQuery pageDto);
 
     /**
-     * <p>获取当前用户的系统菜单</p>
+     * <p>获取根据权限码值获取系统菜单树状结构</p>
      *
      * @param permissions 权限集合
      * @return {@link java.util.List<org.pineapple.system.api.vo.SysMenuVo> }
      * @author guocq
      * @date 2023/3/24 11:00
      */
-    List<SysMenuVo> findSysMenuOfCurrentUser(Set<String> permissions);
+    List<SysMenuVo> findSysMenuByPermissions(Set<String> permissions);
 }

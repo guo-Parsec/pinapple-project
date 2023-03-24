@@ -1,6 +1,6 @@
-package org.pineapple.system.api;
+package org.pineapple.system.api.client;
 
-import org.pineapple.common.uniforms.UniformResultDefinition;
+import org.pineapple.system.api.SystemWebApiDefineConstant;
 import org.pineapple.system.api.vo.SysUserVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,5 +23,5 @@ public interface SysUserClient {
      * @date 2023/3/14 11:38
      */
     @GetMapping("/load-user")
-    UniformResultDefinition<SysUserVo> loadUser(@RequestParam("loginId") String loginId);
+    SysUserVo loadUser(@RequestParam("loginId") String loginId);
 }

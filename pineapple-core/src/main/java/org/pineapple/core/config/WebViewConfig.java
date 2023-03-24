@@ -36,6 +36,11 @@ public class WebViewConfig implements WebMvcConfigurer {
     }
 
     @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(responseBodyConverter());
+    }
+
+    @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/", "/swagger-ui/index.html");
     }

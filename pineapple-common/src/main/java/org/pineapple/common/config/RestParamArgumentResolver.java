@@ -55,7 +55,7 @@ public class RestParamArgumentResolver implements HandlerMethodArgumentResolver 
      * <p>设置支持的方法参数类型</p>
      *
      * @param parameter 方法参数
-     * @return {@link boolean }
+     * @return {@link Boolean }
      * @author guocq
      * @date 2023/3/23 14:22
      */

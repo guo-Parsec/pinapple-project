@@ -1,6 +1,6 @@
-package org.pineapple.system.api;
+package org.pineapple.system.api.client;
 
-import org.pineapple.common.uniforms.UniformResultDefinition;
+import org.pineapple.system.api.SystemWebApiDefineConstant;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,5 +25,5 @@ public interface SysRoleClient {
      * @date 2023/3/21 10:49
      */
     @GetMapping("/find-role-code/by/user-id")
-    UniformResultDefinition<Set<String>> findRoleCodeByUserId(@RequestParam("userId") Long userId);
+    Set<String> findRoleCodeByUserId(@RequestParam("userId") Long userId);
 }

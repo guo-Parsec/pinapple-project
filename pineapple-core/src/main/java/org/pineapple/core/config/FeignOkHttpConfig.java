@@ -1,12 +1,20 @@
 package org.pineapple.core.config;
 
 import feign.Feign;
+import feign.codec.Decoder;
+import feign.optionals.OptionalDecoder;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import org.pineapple.core.FeignOkHttpConfigProp;
+import org.pineapple.core.feign.FeignResultDecoder;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
+import org.springframework.cloud.openfeign.support.HttpMessageConverterCustomizer;
+import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
+import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -62,5 +70,11 @@ public class FeignOkHttpConfig {
                 .connectionPool(pool())
                 //构建OkHttpClient对象
                 .build();
+    }
+
+    @Bean
+    public Decoder feignDecoder(ObjectProvider<HttpMessageConverters> messageConverters, ObjectProvider<HttpMessageConverterCustomizer> customizers) {
+        FeignResultDecoder feignResultDecoder = new FeignResultDecoder(new SpringDecoder(messageConverters, customizers));
+        return new OptionalDecoder(new ResponseEntityDecoder(feignResultDecoder));
     }
 }
