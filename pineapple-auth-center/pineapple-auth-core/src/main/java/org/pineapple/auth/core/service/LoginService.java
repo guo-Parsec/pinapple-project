@@ -1,6 +1,6 @@
 package org.pineapple.auth.core.service;
 
-import org.pineapple.engine.security.entity.SecuritySignature;
+import org.pineapple.auth.core.pojo.vo.LoginResultVo;
 
 /**
  * <p>登录业务类</p>
@@ -15,9 +15,9 @@ public interface LoginService {
      * @param loginId    账户信息
      * @param password   密码信息
      * @param verifyCode 验证码信息
-     * @return {@link SecuritySignature}
+     * @return {@link LoginResultVo}
      * @author guocq
      * @date 2022/12/28 15:25
      */
-    SecuritySignature login(String loginId, String password, String verifyCode);
+    LoginResultVo login(String loginId, String password, String verifyCode);
 }

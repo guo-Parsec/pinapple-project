@@ -1,8 +1,10 @@
 package org.pineapple.auth.core.service.impl;
 
+import org.pineapple.auth.core.pojo.vo.LoginResultVo;
 import org.pineapple.auth.core.service.LoginService;
 import org.pineapple.engine.security.SecurityService;
 import org.pineapple.engine.security.entity.SecuritySignature;
+import org.pineapple.system.api.vo.SysUserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,13 +31,23 @@ public class LoginServiceImpl implements LoginService {
      * @param loginId    账户信息
      * @param password   密码信息
      * @param verifyCode 验证码信息
-     * @return {@link SecuritySignature}
+     * @return {@link LoginResultVo}
      * @author guocq
      * @date 2022/12/28 15:25
      */
     @Override
-    public SecuritySignature login(String loginId, String password, String verifyCode) {
+    public LoginResultVo login(String loginId, String password, String verifyCode) {
         log.debug("用户[loginId={}]尝试登录系统,使用登陆密码[password={}],验证码为[verifyCode={}]", loginId, password, verifyCode);
-        return securityService.login(loginId, password);
+        SecuritySignature signature = securityService.login(loginId, password);
+        Object details = signature.getDetails();
+        // 关闭密码显示
+        if (details instanceof SysUserVo) {
+            SysUserVo sysUserVo = (SysUserVo) details;
+            sysUserVo.setLoginPassword(null);
+            signature.setDetails(sysUserVo);
+        }
+        LoginResultVo loginResultVo = new LoginResultVo();
+        loginResultVo.setSignature(signature);
+        return loginResultVo;
     }
 }
