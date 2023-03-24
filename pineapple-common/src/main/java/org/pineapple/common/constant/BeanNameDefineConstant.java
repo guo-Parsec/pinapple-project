@@ -31,4 +31,9 @@ public class BeanNameDefineConstant {
      * AES加解密策略名称
      */
     public static final String AES_CRYPTO = "aesCrypto";
+
+    /**
+     * 默认安全服务类
+     */
+    public static final String DEFAULT_SECURITY_SERVICE = "defaultSecurityService";
 }

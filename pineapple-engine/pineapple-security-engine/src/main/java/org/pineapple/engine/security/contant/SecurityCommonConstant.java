@@ -42,4 +42,34 @@ public class SecurityCommonConstant {
      * 超级管理员角色码
      */
     public static final String ROLE_ADMIN_CODE = "ROLE_ADMIN";
+
+    /**
+     * 安全签名key
+     */
+    public static final String SECURITY_SIGNATURE_KEY = "securitySignature";
+
+    /**
+     * 令牌信息key
+     */
+    public static final String TOKEN_DETAILS_KEY = "tokenDetails";
+
+    /**
+     * details详情key
+     */
+    public static final String DETAILS_KEY = "details";
+
+    /**
+     * 权限key
+     */
+    public static final String PERMISSIONS_KEY = "permissions";
+
+    /**
+     * 角色key
+     */
+    public static final String ROLES_KEY = "roles";
+
+    /**
+     * 资源实体信息集合key
+     */
+    public static final String RES_ENTITY_SET_KEY = "resEntitySet";
 }

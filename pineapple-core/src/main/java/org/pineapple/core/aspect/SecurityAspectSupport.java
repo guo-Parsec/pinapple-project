@@ -1,4 +1,4 @@
-package org.pineapple.engine.security.aspect;
+package org.pineapple.core.aspect;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;

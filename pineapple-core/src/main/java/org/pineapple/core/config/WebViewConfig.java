@@ -1,5 +1,7 @@
-package org.pineapple.common.config;
+package org.pineapple.core.config;
 
+import org.pineapple.common.config.RestParamArgumentResolver;
+import org.pineapple.engine.security.config.SecurityParamArgumentResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -23,6 +25,7 @@ public class WebViewConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new RestParamArgumentResolver());
+        resolvers.add(new SecurityParamArgumentResolver());
     }
 
 
